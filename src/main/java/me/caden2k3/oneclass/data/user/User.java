@@ -1,6 +1,5 @@
-package me.caden2k3.oneclass.data;
+package me.caden2k3.oneclass.data.user;
 
-import javafx.scene.paint.Color;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,12 +10,15 @@ import lombok.Setter;
  * found in the LICENSE file. If there is no license file the code is then completely copyrighted
  * and you must contact me before using it IN ANY WAY.
  */
+
 @Getter
 @Setter
-public class UserPreferences {
-  private Color backgroundColor;
-  private Color primaryTextColor;
-  private Color secondaryTextColor;
+public class User {
 
-
+  private String username;
+  private String email;
+  private String passHash;
+  private String googleToken;
+  private UserInfiniteCampus infiniteCampus;
+  private UserPreferences preferences;
 }

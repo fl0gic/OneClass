@@ -1,0 +1,21 @@
+package me.caden2k3.oneclass.data.user;
+
+import javafx.scene.paint.Color;
+import lombok.Getter;
+import lombok.Setter;
+
+/**
+ * Created by Caden Kriese on 9/27/18.
+ *
+ * License is specified by the distributor which this file was written for. Otherwise it can be
+ * found in the LICENSE file. If there is no license file the code is then completely copyrighted
+ * and you must contact me before using it IN ANY WAY.
+ */
+@Getter
+@Setter
+public class UserPreferences {
+
+  private Color backgroundColor;
+  private Color primaryTextColor;
+  private Color secondaryTextColor;
+}

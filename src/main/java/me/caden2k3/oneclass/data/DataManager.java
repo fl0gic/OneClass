@@ -1,24 +1,28 @@
 package me.caden2k3.oneclass.data;
 
+import com.google.gson.Gson;
 import lombok.Getter;
+import me.caden2k3.oneclass.data.user.User;
 
 /**
- * Created by Caden Kriese on 9/27/18.
+ * @author Caden Kriese
  *
- * License is specified by the distributor which this file was written for. Otherwise it can be
- * found in the LICENSE file. If there is no license file the code is then completely copyrighted
- * and you must contact me before using it IN ANY WAY.
+ * Created on 9/27/18.
+ *
+ * This code is copyright © Caden Kriese 2018
  */
+@Getter
 public class DataManager {
-  private DataManager() {}
 
-  @Getter
+  private DataManager() { }
+
   private static DataManager instance = new DataManager();
+  private User currentUser;
+  private AppData appData;
 
-  @Getter
-  User currentUser;
+  private Gson gson = new Gson();
 
   public void init() {
-
+    //TODO Write in copy defaults from src/main/resources with default app configs.
   }
 }
