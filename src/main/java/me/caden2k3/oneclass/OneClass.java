@@ -1,9 +1,6 @@
 package me.caden2k3.oneclass;
 
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
 import me.caden2k3.oneclass.data.DataManager;
 
@@ -17,7 +14,7 @@ import me.caden2k3.oneclass.data.DataManager;
 public class OneClass extends Application {
 
   @Override
-  public void start(Stage primaryStage) throws Exception {
+  public void start(Stage primaryStage) {
     DataManager.getInstance().init();
   }
 

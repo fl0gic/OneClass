@@ -1,7 +1,6 @@
 package me.caden2k3.oneclass.data.user;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 /**
  * @author Caden Kriese
@@ -10,9 +9,8 @@ import lombok.Setter;
  *
  * This code is copyright © Caden Kriese 2018
  */
-@Getter
-@Setter
-public class UserInfiniteCampus {
+public @Data class UserInfiniteCampus {
+
   public String username;
   public String password;
   public String district;

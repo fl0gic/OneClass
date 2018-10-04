@@ -19,16 +19,11 @@ public class DataManager {
   private DataManager() {
   }
 
-  @Getter
-  private static DataManager instance = new DataManager();
-  @Getter
-  @Setter
-  private User currentUser;
-  @Getter
-  private AppData appData;
+  private static @Getter DataManager instance = new DataManager();
+  private @Getter @Setter User currentUser;
+  private @Getter AppData appData;
 
-  private Gson gson = new Gson();
-
+  private final Gson gson = new Gson();
   private final String APP_DATA_PATH = Properties.DATA_FOLDER_PATH + "/app.json";
 
   public void init() {

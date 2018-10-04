@@ -3,7 +3,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <AnchorPane xmlns="http://javafx.com/javafx"
   xmlns:fx="http://javafx.com/fxml"
-  fx:controller="me.caden2k3.oneclass.view.setup.WelcomeScreen"
+  fx:controller="me.caden2k3.oneclass.view.setup.SplashView"
   prefHeight="400.0" prefWidth="600.0">
 
 </AnchorPane>

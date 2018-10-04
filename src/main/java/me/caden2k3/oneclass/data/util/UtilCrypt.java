@@ -14,7 +14,7 @@ import org.apache.commons.codec.binary.Base64;
  *
  * This code is copyright © Caden Kriese 2018
  */
-public class UtilCrypt {
+class UtilCrypt {
 
   /**
    * Encrypts a string using the specified key.
