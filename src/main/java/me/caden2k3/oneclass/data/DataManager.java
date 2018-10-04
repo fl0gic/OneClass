@@ -1,8 +1,11 @@
 package me.caden2k3.oneclass.data;
 
 import com.google.gson.Gson;
+import java.io.File;
 import lombok.Getter;
+import lombok.Setter;
 import me.caden2k3.oneclass.data.user.User;
+import me.caden2k3.oneclass.data.util.UtilFile;
 
 /**
  * @author Caden Kriese
@@ -11,18 +14,39 @@ import me.caden2k3.oneclass.data.user.User;
  *
  * This code is copyright © Caden Kriese 2018
  */
-@Getter
 public class DataManager {
 
-  private DataManager() { }
+  private DataManager() {
+  }
 
+  @Getter
   private static DataManager instance = new DataManager();
+  @Getter
+  @Setter
   private User currentUser;
+  @Getter
   private AppData appData;
 
   private Gson gson = new Gson();
 
+  private final String APP_DATA_PATH = Properties.DATA_FOLDER_PATH + "/app.json";
+
   public void init() {
-    //TODO Write in copy defaults from src/main/resources with default app configs.
+    File file = new File(APP_DATA_PATH);
+    if (file.exists()) {
+      appData = gson.fromJson(UtilFile.read(file), AppData.class);
+    } else {
+      appData = null;
+    }
+
+    if (appData != null && appData.getLatestUsername() != null) {
+      File userFile = new File(
+          Properties.USERS_FOLDER_PATH + "/" + appData.getLatestUsername() + ".json");
+      if (userFile.exists()) {
+        currentUser = gson.fromJson(UtilFile.read(file), User.class);
+      } else {
+        appData.setLatestUsername(null);
+      }
+    }
   }
 }

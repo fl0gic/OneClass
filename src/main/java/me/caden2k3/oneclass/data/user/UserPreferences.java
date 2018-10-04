@@ -1,5 +1,6 @@
 package me.caden2k3.oneclass.data.user;
 
+import com.google.gson.annotations.SerializedName;
 import javafx.scene.paint.Color;
 import lombok.Getter;
 import lombok.Setter;
@@ -14,7 +15,10 @@ import lombok.Setter;
 @Getter
 @Setter
 public class UserPreferences {
+  @SerializedName("background")
   private Color backgroundColor;
+  @SerializedName("primary-text")
   private Color primaryTextColor;
+  @SerializedName("secondary-text")
   private Color secondaryTextColor;
 }

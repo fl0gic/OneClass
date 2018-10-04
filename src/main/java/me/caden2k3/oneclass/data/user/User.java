@@ -1,5 +1,6 @@
 package me.caden2k3.oneclass.data.user;
 
+import com.google.gson.annotations.SerializedName;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -18,8 +19,12 @@ import lombok.Setter;
 public class User {
   private String username;
   private String email;
+  @SerializedName("hash")
   private String passHash;
+  @SerializedName("google-token")
   private String googleToken;
-  private UserInfiniteCampus infiniteCampus;
+  @SerializedName("preferences")
   private UserPreferences preferences;
+  @SerializedName("campus")
+  private UserInfiniteCampus infiniteCampus;
 }

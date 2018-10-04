@@ -49,8 +49,9 @@ public class UtilFile {
     if (!file.isDirectory()) {
       List<String> lines = Arrays.asList(string.split("\n"));
       if (Properties.OS_NAME.contains("win")) {
-        lines = Arrays.asList(string.split("\n"));
+        lines = Arrays.asList(string.split("\r\n"));
       }
+
       Path path = Paths.get(file.toURI());
       try {
         Files.write(path, lines, Charset.forName("UTF-8"));
