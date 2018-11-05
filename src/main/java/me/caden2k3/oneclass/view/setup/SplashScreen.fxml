@@ -1,9 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.layout.AnchorPane?>
-<AnchorPane xmlns="http://javafx.com/javafx"
-  xmlns:fx="http://javafx.com/fxml"
-  fx:controller="me.caden2k3.oneclass.view.setup.SplashView"
-  prefHeight="400.0" prefWidth="600.0">
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
 
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.caden2k3.oneclass.view.setup.SplashView">
+  <children>
+     <Text fill="#7669ff" layoutX="128.0" layoutY="229.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome" wrappingWidth="344.3999996185303">
+        <font>
+           <Font name="Walkway Bold" size="85.0" />
+        </font>
+     </Text>
+  </children>
 </AnchorPane>

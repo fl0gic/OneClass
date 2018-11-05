@@ -11,9 +11,5 @@ import lombok.Data;
  * This code is copyright © Caden Kriese 2018
  */
 public @Data class AppData {
-
-  @SerializedName("latest-user")
-  private String latestUsername;
-  @SerializedName("latest-hash")
-  private String latestUserHash;
+  
 }

@@ -12,9 +12,9 @@ public class Properties {
 
   //APP
   public static final String DATA_FOLDER_PATH =
-      System.getProperty("user.home") + "/Library/Application\\ Support/OneClass";
+      System.getProperty("user.home") + "/Library/Application Support/OneClass";
   public static final String USERS_FOLDER_PATH =
-      System.getProperty("user.home") + "/Library/Application\\ Support/OneClass/Users";
+      System.getProperty("user.home") + "/Library/Application Support/OneClass/Users";
 
   //OS
   public static final String OS_NAME = System.getProperty("os.name");

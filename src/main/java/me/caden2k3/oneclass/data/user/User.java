@@ -1,6 +1,7 @@
 package me.caden2k3.oneclass.data.user;
 
 import com.google.gson.annotations.SerializedName;
+import java.util.Date;
 import lombok.Data;
 
 /**
@@ -20,6 +21,8 @@ public @Data class User {
   private String email;
   @SerializedName("hash")
   private String passHash;
+  @SerializedName("last-login")
+  private Date lastLogin;
   @SerializedName("google-token")
   private String googleToken;
   @SerializedName("preferences")
