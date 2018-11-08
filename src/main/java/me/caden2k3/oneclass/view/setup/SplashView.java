@@ -1,5 +1,6 @@
 package me.caden2k3.oneclass.view.setup;
 
+import java.nio.file.Paths;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -25,7 +26,7 @@ public class SplashView {
   public void apply(Stage primaryStage) {
     try {
       stage = primaryStage;
-      root = FXMLLoader.load(getClass().getResource("SplashScreen.fxml"));
+      root = FXMLLoader.load(Paths.get("./src/main/java/me/caden2k3/oneclass/view/setup/SplashScreen.fxml").toUri().toURL());
       scene = new Scene(root);
 
       primaryStage.setResizable(false);

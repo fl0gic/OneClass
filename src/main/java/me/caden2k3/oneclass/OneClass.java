@@ -19,8 +19,6 @@ public class OneClass extends Application {
   public void start(Stage primaryStage) {
     instance = this;
 
-    System.out.println("strt");
-
     SplashView.getInstance().apply(primaryStage);
 
 //    DataManager.getInstance().load();
@@ -32,7 +30,6 @@ public class OneClass extends Application {
   }
 
   public static void main(String[] args) {
-    System.out.println("main");
     launch(args);
   }
 }
