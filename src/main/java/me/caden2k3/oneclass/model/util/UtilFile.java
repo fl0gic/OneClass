@@ -1,4 +1,4 @@
-package me.caden2k3.oneclass.data.util;
+package me.caden2k3.oneclass.model.util;
 
 import java.io.File;
 import java.nio.charset.Charset;
@@ -7,7 +7,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
-import me.caden2k3.oneclass.data.Properties;
+import me.caden2k3.oneclass.model.Properties;
 
 /**
  * @author Caden Kriese

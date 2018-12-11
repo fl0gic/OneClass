@@ -1,4 +1,4 @@
-package me.caden2k3.oneclass.data;
+package me.caden2k3.oneclass.model;
 
 /**
  * @author Caden Kriese The {@link Properties} class Stores static properties for the application,
@@ -15,6 +15,7 @@ public class Properties {
       System.getProperty("user.home") + "/Library/Application Support/OneClass";
   public static final String USERS_FOLDER_PATH =
       System.getProperty("user.home") + "/Library/Application Support/OneClass/Users";
+  public static final String VIEW_PATH = "./src/main/resources/view/";
 
   //OS
   public static final String OS_NAME = System.getProperty("os.name");

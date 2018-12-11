@@ -1,4 +1,4 @@
-package me.caden2k3.oneclass.data;
+package me.caden2k3.oneclass.model;
 
 import com.google.gson.Gson;
 import java.io.File;
@@ -8,10 +8,10 @@ import java.util.List;
 import java.util.Objects;
 import lombok.Getter;
 import lombok.Setter;
-import me.caden2k3.oneclass.data.user.User;
-import me.caden2k3.oneclass.data.user.UserInfiniteCampus;
-import me.caden2k3.oneclass.data.util.UtilCrypt;
-import me.caden2k3.oneclass.data.util.UtilFile;
+import me.caden2k3.oneclass.model.user.User;
+import me.caden2k3.oneclass.model.user.UserInfiniteCampus;
+import me.caden2k3.oneclass.model.util.UtilCrypt;
+import me.caden2k3.oneclass.model.util.UtilFile;
 
 /**
  * @author Caden Kriese

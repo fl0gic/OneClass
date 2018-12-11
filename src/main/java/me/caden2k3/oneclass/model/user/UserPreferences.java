@@ -1,4 +1,4 @@
-package me.caden2k3.oneclass.data.user;
+package me.caden2k3.oneclass.model.user;
 
 import com.google.gson.annotations.SerializedName;
 import javafx.scene.paint.Color;

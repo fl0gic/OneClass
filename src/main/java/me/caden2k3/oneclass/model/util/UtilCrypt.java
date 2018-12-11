@@ -1,4 +1,4 @@
-package me.caden2k3.oneclass.data.util;
+package me.caden2k3.oneclass.model.util;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;

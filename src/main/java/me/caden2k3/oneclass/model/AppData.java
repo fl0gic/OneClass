@@ -1,6 +1,5 @@
-package me.caden2k3.oneclass.data;
+package me.caden2k3.oneclass.model;
 
-import com.google.gson.annotations.SerializedName;
 import lombok.Data;
 
 /**
