@@ -1,0 +1,52 @@
+.text-field {
+  -fx-max-width: 300;
+}
+
+.jfx-text-field, .jfx-password-field {
+  -fx-background-color: WHITE;
+  -fx-font-weight: BOLD;
+  -fx-prompt-text-fill: #808080;
+  -fx-alignment: top-left;
+  -jfx-focus-color: #4059A9;
+  -jfx-unfocus-color: #4d4d4d;
+  -fx-max-width: 300;
+  -fx-prompt-text: "Password";
+}
+
+.jfx-decorator {
+  -fx-decorator-color: RED;
+}
+
+.jfx-decorator .jfx-decorator-buttons-container {
+  -fx-background-color: -fx-decorator-color;
+}
+
+.jfx-decorator .resize-border {
+  -fx-border-color: -fx-decorator-color;
+  -fx-border-width: 0 4 4 4;
+}
+
+/*noinspection CssInvalidPseudoSelector*/
+.jfx-text-field:error, .jfx-password-field:error, .jfx-text-area:error {
+  -jfx-focus-color: #D34336;
+  -jfx-unfocus-color: #D34336;
+}
+
+.jfx-text-field .error-label, .jfx-password-field .error-label, .jfx-text-area .error-label {
+  -fx-text-fill: #D34336;
+  -fx-font-size: 0.75em;
+}
+
+.jfx-text-field .error-icon, .jfx-password-field .error-icon, .jfx-text-area .error-icon {
+  -fx-text-fill: #D34336;
+  -fx-font-size: 1em;
+}
+
+.jfx-button {
+  -fx-font-size: 14px;
+  -fx-font-color: WHITE;
+  -jfx-button-type: RAISED;
+  -fx-background-color: rgb(30, 130, 250);
+  -fx-pref-width: 200;
+  -fx-text-fill: WHITE;
+}

@@ -20,7 +20,9 @@ public class OneClass extends Application {
     instance = this;
     this.primaryStage = primaryStage;
 
-    UtilController.openFile("SplashScreen.fxml");
+    //primaryStage.getIcons().add(new Image(getClass().getResourceAsStream(Properties.IMAGE_PATH+"icon.png")));
+
+    UtilController.openFile("splash.fxml");
 
 //    DataManager.getInstance().load();
 //    if (DataManager.getInstance().getAppData() == null || DataManager.getInstance().getUserList().size() == 0) {

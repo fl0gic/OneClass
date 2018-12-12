@@ -1,9 +1,9 @@
 package me.caden2k3.oneclass.controller.util;
 
-import java.nio.file.Paths;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import me.caden2k3.oneclass.controller.setup.Controller;
+import me.caden2k3.oneclass.OneClass;
+import me.caden2k3.oneclass.controller.Controller;
 import me.caden2k3.oneclass.model.Properties;
 
 /**
@@ -15,18 +15,34 @@ import me.caden2k3.oneclass.model.Properties;
  */
 public class UtilController {
   /**
-   * Fully initializes a controller.
+   * Fully initializes & displays a FXML file.
    *
-   * @see me.caden2k3.oneclass.controller.setup.Controller
+   * @see Controller
    * @param fxmlFile The name of the file to be loaded. (Excluding path, including .fxml)
    */
   public static void openFile(String fxmlFile) {
     try {
-      FXMLLoader loader = new FXMLLoader(Paths.get(Properties.VIEW_PATH+fxmlFile).toUri().toURL());
+      FXMLLoader loader = new FXMLLoader(OneClass.class.getResource(Properties.VIEW_PATH+fxmlFile));
       Parent root = loader.load();
       ((Controller) loader.getController()).apply(root);
     } catch (Exception e) {
       e.printStackTrace();
     }
+  }
+
+  /**
+   * Loads the controller of a FXML file.
+   *
+   * @param fxmlFile The file to be loaded, located in resources/view/
+   * @return The loaded FXML file in the form of a Parent.
+   */
+  public static Parent loadFile(String fxmlFile) {
+    try {
+      return new FXMLLoader(OneClass.class.getResource(Properties.VIEW_PATH+fxmlFile)).load();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+
+    return null;
   }
 }

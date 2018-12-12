@@ -15,7 +15,8 @@ public class Properties {
       System.getProperty("user.home") + "/Library/Application Support/OneClass";
   public static final String USERS_FOLDER_PATH =
       System.getProperty("user.home") + "/Library/Application Support/OneClass/Users";
-  public static final String VIEW_PATH = "./src/main/resources/view/";
+  public static final String VIEW_PATH = "/resources/view/";
+  public static final String IMAGE_PATH = "/resources/image/";
 
   //OS
   public static final String OS_NAME = System.getProperty("os.name");

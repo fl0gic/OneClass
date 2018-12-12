@@ -1,0 +1,36 @@
+@font-face {
+  font-family: "Walkway Bold";
+  src: url('../font/WalkwayBold.ttf');
+}
+@font-face {
+  font-family: "Avenir";
+  src: url('../font/Avenir.ttc');
+}
+
+.title {
+  -fx-font-family: "Walkway Bold";
+  -fx-fill: rgb(36, 136, 224);
+  -fx-font-size: 40;
+}
+
+.subtitle {
+  -fx-font-family: "Avenir";
+  -fx-fill: rgb(36, 170, 224);
+  -fx-font-size: 28;
+}
+
+.field-title {
+  -fx-font-family: "Avenir";
+  -fx-fill: rgb(36, 200, 224);
+  -fx-font-size: 15;
+}
+
+.body {
+  -fx-font-family: "Avenir";
+  -fx-fill: #303030;
+  -fx-font-size: 16;
+}
+
+.jfx-text-field {
+
+}
