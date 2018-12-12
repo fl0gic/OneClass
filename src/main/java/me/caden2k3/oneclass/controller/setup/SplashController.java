@@ -36,7 +36,6 @@ public class SplashController extends Controller {
   @FXML private ImageView logo;
 
   public void apply(Parent root) {
-    //TODO ensure the transition to login screen is quick.
     Stage stage = OneClass.getInstance().getPrimaryStage();
     Scene scene = new Scene(root);
 
@@ -53,15 +52,6 @@ public class SplashController extends Controller {
   }
 
   public void runAnimation() {
-    //TODO incorporate the SVG logo also look into redesigning the logo in designer.
-    /*
-     * Ideas
-     * - Both coming from the center with some sort of wipe.
-     * - Logo coming from the right revealing the text.
-     * - Both fade in.
-     * - Both scale.
-     * - Try to do some bounce animation with a sequential transition that calculates the "speed" of previous transition to make a little bounce.
-     */
     Stage primaryStage = OneClass.getInstance().getPrimaryStage();
     Scene scene = primaryStage.getScene();
 
