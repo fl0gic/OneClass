@@ -41,19 +41,6 @@
         </executions>
       </plugin>
       <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-jar-plugin</artifactId>
-        <version>2.4</version>
-        <configuration>
-          <archive>
-            <index>true</index>
-            <manifest>
-              <mainClass>me.caden2k3.oneclass.OneClass</mainClass>
-            </manifest>
-          </archive>
-        </configuration>
-      </plugin>
-      <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>exec-maven-plugin</artifactId>
         <version>1.6.0</version>
@@ -71,7 +58,10 @@
     </plugins>
     <resources>
       <resource>
-        <directory>/src/main/resources</directory>
+        <directory>${basedir}/src/main/</directory>
+        <includes>
+          <include>resources/**</include>
+        </includes>
       </resource>
     </resources>
   </build>

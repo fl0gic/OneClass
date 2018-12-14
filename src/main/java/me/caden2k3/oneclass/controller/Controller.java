@@ -6,6 +6,10 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+import me.caden2k3.oneclass.OneClass;
 
 /**
  * @author Caden Kriese
@@ -30,5 +34,15 @@ public abstract class Controller implements Initializable {
     }
   }
 
-  public abstract void apply(Parent root);
+  public void apply(Parent root) {
+    Stage stage = OneClass.getInstance().getPrimaryStage();
+    Scene scene = new Scene(root);
+
+    stage.setScene(scene);
+
+    if (!stage.isShowing()) {
+      stage.initStyle(StageStyle.UNIFIED);
+      stage.show();
+    }
+  }
 }

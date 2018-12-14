@@ -35,13 +35,14 @@ public class SplashController extends Controller {
   @FXML private Text welcomeText;
   @FXML private ImageView logo;
 
+  @Override
   public void apply(Parent root) {
     Stage stage = OneClass.getInstance().getPrimaryStage();
     Scene scene = new Scene(root);
 
     stage.initStyle(StageStyle.UNIFIED);
 
-    stage.setResizable(true);
+    stage.setResizable(false);
     stage.setTitle("");
     stage.setScene(scene);
 
@@ -70,7 +71,7 @@ public class SplashController extends Controller {
       @Override public void run() {
         Platform.runLater(() -> {
 
-          int scaleSize = 8;
+          int scaleSize = 6;
 
           ScaleTransition textScale = new ScaleTransition(duration, welcomeText);
           textScale.setToX(scaleSize);
@@ -85,7 +86,7 @@ public class SplashController extends Controller {
 
           List<Transition> transitions = new ArrayList<>(Arrays.asList(textFade, textScale, logoFade, logoScale));
 
-          Pane node = (Pane) UtilController.loadFile("login.fxml");
+          Pane node = (Pane) UtilController.loadFile("account-creation.fxml");
 
           assert node != null : "Root was null, ya done goofed.";
 
@@ -102,7 +103,7 @@ public class SplashController extends Controller {
           transitions.add(scaleTransition);
 
           ParallelTransition sceneTrans = new ParallelTransition(transitions.toArray(new Transition[]{}));
-          sceneTrans.setOnFinished(event -> UtilController.openFile("login.fxml"));
+          sceneTrans.setOnFinished(event -> UtilController.openFile("account-creation.fxml"));
           sceneTrans.play();
         });
       }

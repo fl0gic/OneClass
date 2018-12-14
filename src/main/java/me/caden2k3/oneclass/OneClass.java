@@ -1,9 +1,11 @@
 package me.caden2k3.oneclass;
 
 import javafx.application.Application;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import lombok.Getter;
 import me.caden2k3.oneclass.controller.util.UtilController;
+import me.caden2k3.oneclass.model.Properties;
 
 /**
  * ONECLASS
@@ -20,13 +22,13 @@ public class OneClass extends Application {
     instance = this;
     this.primaryStage = primaryStage;
 
-    //primaryStage.getIcons().add(new Image(getClass().getResourceAsStream(Properties.IMAGE_PATH+"icon.png")));
+    primaryStage.getIcons().add(new Image(getClass().getResourceAsStream(Properties.IMAGE_PATH+"icon.png")));
 
-    UtilController.openFile("splash.fxml");
+    UtilController.openFile("account-creation.fxml");
 
 //    DataManager.getInstance().load();
 //    if (DataManager.getInstance().getAppData() == null || DataManager.getInstance().getUserList().size() == 0) {
-//      //TODO Splash screen & create acc.
+//      UtilController.openFile("splash.fxml");
 //    } else {
 //      //TODO load app based on last login of other account.
 //    }

@@ -1,6 +1,9 @@
 package me.caden2k3.oneclass.controller.setup;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXDialog;
+import com.jfoenix.controls.JFXDialog.DialogTransition;
+import com.jfoenix.controls.JFXDialogLayout;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import java.net.URL;
@@ -9,13 +12,16 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import lombok.Getter;
 import me.caden2k3.oneclass.OneClass;
 import me.caden2k3.oneclass.controller.Controller;
+import me.caden2k3.oneclass.controller.util.PasswordValidator;
 
 /**
  * @author Caden Kriese
@@ -24,8 +30,8 @@ import me.caden2k3.oneclass.controller.Controller;
  *
  * This code is copyright © Caden Kriese 2018
  */
-public class LoginController extends Controller {
-  private static @Getter LoginController instance;
+public class CreateAccountController extends Controller {
+  private static @Getter CreateAccountController instance;
   private @Getter Parent root;
 
   @FXML private JFXButton createAccountButton;
@@ -43,8 +49,21 @@ public class LoginController extends Controller {
     Stage stage = OneClass.getInstance().getPrimaryStage();
     Scene scene = new Scene(root);
 
+    PasswordValidator validator = new PasswordValidator();
+//    validator.setIcon(GlyphsBuilder.create(FontAwesomeIconView.class)
+//        .glyph(FontAwesomeIcon.WARNING)
+//        .styleClass("error")
+//        .build());
+
+    passwordField.getValidators().add(validator);
+    passwordField.focusedProperty().addListener((o, oldVal, newVal) -> {
+      //Clicking out of the field.
+      if (!newVal) {
+        passwordField.validate();
+      }
+    });
+
     stage.setResizable(true);
-    stage.setTitle("Create Account");
     stage.setScene(scene);
 
     if (!stage.isShowing()) {
@@ -55,24 +74,31 @@ public class LoginController extends Controller {
 
   @FXML
   public void handleKeyPressed(KeyEvent event) {
-    if (event.getCode() == KeyCode.ENTER)
-      createAccount();
+    if (event.getCode() == KeyCode.ENTER) {
+      createAccountButton.fire();
+    }
   }
 
   @FXML
   public void handleClick(ActionEvent event) {
-    createAccount();
+    if (usernameField.getText().length() > 0 && passwordField.getText().length() > 0)
+      createAccount();
   }
 
   private void createAccount() {
     String password = passwordField.getText();
-    if (password.length() > 8) {
+    if (passwordField.validate()) {
 
-    } else {
     }
   }
 
   private void error(String errorMessage) {
-
+    JFXDialogLayout layout = new JFXDialogLayout();
+    layout.setBody(new Label(errorMessage));
+    JFXDialog dialog = new JFXDialog();
+    dialog.setTransitionType(DialogTransition.CENTER);
+    dialog.setDialogContainer((StackPane) root);
+    dialog.setContent(layout);
+    dialog.show();
   }
 }

@@ -1,5 +1,5 @@
 .text-field {
-  -fx-max-width: 300;
+  -fx-max-width: 200;
 }
 
 .jfx-text-field, .jfx-password-field {
@@ -9,7 +9,7 @@
   -fx-alignment: top-left;
   -jfx-focus-color: #4059A9;
   -jfx-unfocus-color: #4d4d4d;
-  -fx-max-width: 300;
+  -fx-max-width: 200;
 }
 
 .jfx-decorator {
@@ -47,5 +47,6 @@
   -jfx-button-type: RAISED;
   -fx-background-color: rgb(30, 130, 250);
   -fx-pref-width: 200;
+  -fx-max-width: 250;
   -fx-text-fill: WHITE;
 }

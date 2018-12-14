@@ -24,7 +24,10 @@ public class UtilController {
     try {
       FXMLLoader loader = new FXMLLoader(OneClass.class.getResource(Properties.VIEW_PATH+fxmlFile));
       Parent root = loader.load();
-      ((Controller) loader.getController()).apply(root);
+      if (loader.getController() != null)
+        ((Controller) loader.getController()).apply(root);
+      else
+        System.out.println("Controller is null.");
     } catch (Exception e) {
       e.printStackTrace();
     }
