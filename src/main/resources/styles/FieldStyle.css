@@ -9,7 +9,8 @@
   -fx-alignment: top-left;
   -jfx-focus-color: #4059A9;
   -jfx-unfocus-color: #4d4d4d;
-  -fx-max-width: 200;
+  -fx-pref-width: 250;
+  -fx-max-width: 275;
 }
 
 .jfx-decorator {
@@ -33,7 +34,7 @@
 
 .jfx-text-field .error-label, .jfx-password-field .error-label, .jfx-text-area .error-label {
   -fx-text-fill: #D34336;
-  -fx-font-size: 0.75em;
+  -fx-font-size: 0.7em;
 }
 
 .jfx-text-field .error-icon, .jfx-password-field .error-icon, .jfx-text-area .error-icon {

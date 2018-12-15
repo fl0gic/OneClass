@@ -1,5 +1,7 @@
 package me.caden2k3.oneclass.controller.setup;
 
+import static java.util.stream.Collectors.toList;
+
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXDialog.DialogTransition;
@@ -15,13 +17,17 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import lombok.Getter;
 import me.caden2k3.oneclass.OneClass;
 import me.caden2k3.oneclass.controller.Controller;
-import me.caden2k3.oneclass.controller.util.PasswordValidator;
+import me.caden2k3.oneclass.controller.util.CustomValidator;
+import me.caden2k3.oneclass.controller.util.CustomValidator.ValidatorRunnable;
+import me.caden2k3.oneclass.model.DataManager;
+import me.caden2k3.oneclass.model.user.User;
 
 /**
  * @author Caden Kriese
@@ -41,6 +47,62 @@ public class CreateAccountController extends Controller {
   @Override public void initialize(URL location, ResourceBundle resources) {
     super.initialize(location, resources);
     instance = this;
+
+    //VALIDATORS
+
+    CustomValidator passwordValidator = new CustomValidator(new ValidatorRunnable() {
+      @Override public boolean eval(CustomValidator validator) {
+        if (validator.getSrcControl() == passwordField) {
+          String password = passwordField.getText();
+          if (password.length() >= 8) {
+            if (!password.equals(password.toLowerCase())) {
+              if (!password.matches("[A-Za-z]*")) {
+                return false;
+              } else
+                validator.setMessage("Password must contain a number or symbol.");
+            } else
+              validator.setMessage("Password must contain an uppercase character.");
+          } else
+            validator.setMessage("Password must be at least 8 characters.");
+        }
+
+        return true;
+      }
+    });
+
+    //TODO uncomment when the fontawesomefx PR is merged.
+//    validator.setIcon(GlyphsBuilder.create(FontAwesomeIconView.class)
+//        .glyph(FontAwesomeIcon.WARNING)
+//        .styleClass("error")
+//        .build());
+
+    passwordField.getValidators().add(passwordValidator);
+    passwordField.focusedProperty().addListener((o, oldVal, newVal) -> {
+      //Clicking out of the field.
+      if (!newVal)
+        passwordField.validate();
+    });
+
+    CustomValidator usernameValidator = new CustomValidator(new ValidatorRunnable() {
+      @Override public boolean eval(CustomValidator validator) {
+        if (validator.getSrcControl() == usernameField) {
+          String username = usernameField.getText();
+          if (!DataManager.getInstance().getUserList().stream()
+              .map(User::getUsername).collect(toList()).contains(username)) {
+            //TODO verify in DB that username is not taken.
+            return false;
+          } else
+            validator.setMessage("Username already taken!");
+        }
+        return true;
+      }
+    });
+
+    usernameField.getValidators().add(usernameValidator);
+    usernameField.focusedProperty().addListener((o, oldVal, newVal) -> {
+      if (!newVal)
+        usernameField.validate();
+    });
   }
 
   @Override public void apply(Parent root) {
@@ -49,22 +111,9 @@ public class CreateAccountController extends Controller {
     Stage stage = OneClass.getInstance().getPrimaryStage();
     Scene scene = new Scene(root);
 
-    PasswordValidator validator = new PasswordValidator();
-//    validator.setIcon(GlyphsBuilder.create(FontAwesomeIconView.class)
-//        .glyph(FontAwesomeIcon.WARNING)
-//        .styleClass("error")
-//        .build());
-
-    passwordField.getValidators().add(validator);
-    passwordField.focusedProperty().addListener((o, oldVal, newVal) -> {
-      //Clicking out of the field.
-      if (!newVal) {
-        passwordField.validate();
-      }
-    });
-
     stage.setResizable(true);
     stage.setScene(scene);
+    stage.setTitle("Create an account");
 
     if (!stage.isShowing()) {
       stage.initStyle(StageStyle.UNIFIED);
@@ -86,19 +135,25 @@ public class CreateAccountController extends Controller {
   }
 
   private void createAccount() {
-    String password = passwordField.getText();
-    if (passwordField.validate()) {
-
-    }
+    if (usernameField.validate()) {
+      if (passwordField.validate()) {
+        
+      } else
+        error(passwordField.getActiveValidator().getMessage());
+    } else
+      error(usernameField.getActiveValidator().getMessage());
   }
 
   private void error(String errorMessage) {
-    JFXDialogLayout layout = new JFXDialogLayout();
-    layout.setBody(new Label(errorMessage));
-    JFXDialog dialog = new JFXDialog();
-    dialog.setTransitionType(DialogTransition.CENTER);
-    dialog.setDialogContainer((StackPane) root);
-    dialog.setContent(layout);
-    dialog.show();
+    //Avoid duplicate alerts.
+    if (((Pane) root).getChildren().stream().noneMatch(node -> node instanceof JFXDialog)) {
+      JFXDialogLayout layout = new JFXDialogLayout();
+      layout.setBody(new Label(errorMessage));
+      JFXDialog dialog = new JFXDialog();
+      dialog.setTransitionType(DialogTransition.CENTER);
+      dialog.setDialogContainer((StackPane) root);
+      dialog.setContent(layout);
+      dialog.show();
+    }
   }
 }
