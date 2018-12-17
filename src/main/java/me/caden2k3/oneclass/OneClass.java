@@ -5,7 +5,10 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import lombok.Getter;
 import me.caden2k3.oneclass.controller.util.UtilController;
+import me.caden2k3.oneclass.model.AppData;
+import me.caden2k3.oneclass.model.DataManager;
 import me.caden2k3.oneclass.model.Properties;
+import me.caden2k3.oneclass.model.util.UtilLog;
 
 /**
  * ONECLASS
@@ -24,14 +27,30 @@ public class OneClass extends Application {
 
     primaryStage.getIcons().add(new Image(getClass().getResourceAsStream(Properties.IMAGE_PATH+"icon.png")));
 
+    //Initialize classes
+    DataManager.getInstance().init();
+    UtilLog.init();
+
     UtilController.openFile("account-creation.fxml");
 
-//    DataManager.getInstance().load();
+
+//    DataManager.getInstance().init();
 //    if (DataManager.getInstance().getAppData() == null || DataManager.getInstance().getUserList().size() == 0) {
 //      UtilController.openFile("splash.fxml");
 //    } else {
-//      //TODO load app based on last login of other account.
+//      //TODO init app based on last login of other account.
 //    }
+  }
+
+  @Override public void stop() {
+    AppData appData = DataManager.getInstance().getAppData();
+
+    appData.setLastHeight(primaryStage.getHeight());
+    appData.setLastWidth(primaryStage.getWidth());
+    if (DataManager.getInstance().getCurrentUser() != null)
+      appData.setLatestUsername(DataManager.getInstance().getCurrentUser().getUsername());
+
+    DataManager.getInstance().save();
   }
 
   public static void main(String[] args) {

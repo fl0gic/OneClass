@@ -3,6 +3,7 @@ package me.caden2k3.oneclass.model.user;
 import com.google.gson.annotations.SerializedName;
 import java.util.Date;
 import lombok.Data;
+import me.caden2k3.oneclass.model.util.UtilCrypt;
 
 /**
  * @author Caden Kriese
@@ -16,9 +17,9 @@ import lombok.Data;
  * This code is copyright © Caden Kriese 2018
  */
 public @Data class User {
-
   private String username;
   private String email;
+
   @SerializedName("hash")
   private String passHash;
   @SerializedName("last-login")
@@ -29,4 +30,18 @@ public @Data class User {
   private UserPreferences preferences;
   @SerializedName("campus")
   private UserInfiniteCampus infiniteCampus;
+
+  private User() {}
+  User(String username, String email, String password) {
+    this.username = username;
+    this.email = email;
+    this.passHash = UtilCrypt.hash(password);
+  }
+
+  User(String username, String email, String password, Date lastLogin) {
+    this.username = username;
+    this.email = email;
+    this.passHash = UtilCrypt.hash(password);
+    this.lastLogin = lastLogin;
+  }
 }

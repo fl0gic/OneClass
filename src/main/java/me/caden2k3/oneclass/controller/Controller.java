@@ -10,6 +10,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import me.caden2k3.oneclass.OneClass;
+import me.caden2k3.oneclass.model.util.UtilLog;
 
 /**
  * @author Caden Kriese
@@ -21,6 +22,8 @@ import me.caden2k3.oneclass.OneClass;
 public abstract class Controller implements Initializable {
 
   @Override public void initialize(URL location, ResourceBundle resources) {
+    UtilLog.debug("Initializing '"+location.toExternalForm()+"' ...");
+
     //Ensure that all FXML fields are not null.
     for (Field field : getClass().getFields()) {
       if (field.getAnnotation(FXML.class) != null) {

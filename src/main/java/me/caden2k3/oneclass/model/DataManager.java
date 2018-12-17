@@ -35,13 +35,13 @@ public class DataManager {
   private final String APP_DATA_PATH = Properties.DATA_FOLDER_PATH + "/app.json";
 
   /**
-   * The #load() method is used to read data from the system and put it into the app.
+   * Used to read data from the system and put it into the app.
    */
-  public void load() {
+  public void init() {
     //Create file structure.
-    File userDirs = new File(Properties.USERS_FOLDER_PATH);
-    if (!userDirs.exists()) {
-      if (userDirs.mkdirs()) {
+    File userDir = new File(Properties.USERS_FOLDER_PATH);
+    if (!userDir.exists()) {
+      if (userDir.mkdirs()) {
         System.out.println("Successfully created user dirs.");
       } else {
         System.out.println("User directory creation failed.");
@@ -53,36 +53,27 @@ public class DataManager {
     if (appDataFile.exists()) {
       appData = gson.fromJson(UtilFile.read(appDataFile), AppData.class);
     } else {
-      appData = null;
+      appData = new AppData();
       return;
     }
 
     //TODO implement user data encryption on serialize, & decryption on deserialize
-    Arrays.stream(Objects.requireNonNull(userDirs.listFiles()))
-        .forEach(
-            file -> userList.add(
-                gson.fromJson(UtilFile.read(file), User.class)
-            ));
+    Arrays.stream(Objects.requireNonNull(userDir.listFiles()))
+        .forEach(file -> userList.add(gson.fromJson(UtilFile.read(file), User.class)));
 
-    /*currentUser = userList.stream()
+    currentUser = userList.stream()
         .filter(user -> user.getUsername().equals(appData.getLatestUsername())).findFirst()
-        .orElse(null);*/
-
-    System.out.println();
+        .orElse(null);
   }
 
-//  public void save() {
-//    try {
-//      for (User user : userList) {
-//        File userFile = new File(Properties.USERS_FOLDER_PATH+"/"+user.getUsername()+".json");
-//        if (userFile.exists() || userFile.createNewFile()) {
-//
-//        }
-//      }
-//    } catch (IOException e) {
-//      e.printStackTrace();
-//    }
-//  }
+  /**
+   * Writes all currently stored data to files.
+   */
+  public void save() {
+    userList.forEach(user -> UtilFile.write(user,
+        new File(Properties.USERS_FOLDER_PATH + "/" + user.getUsername() + ".json")));
+    UtilFile.write(appData, new File(APP_DATA_PATH));
+  }
 
   /**
    * Decrypts an users infinite campus credentials using their password.
@@ -112,9 +103,5 @@ public class DataManager {
     user.setDistrict(UtilCrypt.encrypt(user.getDistrict(), password));
 
     return user;
-  }
-
-  public void addUserToList(User user) {
-    userList.add(user);
   }
 }

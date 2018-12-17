@@ -19,4 +19,6 @@ public @Data class UserPreferences {
   private Color primaryTextColor;
   @SerializedName("secondary-text")
   private Color secondaryTextColor;
+  @SerializedName("debug-mode")
+  private boolean debug = true;
 }

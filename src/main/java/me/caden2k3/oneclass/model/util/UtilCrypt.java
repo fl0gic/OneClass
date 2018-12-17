@@ -6,6 +6,7 @@ import java.security.NoSuchAlgorithmException;
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
 import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.codec.digest.DigestUtils;
 
 /**
  * @author Caden Kriese
@@ -57,6 +58,10 @@ public class UtilCrypt {
     }
 
     return null;
+  }
+
+  public static String hash(String string) {
+    return DigestUtils.sha256Hex(string);
   }
 
   private static SecretKeySpec getKeySpec(String myKey) {

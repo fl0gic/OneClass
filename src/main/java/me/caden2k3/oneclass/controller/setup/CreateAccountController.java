@@ -10,7 +10,6 @@ import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -54,16 +53,19 @@ public class CreateAccountController extends Controller {
       @Override public boolean eval(CustomValidator validator) {
         if (validator.getSrcControl() == passwordField) {
           String password = passwordField.getText();
-          if (password.length() >= 8) {
-            if (!password.equals(password.toLowerCase())) {
-              if (!password.matches("[A-Za-z]*")) {
-                return false;
+          if (password.length() > 0) {
+            if (password.length() >= 8) {
+              if (!password.equals(password.toLowerCase())) {
+                if (!password.matches("[A-Za-z]*")) {
+                  return false;
+                } else
+                  validator.setMessage("Password must contain a number or symbol.");
               } else
-                validator.setMessage("Password must contain a number or symbol.");
+                validator.setMessage("Password must contain an uppercase character.");
             } else
-              validator.setMessage("Password must contain an uppercase character.");
+              validator.setMessage("Password must be at least 8 characters.");
           } else
-            validator.setMessage("Password must be at least 8 characters.");
+            validator.setMessage("Please enter a password.");
         }
 
         return true;
@@ -87,13 +89,17 @@ public class CreateAccountController extends Controller {
       @Override public boolean eval(CustomValidator validator) {
         if (validator.getSrcControl() == usernameField) {
           String username = usernameField.getText();
-          if (!DataManager.getInstance().getUserList().stream()
-              .map(User::getUsername).collect(toList()).contains(username)) {
-            //TODO verify in DB that username is not taken.
-            return false;
+          if (username.length() > 0) {
+            if (!DataManager.getInstance().getUserList().stream()
+                .map(User::getUsername).collect(toList()).contains(username)) {
+              //TODO verify in DB that username is not taken.
+              return false;
+            } else
+              validator.setMessage("Username already taken!");
           } else
-            validator.setMessage("Username already taken!");
+            validator.setMessage("Please enter an username.");
         }
+
         return true;
       }
     });
@@ -129,8 +135,7 @@ public class CreateAccountController extends Controller {
   }
 
   @FXML
-  public void handleClick(ActionEvent event) {
-    if (usernameField.getText().length() > 0 && passwordField.getText().length() > 0)
+  public void handleClick() {
       createAccount();
   }
 
