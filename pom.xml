@@ -10,7 +10,8 @@
         <artifactId>maven-compiler-plugin</artifactId>
         <version>3.8.0</version>
         <configuration>
-          <release>11</release>
+          <source>11</source>
+          <target>11</target>
         </configuration>
       </plugin>
       <plugin>
@@ -44,10 +45,7 @@
     </plugins>
     <resources>
       <resource>
-        <directory>${basedir}/src/main/</directory>
-        <includes>
-          <include>resources/**</include>
-        </includes>
+        <directory>${basedir}/src/main</directory>
       </resource>
     </resources>
   </build>
