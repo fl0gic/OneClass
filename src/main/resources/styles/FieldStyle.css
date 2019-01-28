@@ -9,8 +9,10 @@
   -fx-alignment: top-left;
   -jfx-focus-color: #4059A9;
   -jfx-unfocus-color: #4d4d4d;
-  -fx-pref-width: 250;
-  -fx-max-width: 275;
+  -fx-pref-height: 20;
+  -fx-max-height: 30;
+  -fx-pref-width: 130;
+  -fx-max-width: 180;
 }
 
 .jfx-decorator {

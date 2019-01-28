@@ -1,22 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Configuration status="WARN">
   <Appenders>
-    <Console name="CONSOLE_APPENDER" target="SYSTEM_OUT">
+    <Console name="OC_CONSOLE" target="SYSTEM_OUT">
       <PatternLayout pattern="[%d{HH:mm:ss}] [%t/%level]: %msg%n" />
     </Console>
-    <RollingRandomAccessFile name="FILE_APPENDER" fileName="logs/latest.log" filePattern="logs/%d{yyyy-MM-dd}-%i.gz">
+    <RollingRandomAccessFile name="OC_RRAF" fileName="logs/latest.log" filePattern="logs/%d{yyyy-MM-dd}-%i.gz">
       <PatternLayout pattern="[%d{HH:mm:ss}] [%t/%level]: %msg%n" />
       <Policies>
         <TimeBasedTriggeringPolicy />
+        <SizeBasedTriggeringPolicy size="20 KB" />
         <OnStartupTriggeringPolicy />
       </Policies>
-      <DefaultRolloverStrategy max="20"/>
+      <DefaultRolloverStrategy max="10"/>
     </RollingRandomAccessFile>
   </Appenders>
   <Loggers>
     <Root level="info">
-      <AppenderRef ref="CONSOLE_APPENDER"/>
-      <AppenderRef ref="FILE_APPENDER"/>
+      <AppenderRef ref="OC_CONSOLE"/>
+      <AppenderRef ref="OC_RRAF"/>
     </Root>
   </Loggers>
 </Configuration>

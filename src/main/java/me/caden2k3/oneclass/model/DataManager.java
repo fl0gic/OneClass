@@ -2,6 +2,7 @@ package me.caden2k3.oneclass.model;
 
 import com.google.gson.Gson;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -12,6 +13,7 @@ import me.caden2k3.oneclass.model.user.User;
 import me.caden2k3.oneclass.model.user.UserInfiniteCampus;
 import me.caden2k3.oneclass.model.util.UtilCrypt;
 import me.caden2k3.oneclass.model.util.UtilFile;
+import me.caden2k3.oneclass.model.util.UtilLog;
 
 /**
  * @author Caden Kriese
@@ -53,6 +55,12 @@ public class DataManager {
     if (appDataFile.exists()) {
       appData = gson.fromJson(UtilFile.read(appDataFile), AppData.class);
     } else {
+      try {
+        appDataFile.createNewFile();
+      } catch (IOException ex) {
+        UtilLog.error(ex);
+      }
+
       appData = new AppData();
       return;
     }
@@ -70,9 +78,9 @@ public class DataManager {
    * Writes all currently stored data to files.
    */
   public void save() {
-    userList.forEach(user -> UtilFile.write(user,
+    userList.forEach(user -> UtilFile.writeAndCreate(user,
         new File(Properties.USERS_FOLDER_PATH + "/" + user.getUsername() + ".json")));
-    UtilFile.write(appData, new File(APP_DATA_PATH));
+    UtilFile.writeAndCreate(appData, new File(APP_DATA_PATH));
   }
 
   /**

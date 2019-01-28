@@ -23,6 +23,7 @@ public class UtilLog {
     System.setProperty("log4j.configurationFile", "src/main/resources/config/log4j2.xml");
     log = LogManager.getLogger("OneClass");
 
+
     //By default enable debug unless there is a valid user that does not have debug on.
     //TODO change this to not be on by default.
     setDebug(DataManager.getInstance().getCurrentUser() == null
@@ -48,7 +49,7 @@ public class UtilLog {
   }
 
   public static void debug(String debug) {
-    log.debug("debug");
+    log.debug(debug);
   }
 
   public static void error(Exception ex) {

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXPasswordField?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Group?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<StackPane minHeight="200.0" minWidth="400.0" onKeyPressed="#handleKeyPressed" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: WHITE;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.caden2k3.oneclass.controller.setup.CreateAccountController">
+   <stylesheets>
+      <URL value="@../../styles/FieldStyle.css" />
+      <URL value="@../../styles/TextStyle.css" />
+   </stylesheets>
+   <VBox alignment="CENTER" prefHeight="400.0" prefWidth="600.0">
+      <Group nodeOrientation="LEFT_TO_RIGHT" VBox.vgrow="ALWAYS">
+         <VBox.margin>
+            <Insets bottom="40.0" />
+         </VBox.margin>
+         <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="118.0" layoutY="4.0">
+            <Image url="@../../image/icon.png" />
+         </ImageView>
+         <Text layoutX="167.92001342773438" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="title" text="OneClass" textAlignment="CENTER">
+            <font>
+               <Font size="31.0" />
+            </font>
+         </Text>
+      </Group>
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="field-title" text="USERNAME" />
+      <AnchorPane>
+         <children>
+            <JFXTextField fx:id="usernameField" layoutX="220.0" maxWidth="167.0" prefHeight="27.0" prefWidth="160.0" AnchorPane.leftAnchor="220.0" />
+         </children>
+      </AnchorPane>
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="field-title" text="PASSWORD">
+         <VBox.margin>
+            <Insets top="20.0" />
+         </VBox.margin>
+      </Text>
+      <JFXPasswordField fx:id="passwordField" prefHeight="27.0" prefWidth="100.0" VBox.vgrow="NEVER" />
+      <JFXButton fx:id="createAccountButton" buttonType="RAISED" onAction="#handleClick" text="CREATE ACCOUNT">
+         <VBox.margin>
+            <Insets top="40.0" />
+         </VBox.margin>
+      </JFXButton>
+   </VBox>
+</StackPane>

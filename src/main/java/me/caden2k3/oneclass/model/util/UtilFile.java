@@ -38,7 +38,7 @@ public class UtilFile {
           return String.join("\n", Files.readAllLines(Paths.get(file.toURI())));
         }
       } catch (Exception ex) {
-        ex.printStackTrace();
+        UtilLog.error(ex);
       }
     }
     return null;
@@ -61,7 +61,7 @@ public class UtilFile {
       try {
         Files.write(path, lines, Charset.forName("UTF-8"));
       } catch (Exception ex) {
-        ex.printStackTrace();
+        UtilLog.error(ex);
       }
     }
   }
@@ -73,19 +73,21 @@ public class UtilFile {
    * @param file The file to be written to.
    */
   public @NonNull static void write(Object object, File file) {
-    try {
-      String fileText = UtilFile.read(file);
-      String serializedObject = gson.toJson(object);
+    write(gson.toJson(object), file);
+  }
 
-      if (fileText != null) {
-        if (file.exists() && !fileText.equals(serializedObject)) {
-          UtilFile.write(serializedObject, file);
-        } else if (file.createNewFile()) {
-          UtilFile.write(serializedObject, file);
-        }
-      }
-    } catch (IOException ex) {
-      ex.printStackTrace();
+  public @NonNull static void writeAndCreate(String string, File file) {
+    try {
+      if (!file.exists() && !file.createNewFile())
+        throw new IOException("File creation failed.");
+
+      write(string, file);
+    } catch (Exception ex) {
+      UtilLog.error(ex);
     }
+  }
+
+  public @NonNull static void writeAndCreate(Object object, File file) {
+    writeAndCreate(gson.toJson(object), file);
   }
 }

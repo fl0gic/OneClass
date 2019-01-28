@@ -33,7 +33,7 @@ public class UtilCrypt {
 
       return Base64.encodeBase64String(cipher.doFinal(string.getBytes(StandardCharsets.UTF_8)));
     } catch (Exception ex) {
-      ex.printStackTrace();
+      UtilLog.error(ex);
     }
 
     return null;
@@ -54,7 +54,7 @@ public class UtilCrypt {
       cipher.init(2, getKeySpec(key));
       return new String(cipher.doFinal(Base64.decodeBase64(string)));
     } catch (Exception ex) {
-      ex.printStackTrace();
+      UtilLog.error(ex);
     }
 
     return null;
@@ -73,7 +73,7 @@ public class UtilCrypt {
       key = java.util.Arrays.copyOf(key, 16);
       return new SecretKeySpec(key, "AES");
     } catch (NoSuchAlgorithmException ex) {
-      ex.printStackTrace();
+      UtilLog.error(ex);
     }
 
     return null;

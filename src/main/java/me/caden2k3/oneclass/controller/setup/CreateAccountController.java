@@ -11,17 +11,12 @@ import com.jfoenix.controls.JFXTextField;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
-import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import lombok.Getter;
-import me.caden2k3.oneclass.OneClass;
 import me.caden2k3.oneclass.controller.Controller;
 import me.caden2k3.oneclass.controller.util.CustomValidator;
 import me.caden2k3.oneclass.controller.util.CustomValidator.ValidatorRunnable;
@@ -37,7 +32,6 @@ import me.caden2k3.oneclass.model.user.User;
  */
 public class CreateAccountController extends Controller {
   private static @Getter CreateAccountController instance;
-  private @Getter Parent root;
 
   @FXML private JFXButton createAccountButton;
   @FXML private JFXTextField usernameField;
@@ -47,8 +41,13 @@ public class CreateAccountController extends Controller {
     super.initialize(location, resources);
     instance = this;
 
-    //VALIDATORS
+    //Configure window/stage settings.
+    minHeight = 325;
+    minWidth = 300;
+    usePreviousSizes = false;
+    title = "Create an Account";
 
+    //VALIDATORS
     CustomValidator passwordValidator = new CustomValidator(new ValidatorRunnable() {
       @Override public boolean eval(CustomValidator validator) {
         if (validator.getSrcControl() == passwordField) {
@@ -111,22 +110,6 @@ public class CreateAccountController extends Controller {
     });
   }
 
-  @Override public void apply(Parent root) {
-    this.root = root;
-
-    Stage stage = OneClass.getInstance().getPrimaryStage();
-    Scene scene = new Scene(root);
-
-    stage.setResizable(true);
-    stage.setScene(scene);
-    stage.setTitle("Create an account");
-
-    if (!stage.isShowing()) {
-      stage.initStyle(StageStyle.UNIFIED);
-      stage.show();
-    }
-  }
-
   @FXML
   public void handleKeyPressed(KeyEvent event) {
     if (event.getCode() == KeyCode.ENTER) {
@@ -136,7 +119,7 @@ public class CreateAccountController extends Controller {
 
   @FXML
   public void handleClick() {
-      createAccount();
+    createAccount();
   }
 
   private void createAccount() {

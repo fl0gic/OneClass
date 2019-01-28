@@ -7,6 +7,12 @@
   src: url('../font/Avenir.ttc');
 }
 
+.header1 {
+  -fx-font-family: "Walkway Bold";
+  -fx-fill: rgb(36, 136, 224);
+  -fx-font-size: 85;
+}
+
 .title {
   -fx-font-family: "Walkway Bold";
   -fx-fill: rgb(36, 136, 224);
@@ -29,8 +35,4 @@
   -fx-font-family: "Avenir";
   -fx-fill: #303030;
   -fx-font-size: 16;
-}
-
-.jfx-text-field {
-
 }

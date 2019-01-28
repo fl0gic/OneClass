@@ -9,7 +9,10 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import lombok.Getter;
 import me.caden2k3.oneclass.OneClass;
+import me.caden2k3.oneclass.model.AppData;
+import me.caden2k3.oneclass.model.DataManager;
 import me.caden2k3.oneclass.model.util.UtilLog;
 
 /**
@@ -21,31 +24,65 @@ import me.caden2k3.oneclass.model.util.UtilLog;
  */
 public abstract class Controller implements Initializable {
 
+  @Getter protected Parent root;
+  protected int minHeight = 200;
+  protected int minWidth = 300;
+  protected boolean usePreviousSizes = true;
+  protected StageStyle style = StageStyle.UNIFIED;
+  protected String title = "";
+
   @Override public void initialize(URL location, ResourceBundle resources) {
-    UtilLog.debug("Initializing '"+location.toExternalForm()+"' ...");
+    UtilLog.debug("Initializing '"+location.toExternalForm()+"'...");
 
     //Ensure that all FXML fields are not null.
-    for (Field field : getClass().getFields()) {
+    for (Field field : this.getClass().getFields()) {
       if (field.getAnnotation(FXML.class) != null) {
         try {
-          assert field.get(this) != null :
-              "Field '" + field.getName() + "' was null, check " + location.toExternalForm() + ".";
+          if (field.get(this.getClass()) == null) {
+            throw new NullPointerException(
+                "Field '" + field.getName() + "' was null, check " + location.toExternalForm() + ".");
+          } else
+            UtilLog.debug("Field '"+field.getName()+"' not null.");
         } catch (Exception ex) {
-          ex.printStackTrace();
+          UtilLog.error(ex);
         }
       }
+
+      UtilLog.debug("Initialized '"+location.toExternalForm()+"'.");
     }
   }
 
+
   public void apply(Parent root) {
+    this.root = root;
+
+    UtilLog.debug("Applying '"+this.getClass().getName()+"'...");
     Stage stage = OneClass.getInstance().getPrimaryStage();
     Scene scene = new Scene(root);
 
+    UtilLog.debug("Setting minimum width to '"+minWidth+"' and minimum height to '"+minHeight+"'.");
+    stage.setMinHeight(minHeight);
+    stage.setMinWidth(minWidth);
+
+    UtilLog.debug("Setting title to '"+title+"'.");
+    stage.setTitle(title);
+
+    if (usePreviousSizes) {
+      AppData data = DataManager.getInstance().getAppData();
+      UtilLog.debug("Setting width to '" + data.getLastWidth() + "' and height to '" + data.getLastHeight() + "'.");
+      stage.setWidth(data.getLastWidth());
+      stage.setHeight(data.getLastHeight());
+    }
+
+    UtilLog.debug("Setting stage scene to root.");
     stage.setScene(scene);
 
     if (!stage.isShowing()) {
-      stage.initStyle(StageStyle.UNIFIED);
+      UtilLog.debug("Stage not showing, displaying it.");
+      stage.initStyle(style);
       stage.show();
     }
+
+    UtilLog.debug("Applied '"+this.getClass().getName()+"'.");
   }
 }

@@ -1,13 +1,11 @@
 package me.caden2k3.oneclass;
 
 import javafx.application.Application;
-import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import lombok.Getter;
 import me.caden2k3.oneclass.controller.util.UtilController;
 import me.caden2k3.oneclass.model.AppData;
 import me.caden2k3.oneclass.model.DataManager;
-import me.caden2k3.oneclass.model.Properties;
 import me.caden2k3.oneclass.model.util.UtilLog;
 
 /**
@@ -22,20 +20,23 @@ public class OneClass extends Application {
 
   @Override
   public void start(Stage primaryStage) {
+    UtilLog.init();
+    UtilLog.setDebug(false);
+    UtilLog.debug("Initializing OneClass, running #start()");
+
     instance = this;
     this.primaryStage = primaryStage;
 
-    primaryStage.getIcons().add(new Image(getClass().getResourceAsStream(Properties.IMAGE_PATH+"icon.png")));
+    //UtilLog.debug("Setting project icon.");
+    //primaryStage.getIcons().add(new Image(getClass().getResourceAsStream(Properties.IMAGE_PATH+"icon.png")));
 
     //Initialize classes
+    UtilLog.debug("Initializing DataManager.");
     DataManager.getInstance().init();
-    UtilLog.init();
 
-    UtilController.openFile("account-creation.fxml");
+    UtilController.openFile("setup/splash.fxml");
 
-
-//    DataManager.getInstance().init();
-//    if (DataManager.getInstance().getAppData() == null || DataManager.getInstance().getUserList().size() == 0) {
+//    if (DataManager.getInstance().getUserList().size() == 0) {
 //      UtilController.openFile("splash.fxml");
 //    } else {
 //      //TODO init app based on last login of other account.
@@ -43,6 +44,7 @@ public class OneClass extends Application {
   }
 
   @Override public void stop() {
+    UtilLog.debug("OneClass shutting down, running #stop().");
     AppData appData = DataManager.getInstance().getAppData();
 
     appData.setLastHeight(primaryStage.getHeight());
