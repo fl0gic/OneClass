@@ -1,5 +1,7 @@
 package me.caden2k3.oneclass;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import lombok.Getter;
@@ -17,6 +19,7 @@ import me.caden2k3.oneclass.model.util.UtilLog;
 public class OneClass extends Application {
   private static @Getter OneClass instance;
   private @Getter Stage primaryStage;
+  @Getter private ExecutorService fixedThreadPool;
 
   @Override
   public void start(Stage primaryStage) {
@@ -26,6 +29,7 @@ public class OneClass extends Application {
 
     instance = this;
     this.primaryStage = primaryStage;
+    fixedThreadPool = Executors.newFixedThreadPool(5);
 
     //UtilLog.debug("Setting project icon.");
     //primaryStage.getIcons().add(new Image(getClass().getResourceAsStream(Properties.IMAGE_PATH+"icon.png")));
@@ -34,7 +38,7 @@ public class OneClass extends Application {
     UtilLog.debug("Initializing DataManager.");
     DataManager.getInstance().init();
 
-    UtilController.openFile("setup/splash.fxml");
+    UtilController.openFile("district-search.fxml");
 
 //    if (DataManager.getInstance().getUserList().size() == 0) {
 //      UtilController.openFile("splash.fxml");

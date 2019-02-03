@@ -86,7 +86,7 @@ public class SplashController extends Controller {
 
           List<Transition> transitions = new ArrayList<>(Arrays.asList(textFade, textScale, logoFade, logoScale));
 
-          Pane node = (Pane) UtilController.loadFile("account-creation.fxml");
+          Pane node = (Pane) UtilController.loadFile("setup/account-creation.fxml");
 
           assert node != null : "Root was null, ya done goofed.";
 
@@ -103,7 +103,7 @@ public class SplashController extends Controller {
           transitions.add(scaleTransition);
 
           ParallelTransition sceneTrans = new ParallelTransition(transitions.toArray(new Transition[]{}));
-          sceneTrans.setOnFinished(event -> UtilController.openFile("account-creation.fxml"));
+          sceneTrans.setOnFinished(event -> UtilController.openFile("setup/account-creation.fxml"));
           sceneTrans.play();
         });
       }

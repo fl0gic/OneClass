@@ -8,6 +8,7 @@ import com.jfoenix.controls.JFXDialog.DialogTransition;
 import com.jfoenix.controls.JFXDialogLayout;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
+import de.jensd.fx.glyphs.GlyphsBuilder;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
@@ -50,6 +51,11 @@ public class CreateAccountController extends Controller {
     //VALIDATORS
     CustomValidator passwordValidator = new CustomValidator(new ValidatorRunnable() {
       @Override public boolean eval(CustomValidator validator) {
+        validator.setIcon(GlyphsBuilder.create(FontAwesomeIconView.class)
+            .glyph(FontAwesomeIcon.WARNING)
+            .styleClass("error")
+            .build());
+
         if (validator.getSrcControl() == passwordField) {
           String password = passwordField.getText();
           if (password.length() > 0) {
@@ -70,12 +76,6 @@ public class CreateAccountController extends Controller {
         return true;
       }
     });
-
-    //TODO uncomment when the fontawesomefx PR is merged.
-//    validator.setIcon(GlyphsBuilder.create(FontAwesomeIconView.class)
-//        .glyph(FontAwesomeIcon.WARNING)
-//        .styleClass("error")
-//        .build());
 
     passwordField.getValidators().add(passwordValidator);
     passwordField.focusedProperty().addListener((o, oldVal, newVal) -> {
@@ -125,7 +125,7 @@ public class CreateAccountController extends Controller {
   private void createAccount() {
     if (usernameField.validate()) {
       if (passwordField.validate()) {
-        
+        error("Success! We haven't written this part yet though :(");
       } else
         error(passwordField.getActiveValidator().getMessage());
     } else
