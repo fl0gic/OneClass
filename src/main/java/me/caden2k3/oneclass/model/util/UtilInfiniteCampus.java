@@ -21,8 +21,18 @@ public class UtilInfiniteCampus {
       String jsonReturn = UtilReader.readFrom("https://mobile.infinitecampus.com/mobile/searchDistrict?query="+districtName+"&state="+state);
       Map dataMap = (Map) ((List) new Gson().fromJson(jsonReturn, Map.class).get("data")).get(0);
 
-      return (String) dataMap.get("district_code");
-    } catch (IOException ignored) {}
+      Double id = (Double) dataMap.get("id");
+      String code = (String) dataMap.get("district_code");
+      String name = (String) dataMap.get("district_name");
+      String appName = (String) dataMap.get("district_app_name");
+
+      return "ID: "+id+"\n" +
+              "Code: "+code+"\n" +
+              "Name: "+name+"\n" +
+              "App Name: "+appName;
+    } catch (IOException ex) {
+      ex.printStackTrace();
+    }
 
     return null;
   }
