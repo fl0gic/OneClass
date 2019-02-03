@@ -1,28 +1,23 @@
 package me.caden2k3.oneclass.controller.setup;
 
-import static java.util.stream.Collectors.toList;
-
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXDialog.DialogTransition;
-import com.jfoenix.controls.JFXDialogLayout;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
-import de.jensd.fx.glyphs.GlyphsBuilder;
-import java.net.URL;
-import java.util.ResourceBundle;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
 import lombok.Getter;
 import me.caden2k3.oneclass.controller.Controller;
 import me.caden2k3.oneclass.controller.util.CustomValidator;
 import me.caden2k3.oneclass.controller.util.CustomValidator.ValidatorRunnable;
 import me.caden2k3.oneclass.model.DataManager;
 import me.caden2k3.oneclass.model.user.User;
+
+import java.net.URL;
+import java.util.ResourceBundle;
+
+import static java.util.stream.Collectors.toList;
 
 /**
  * @author Caden Kriese
@@ -51,10 +46,11 @@ public class CreateAccountController extends Controller {
     //VALIDATORS
     CustomValidator passwordValidator = new CustomValidator(new ValidatorRunnable() {
       @Override public boolean eval(CustomValidator validator) {
-        validator.setIcon(GlyphsBuilder.create(FontAwesomeIconView.class)
-            .glyph(FontAwesomeIcon.WARNING)
-            .styleClass("error")
-            .build());
+        //TODO Put back when v11.0 comes out
+//        validator.setIcon(GlyphsBuilder.create(FontAwesomeIconView.class)
+//            .glyph(FontAwesomeIcon.WARNING)
+//            .styleClass("error")
+//            .build());
 
         if (validator.getSrcControl() == passwordField) {
           String password = passwordField.getText();
@@ -110,15 +106,13 @@ public class CreateAccountController extends Controller {
     });
   }
 
-  @FXML
-  public void handleKeyPressed(KeyEvent event) {
+  @FXML public void handleKeyPressed(KeyEvent event) {
     if (event.getCode() == KeyCode.ENTER) {
       createAccountButton.fire();
     }
   }
 
-  @FXML
-  public void handleClick() {
+  @FXML public void handleClick() {
     createAccount();
   }
 
@@ -133,15 +127,6 @@ public class CreateAccountController extends Controller {
   }
 
   private void error(String errorMessage) {
-    //Avoid duplicate alerts.
-    if (((Pane) root).getChildren().stream().noneMatch(node -> node instanceof JFXDialog)) {
-      JFXDialogLayout layout = new JFXDialogLayout();
-      layout.setBody(new Label(errorMessage));
-      JFXDialog dialog = new JFXDialog();
-      dialog.setTransitionType(DialogTransition.CENTER);
-      dialog.setDialogContainer((StackPane) root);
-      dialog.setContent(layout);
-      dialog.show();
-    }
+    dialog(DialogTransition.CENTER, errorMessage);
   }
 }

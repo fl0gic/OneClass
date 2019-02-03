@@ -22,9 +22,7 @@ public class UtilInfiniteCampus {
       Map dataMap = (Map) ((List) new Gson().fromJson(jsonReturn, Map.class).get("data")).get(0);
 
       return (String) dataMap.get("district_code");
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
+    } catch (IOException ignored) {}
 
     return null;
   }

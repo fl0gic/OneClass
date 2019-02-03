@@ -127,16 +127,10 @@
     </dependency>
     <!-- FontAwesomeFX -->
     <!--<dependency>-->
-      <!--<groupId>de.jensd</groupId>-->
-      <!--<artifactId>fontawesomefx-commons</artifactId>-->
-      <!--<version>11.0</version>-->
+    <!--<groupId>de.jensd</groupId>-->
+    <!--<artifactId>fontawesomefx-commons</artifactId>-->
+    <!--<version>11.0</version>-->
     <!--</dependency>-->
-    <!-- FontAwesomeFX -->
-    <dependency>
-      <groupId>de.jensd</groupId>
-      <artifactId>fontawesomefx</artifactId>
-      <version>11.0</version>
-    </dependency>
   </dependencies>
 
   <repositories>
