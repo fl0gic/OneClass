@@ -1,20 +1,75 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXSpinner?>
+<?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.collections.FXCollections?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.Group?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.StackPane?>
 
 <StackPane onKeyPressed="#keyPress" prefHeight="400.0" prefWidth="600.0" stylesheets="@../styles/FieldStyle.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.caden2k3.oneclass.controller.DistrictSearchController">
    <children>
-      <JFXTextField fx:id="stateField" promptText="State">
+      <JFXComboBox fx:id="state" editable="true" focusColor="#405aa8" prefHeight="27.0" prefWidth="181.0" promptText="State" stylesheets="@../styles/FieldStyle.css">
          <StackPane.margin>
             <Insets bottom="50.0" />
          </StackPane.margin>
-      </JFXTextField>
-      <JFXTextField fx:id="districtName" promptText="District name">
+         <items>
+            <FXCollections fx:factory="observableArrayList">
+               <Label>Alabama</Label>
+               <Label>Alaska</Label>
+               <Label>Arizona</Label>
+               <Label>Arkansas</Label>
+               <Label>California</Label>
+               <Label>Colorado</Label>
+               <Label>Connecticut</Label>
+               <Label>Delaware</Label>
+               <Label>Florida</Label>
+               <Label>Georgia</Label>
+               <Label>Hawaii</Label>
+               <Label>Idaho</Label>
+               <Label>Illinois</Label>
+               <Label>Indiana</Label>
+               <Label>Iowa</Label>
+               <Label>Kansas</Label>
+               <Label>Kentucky</Label>
+               <Label>Louisiana</Label>
+               <Label>Maine</Label>
+               <Label>Maryland</Label>
+               <Label>Massachusetts</Label>
+               <Label>Michigan</Label>
+               <Label>Minnesota</Label>
+               <Label>Mississippi</Label>
+               <Label>Missouri</Label>
+               <Label>Montana</Label>
+               <Label>Nebraska</Label>
+               <Label>Nevada</Label>
+               <Label>New Hampshire</Label>
+               <Label>New Jersey</Label>
+               <Label>New Mexico</Label>
+               <Label>New York</Label>
+               <Label>North Carolina</Label>
+               <Label>North Dakota</Label>
+               <Label>Ohio</Label>
+               <Label>Oklahoma</Label>
+               <Label>Oregon</Label>
+               <Label>Pennsylvania</Label>
+               <Label>Rhode Island</Label>
+               <Label>South Carolina</Label>
+               <Label>South Dakota</Label>
+               <Label>Tennessee</Label>
+               <Label>Texas</Label>
+               <Label>Utah</Label>
+               <Label>Vermont</Label>
+               <Label>Virginia</Label>
+               <Label>Washington</Label>
+               <Label>West Virginia</Label>
+               <Label>Wisconsin</Label>
+               <Label>Wyoming</Label>
+            </FXCollections>
+         </items>
+      </JFXComboBox>
+      <JFXTextField fx:id="district" promptText="District name">
          <StackPane.margin>
             <Insets top="50.0" />
          </StackPane.margin>
@@ -24,13 +79,5 @@
             <Insets top="200.0" />
          </StackPane.margin>
       </JFXButton>
-      <Group>
-         <StackPane.margin>
-            <Insets />
-         </StackPane.margin>
-         <children>
-            <JFXSpinner fx:id="spinner" prefHeight="40.0" prefWidth="40.0" />
-         </children>
-      </Group>
    </children>
 </StackPane>

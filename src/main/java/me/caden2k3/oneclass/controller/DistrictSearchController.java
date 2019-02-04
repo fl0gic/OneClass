@@ -1,17 +1,23 @@
 package me.caden2k3.oneclass.controller;
 
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXDialog.DialogTransition;
 import com.jfoenix.controls.JFXSpinner;
 import com.jfoenix.controls.JFXTextField;
 import javafx.animation.ScaleTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.Pane;
 import javafx.util.Duration;
+import javafx.util.StringConverter;
 import lombok.Getter;
 import me.caden2k3.oneclass.OneClass;
 import me.caden2k3.oneclass.model.util.UtilInfiniteCampus;
+import me.caden2k3.oneclass.model.util.UtilStates;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -26,9 +32,9 @@ import java.util.ResourceBundle;
 public class DistrictSearchController extends Controller {
   private static @Getter DistrictSearchController instance;
 
-  @FXML private JFXTextField districtName;
-  @FXML private JFXTextField stateField;
-  @FXML private JFXSpinner spinner;
+  @FXML private JFXTextField district;
+  @FXML private JFXComboBox<Label> state;
+  @FXML private JFXButton searchButton;
 
   @Override public void initialize(URL location, ResourceBundle resources) {
     super.initialize(location, resources);
@@ -40,41 +46,51 @@ public class DistrictSearchController extends Controller {
     usePreviousSizes = false;
     title = "District Search";
 
-    //Hide
-    spinner.setManaged(false);
+    state.setConverter(new StringConverter<>() {
+      @Override
+      public String toString(Label object) {
+        return object == null ? "" : object.getText();
+      }
+
+      @Override
+      public Label fromString(String string) {
+        return string == null || string.isEmpty() ? null : new Label(string);
+      }
+    });
   }
 
   @FXML public void keyPress(KeyEvent event) {
-    if (event.getCode() == KeyCode.ENTER)
+    if (event.getCode() == KeyCode.ENTER) {
+      //Ripple animation.
+      searchButton.arm();
+      searchButton.disarm();
+
       search();
+    }
   }
 
   @FXML public void search() {
-    //Show
-    spinner.setManaged(true);
+    JFXSpinner spinner = new JFXSpinner();
+    spinner.setRadius(10);
+    ((Pane) root).getChildren().add(spinner);
 
-    ScaleTransition scaleTransition = new ScaleTransition(Duration.seconds(0.5), spinner);
-    scaleTransition.setToX(0.6);
-    scaleTransition.setToY(0.6);
+    ScaleTransition scaleTransition = new ScaleTransition(Duration.seconds(0.3), spinner);
     scaleTransition.setFromX(0);
     scaleTransition.setFromY(0);
+    scaleTransition.setToX(1);
+    scaleTransition.setToY(1);
 
     scaleTransition.play();
 
     OneClass.getInstance().getFixedThreadPool().submit(() -> {
-       String id = UtilInfiniteCampus.searchDistrict(districtName.getText(), stateField.getText());
+      String stateCode = UtilStates.getStateCode(state.getConverter().toString(state.getValue()));
+      String id = UtilInfiniteCampus.searchDistrict(district.getText(), stateCode);
 
-       Platform.runLater(() -> {
-         dialog(DialogTransition.CENTER, id == null ? "Unable to find district!" : id);
+      Platform.runLater(() -> {
+        ((Pane) root).getChildren().remove(spinner);
 
-         ScaleTransition revertTransition = new ScaleTransition(Duration.seconds(0.5), spinner);
-         revertTransition.setToX(0);
-         revertTransition.setToY(0);
-         revertTransition.setFromX(0.6);
-         revertTransition.setFromY(0.6);
-
-         revertTransition.play();
-       });
+        dialog(DialogTransition.CENTER, id == null ? "Unable to find district!" : id);
+      });
     });
   }
 }

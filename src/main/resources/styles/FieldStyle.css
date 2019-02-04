@@ -52,3 +52,176 @@
   -fx-max-width: 250;
   -fx-text-fill: WHITE;
 }
+
+/*******************************************************************************
+*                                                                              *
+* JFX Combo Box                                                                *
+*                                                                              *
+*******************************************************************************/
+
+.combo-box-popup .list-view .jfx-list-cell .label,
+.combo-box-popup .list-view .jfx-list-cell:filled:hover .label {
+  -fx-text-fill: BLACK;
+}
+
+.combo-box-popup .list-view .jfx-list-cell .custom-jfx-list-view-icon,
+.combo-box-popup .list-view .jfx-list-cell:filled:hover .custom-jfx-list-view-icon,
+.combo-box-popup .list-view .jfx-list-cell:selected .custom-jfx-list-view-icon {
+  -fx-fill: #5264AE;
+}
+
+.combo-box-popup .scroll-bar .track {
+  -fx-max-width: 1;
+}
+
+.combo-box-popup .list-view .jfx-list-cell:odd:selected > .jfx-rippler > StackPane,
+.combo-box-popup .list-view .jfx-list-cell:even:selected > .jfx-rippler > StackPane {
+  -fx-background-color: rgba(0.0, 0.0, 255.0, 0.2);
+}
+
+.combo-box-popup .list-view .jfx-list-cell {
+  -fx-background-insets: 0.0;
+}
+
+.combo-box-popup .list-view .jfx-list-cell:odd,
+.combo-box-popup .list-view .jfx-list-cell:even {
+  -fx-background-color: WHITE;
+}
+
+.combo-box-popup .list-view .jfx-list-cell .jfx-rippler {
+  -jfx-rippler-fill: #5264AE;
+}
+
+/*************************
+ * Scroll Bar
+ */
+
+/** CSS **/
+.combo-box-popup{
+  -fx-border-color:derive(gray,80%);
+}
+
+/* The main scrollbar CSS class of ListView */
+.combo-box-popup .scroll-bar:horizontal ,
+.combo-box-popup  .scroll-bar:vertical{
+  -fx-background-color:transparent;
+
+}
+
+/* The increment and decrement button CSS class of scrollbar */
+.combo-box-popup .increment-button ,.combo-box-popup .decrement-button {
+  -fx-background-color:transparent;
+  -fx-border-color:derive(gray,80%);
+}
+
+/* The main scrollbar **track** CSS class  */
+.combo-box-popup .scroll-bar:horizontal .track ,
+.combo-box-popup .scroll-bar:vertical .track{
+  -fx-background-color: transparent;
+  -fx-border-color:derive(gray,80%);
+  -fx-background-radius: 0em;
+}
+
+/* The main scrollbar **thumb** CSS class which we drag every time (movable) */
+.combo-box-popup .scroll-bar:horizontal .thumb,
+.combo-box-popup .scroll-bar:vertical .thumb {
+  -fx-background-color:derive(black,90%);
+  -fx-background-insets: 0, 0, 0;
+  -fx-background-radius: 0em;
+
+}
+
+/* ------------------------------------------------------------------------------------- */
+/** EVENT CSS **/
+/* ------------------------------------------------------------------------------------- */
+
+/* The main scrollbar **track** CSS class on event of "hover" and "pressed" */
+
+.combo-box-popup .scroll-bar:horizontal:hover .track ,
+.combo-box-popup .scroll-bar:horizontal:pressed .track ,
+.combo-box-popup .scroll-bar:vertical:hover .track,
+.combo-box-popup .scroll-bar:vertical:pressed .track{
+  -fx-background-color: derive(#434343,20%);
+
+  -fx-opacity: 0.2;
+  -fx-background-radius: 0em;
+
+}
+
+/* The main scrollbar **thumb** CSS class on event of "hover" and "pressed" */
+.combo-box-popup .scroll-bar .thumb:hover,
+.combo-box-popup .scroll-bar .thumb:pressed{
+  -fx-background-color: derive(black,50%);
+}
+
+.combo-box-popup .increment-button:hover ,.combo-box-popup .decrement-button:hover {
+  -fx-background-color:derive(gray,100%);
+  -fx-border-color:derive(gray,80%);
+  -fx-padding:10px;
+}
+
+/** CSS **/
+.combo-box-popup{
+  -fx-border-color:derive(gray,80%);
+}
+
+/* The main scrollbar CSS class of ListView */
+.combo-box-popup .scroll-bar:horizontal ,
+.combo-box-popup  .scroll-bar:vertical{
+  -fx-background-color:transparent;
+
+}
+
+/* The increment and decrement button CSS class of scrollbar */
+.combo-box-popup .increment-button ,.combo-box-popup .decrement-button {
+  -fx-background-color:transparent;
+  -fx-border-color:derive(gray,80%);
+}
+
+/* The main scrollbar **track** CSS class  */
+.combo-box-popup .scroll-bar:horizontal .track ,
+.combo-box-popup .scroll-bar:vertical .track{
+  -fx-background-color: transparent;
+  -fx-border-color:derive(gray,80%);
+  -fx-background-radius: 0em;
+}
+
+/* The main scrollbar **thumb** CSS class which we drag every time (movable) */
+.combo-box-popup .scroll-bar:horizontal .thumb,
+.combo-box-popup .scroll-bar:vertical .thumb {
+  -fx-background-color:derive(black,90%);
+  -fx-background-insets: 0, 0, 0;
+  -fx-background-radius: 0em;
+
+}
+
+/* ------------------------------------------------------------------------------------- */
+/** EVENT CSS **/
+/* ------------------------------------------------------------------------------------- */
+
+/* The main scrollbar **track** CSS class on event of "hover" and "pressed" */
+
+.combo-box-popup .scroll-bar:horizontal:hover .track ,
+.combo-box-popup .scroll-bar:horizontal:pressed .track ,
+.combo-box-popup .scroll-bar:vertical:hover .track,
+.combo-box-popup .scroll-bar:vertical:pressed .track{
+  -fx-background-color: derive(#434343,20%);
+
+  -fx-opacity: 0.2;
+  -fx-background-radius: 0em;
+
+}
+
+/* The main scrollbar **thumb** CSS class on event of "hover" and "pressed" */
+.combo-box-popup .scroll-bar .thumb:hover,
+.combo-box-popup .scroll-bar .thumb:pressed{
+  -fx-background-color: derive(black,50%);
+}
+
+.combo-box-popup .increment-button:hover ,.combo-box-popup .decrement-button:hover {
+  -fx-background-color:derive(gray,100%);
+  -fx-border-color:derive(gray,80%);
+  -fx-padding:10px;
+}
+
+
