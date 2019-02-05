@@ -30,67 +30,74 @@ import java.util.ResourceBundle;
  * This code is copyright © Caden Kriese 2019
  */
 public class DistrictSearchController extends Controller {
-  private static @Getter DistrictSearchController instance;
+    private static @Getter
+    DistrictSearchController instance;
 
-  @FXML private JFXTextField district;
-  @FXML private JFXComboBox<Label> state;
-  @FXML private JFXButton searchButton;
+    @FXML
+    private JFXTextField district;
+    @FXML
+    private JFXComboBox<Label> state;
+    @FXML
+    private JFXButton searchButton;
 
-  @Override public void initialize(URL location, ResourceBundle resources) {
-    super.initialize(location, resources);
-    instance = this;
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        super.initialize(location, resources);
+        instance = this;
 
-    //Configure window/stage settings.
-    minHeight = 300;
-    minWidth = 300;
-    usePreviousSizes = false;
-    title = "District Search";
+        //Configure window/stage settings.
+        minHeight = 300;
+        minWidth = 300;
+        usePreviousSizes = false;
+        title = "District Search";
 
-    state.setConverter(new StringConverter<>() {
-      @Override
-      public String toString(Label object) {
-        return object == null ? "" : object.getText();
-      }
+        state.setConverter(new StringConverter<>() {
+            @Override
+            public String toString(Label object) {
+                return object == null ? "" : object.getText();
+            }
 
-      @Override
-      public Label fromString(String string) {
-        return string == null || string.isEmpty() ? null : new Label(string);
-      }
-    });
-  }
-
-  @FXML public void keyPress(KeyEvent event) {
-    if (event.getCode() == KeyCode.ENTER) {
-      //Ripple animation.
-      searchButton.arm();
-      searchButton.disarm();
-
-      search();
+            @Override
+            public Label fromString(String string) {
+                return string == null || string.isEmpty() ? null : new Label(string);
+            }
+        });
     }
-  }
 
-  @FXML public void search() {
-    JFXSpinner spinner = new JFXSpinner();
-    spinner.setRadius(10);
-    ((Pane) root).getChildren().add(spinner);
+    @FXML
+    public void keyPress(KeyEvent event) {
+        if (event.getCode() == KeyCode.ENTER) {
+            //Ripple animation.
+            searchButton.arm();
+            searchButton.disarm();
 
-    ScaleTransition scaleTransition = new ScaleTransition(Duration.seconds(0.3), spinner);
-    scaleTransition.setFromX(0);
-    scaleTransition.setFromY(0);
-    scaleTransition.setToX(1);
-    scaleTransition.setToY(1);
+            search();
+        }
+    }
 
-    scaleTransition.play();
+    @FXML
+    public void search() {
+        JFXSpinner spinner = new JFXSpinner();
+        spinner.setRadius(10);
+        ((Pane) root).getChildren().add(spinner);
 
-    OneClass.getInstance().getFixedThreadPool().submit(() -> {
-      String stateCode = UtilStates.getStateCode(state.getConverter().toString(state.getValue()));
-      String id = UtilInfiniteCampus.searchDistrict(district.getText(), stateCode);
+        ScaleTransition scaleTransition = new ScaleTransition(Duration.seconds(0.3), spinner);
+        scaleTransition.setFromX(0);
+        scaleTransition.setFromY(0);
+        scaleTransition.setToX(1);
+        scaleTransition.setToY(1);
 
-      Platform.runLater(() -> {
-        ((Pane) root).getChildren().remove(spinner);
+        scaleTransition.play();
 
-        dialog(DialogTransition.CENTER, id == null ? "Unable to find district!" : id);
-      });
-    });
-  }
+        OneClass.getInstance().getFixedThreadPool().submit(() -> {
+            String stateCode = UtilStates.getStateCode(state.getConverter().toString(state.getValue()));
+            String id = UtilInfiniteCampus.searchDistrict(district.getText(), stateCode);
+
+            Platform.runLater(() -> {
+                ((Pane) root).getChildren().remove(spinner);
+
+                dialog(DialogTransition.CENTER, id == null ? "Unable to find district!" : id);
+            });
+        });
+    }
 }

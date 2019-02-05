@@ -9,9 +9,10 @@ import lombok.Data;
  *
  * This code is copyright © Caden Kriese 2018
  */
-public @Data class UserInfiniteCampus {
+public @Data
+class UserInfiniteCampus {
 
-  public String username;
-  public String password;
-  public String district;
+    public String username;
+    public String password;
+    public String district;
 }

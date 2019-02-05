@@ -2,7 +2,6 @@ package me.caden2k3.oneclass.model.util;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
 /**
  * @author Caden Kriese
@@ -69,10 +68,9 @@ public class UtilStates {
     /**
      * Retrieves the state name from the code.
      *
-     * @apiNote Not the most efficient method.
-     *
      * @param code The state code.
      * @return The state name.
+     * @apiNote Not the most efficient method.
      */
     public static String getStateName(String code) {
         Map.Entry<String, String> stateEntry = states.entrySet().stream()

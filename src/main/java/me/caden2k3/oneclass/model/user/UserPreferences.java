@@ -11,14 +11,15 @@ import lombok.Data;
  *
  * This code is copyright © Caden Kriese 2018
  */
-public @Data class UserPreferences {
+public @Data
+class UserPreferences {
 
-  @SerializedName("background")
-  private Color backgroundColor;
-  @SerializedName("primary-text")
-  private Color primaryTextColor;
-  @SerializedName("secondary-text")
-  private Color secondaryTextColor;
-  @SerializedName("debug-mode")
-  private boolean debug = true;
+    @SerializedName("background")
+    private Color backgroundColor;
+    @SerializedName("primary-text")
+    private Color primaryTextColor;
+    @SerializedName("secondary-text")
+    private Color secondaryTextColor;
+    @SerializedName("debug-mode")
+    private boolean debug = true;
 }

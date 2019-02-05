@@ -10,16 +10,17 @@ import lombok.Data;
  *
  * This code is copyright © Caden Kriese 2018
  */
-public @Data class AppData {
-  @SerializedName("latest-username")
-  private String latestUsername;
-  @SerializedName("last-width")
-  private double lastWidth;
-  @SerializedName("last-height")
-  private double lastHeight;
+public @Data
+class AppData {
+    @SerializedName("latest-username")
+    private String latestUsername;
+    @SerializedName("last-width")
+    private double lastWidth;
+    @SerializedName("last-height")
+    private double lastHeight;
 
-  AppData() {
-    lastHeight = 400d;
-    lastWidth = 600d;
-  }
+    AppData() {
+        lastHeight = 400d;
+        lastWidth = 600d;
+    }
 }

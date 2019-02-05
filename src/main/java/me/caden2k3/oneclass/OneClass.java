@@ -1,7 +1,5 @@
 package me.caden2k3.oneclass;
 
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import lombok.Getter;
@@ -10,6 +8,9 @@ import me.caden2k3.oneclass.model.AppData;
 import me.caden2k3.oneclass.model.DataManager;
 import me.caden2k3.oneclass.model.util.UtilLog;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 /**
  * ONECLASS
  *
@@ -17,49 +18,53 @@ import me.caden2k3.oneclass.model.util.UtilLog;
  * Created on 10/3/18.
  */
 public class OneClass extends Application {
-  private static @Getter OneClass instance;
-  private @Getter Stage primaryStage;
-  @Getter private ExecutorService fixedThreadPool;
+    private static @Getter
+    OneClass instance;
+    private @Getter
+    Stage primaryStage;
+    @Getter
+    private ExecutorService fixedThreadPool;
 
-  @Override
-  public void start(Stage primaryStage) {
-    UtilLog.init();
-    UtilLog.setDebug(false);
-    UtilLog.debug("Initializing OneClass, running #start()");
+    public static void main(String[] args) {
+        launch(args);
+    }
 
-    instance = this;
-    this.primaryStage = primaryStage;
-    fixedThreadPool = Executors.newFixedThreadPool(5);
+    @Override
+    public void start(Stage primaryStage) {
+        UtilLog.init();
+        UtilLog.setDebug(false);
+        UtilLog.debug("Initializing OneClass, running #start()");
 
-    //UtilLog.debug("Setting project icon.");
-    //primaryStage.getIcons().add(new Image(getClass().getResourceAsStream(Properties.IMAGE_PATH+"icon.png")));
+        instance = this;
+        this.primaryStage = primaryStage;
+        fixedThreadPool = Executors.newFixedThreadPool(5);
 
-    //Initialize classes
-    UtilLog.debug("Initializing DataManager.");
-    DataManager.getInstance().init();
+        //UtilLog.debug("Setting project icon.");
+        //primaryStage.getIcons().add(new Image(getClass().getResourceAsStream(Properties.IMAGE_PATH+"icon.png")));
 
-    UtilController.openFile("district-search.fxml");
+        //Initialize classes
+        UtilLog.debug("Initializing DataManager.");
+        DataManager.getInstance().init();
+
+        UtilController.openFile("district-search.fxml");
 
 //    if (DataManager.getInstance().getUserList().size() == 0) {
 //      UtilController.openFile("splash.fxml");
 //    } else {
 //      //TODO init app based on last login of other account.
 //    }
-  }
+    }
 
-  @Override public void stop() {
-    UtilLog.debug("OneClass shutting down, running #stop().");
-    AppData appData = DataManager.getInstance().getAppData();
+    @Override
+    public void stop() {
+        UtilLog.debug("OneClass shutting down, running #stop().");
+        AppData appData = DataManager.getInstance().getAppData();
 
-    appData.setLastHeight(primaryStage.getHeight());
-    appData.setLastWidth(primaryStage.getWidth());
-    if (DataManager.getInstance().getCurrentUser() != null)
-      appData.setLatestUsername(DataManager.getInstance().getCurrentUser().getUsername());
+        appData.setLastHeight(primaryStage.getHeight());
+        appData.setLastWidth(primaryStage.getWidth());
+        if (DataManager.getInstance().getCurrentUser() != null)
+            appData.setLatestUsername(DataManager.getInstance().getCurrentUser().getUsername());
 
-    DataManager.getInstance().save();
-  }
-
-  public static void main(String[] args) {
-    launch(args);
-  }
+        DataManager.getInstance().save();
+    }
 }

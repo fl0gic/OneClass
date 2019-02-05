@@ -13,20 +13,23 @@ import lombok.Setter;
  * This code is copyright © Caden Kriese 2018
  */
 public class CustomValidator extends ValidatorBase {
-  @Getter @Setter private ValidatorRunnable runnable;
+    @Getter
+    @Setter
+    private ValidatorRunnable runnable;
 
-  public CustomValidator(ValidatorRunnable runnable) {
-    this.runnable = runnable;
-  }
+    public CustomValidator(ValidatorRunnable runnable) {
+        this.runnable = runnable;
+    }
 
-  @Override protected void eval() {
-    if (srcControl.get() instanceof IFXValidatableControl)
-      ((IFXValidatableControl) srcControl.get()).resetValidation();
+    @Override
+    protected void eval() {
+        if (srcControl.get() instanceof IFXValidatableControl)
+            ((IFXValidatableControl) srcControl.get()).resetValidation();
 
-    hasErrors.set(runnable.eval(this));
-  }
+        hasErrors.set(runnable.eval(this));
+    }
 
-  public static abstract class ValidatorRunnable {
-    public abstract boolean eval(CustomValidator validator);
-  }
+    public static abstract class ValidatorRunnable {
+        public abstract boolean eval(CustomValidator validator);
+    }
 }
