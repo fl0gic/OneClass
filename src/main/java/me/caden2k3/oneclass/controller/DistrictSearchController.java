@@ -7,6 +7,7 @@ import com.jfoenix.controls.JFXSpinner;
 import com.jfoenix.controls.JFXTextField;
 import javafx.animation.ScaleTransition;
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
@@ -33,12 +34,9 @@ public class DistrictSearchController extends Controller {
     private static @Getter
     DistrictSearchController instance;
 
-    @FXML
-    private JFXTextField district;
-    @FXML
-    private JFXComboBox<Label> state;
-    @FXML
-    private JFXButton searchButton;
+    @FXML private JFXTextField district;
+    @FXML private JFXComboBox<Label> state;
+    @FXML private JFXButton searchButton;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {

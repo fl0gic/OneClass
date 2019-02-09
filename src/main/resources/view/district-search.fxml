@@ -10,7 +10,12 @@
 
 <StackPane onKeyPressed="#keyPress" prefHeight="400.0" prefWidth="600.0" stylesheets="@../styles/FieldStyle.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.caden2k3.oneclass.controller.DistrictSearchController">
    <children>
-      <JFXComboBox fx:id="state" editable="true" focusColor="#405aa8" prefHeight="27.0" prefWidth="181.0" promptText="State" stylesheets="@../styles/FieldStyle.css">
+      <JFXTextField fx:id="district" promptText="District name">
+         <StackPane.margin>
+            <Insets top="50.0" />
+         </StackPane.margin>
+      </JFXTextField>
+      <JFXComboBox fx:id="state" prefHeight="30.0" prefWidth="180.0" promptText="State">
          <StackPane.margin>
             <Insets bottom="50.0" />
          </StackPane.margin>
@@ -69,11 +74,6 @@
             </FXCollections>
          </items>
       </JFXComboBox>
-      <JFXTextField fx:id="district" promptText="District name">
-         <StackPane.margin>
-            <Insets top="50.0" />
-         </StackPane.margin>
-      </JFXTextField>
       <JFXButton fx:id="searchButton" onAction="#search" text="SEARCH">
          <StackPane.margin>
             <Insets top="200.0" />
