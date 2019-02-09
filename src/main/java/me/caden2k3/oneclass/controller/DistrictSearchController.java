@@ -7,7 +7,6 @@ import com.jfoenix.controls.JFXSpinner;
 import com.jfoenix.controls.JFXTextField;
 import javafx.animation.ScaleTransition;
 import javafx.application.Platform;
-import javafx.beans.value.ChangeListener;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
@@ -31,9 +30,7 @@ import java.util.ResourceBundle;
  * This code is copyright © Caden Kriese 2019
  */
 public class DistrictSearchController extends Controller {
-    private static @Getter
-    DistrictSearchController instance;
-
+    private static @Getter DistrictSearchController instance;
     @FXML private JFXTextField district;
     @FXML private JFXComboBox<Label> state;
     @FXML private JFXButton searchButton;
@@ -79,7 +76,7 @@ public class DistrictSearchController extends Controller {
         spinner.setRadius(10);
         ((Pane) root).getChildren().add(spinner);
 
-        ScaleTransition scaleTransition = new ScaleTransition(Duration.seconds(0.3), spinner);
+        ScaleTransition scaleTransition = new ScaleTransition(Duration.seconds(0.2), spinner);
         scaleTransition.setFromX(0);
         scaleTransition.setFromY(0);
         scaleTransition.setToX(1);

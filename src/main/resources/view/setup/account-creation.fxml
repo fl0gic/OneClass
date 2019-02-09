@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXCheckBox?>
 <?import com.jfoenix.controls.JFXPasswordField?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.StackPane?>
@@ -14,41 +18,57 @@
 <StackPane minHeight="200.0" minWidth="400.0" onKeyPressed="#handleKeyPressed" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.caden2k3.oneclass.controller.setup.CreateAccountController">
    <children>
       <ImageView fitHeight="40.0" fitWidth="40.0" StackPane.alignment="TOP_CENTER">
-         <image>
-            <Image url="@../../image/icon.png" />
-         </image>
          <StackPane.margin>
-            <Insets right="150.0" top="30.0" />
+            <Insets right="180.0" top="30.0" />
          </StackPane.margin>
+         <Image url="@../../image/icon.png" />
       </ImageView>
       <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="title" text="OneClass" textAlignment="CENTER" StackPane.alignment="TOP_CENTER">
          <font>
             <Font size="31.0" />
          </font>
          <StackPane.margin>
-            <Insets left="70.0" top="30.0" />
+            <Insets left="40.0" top="30.0" />
          </StackPane.margin>
       </Text>
-      <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="field-title" text="USERNAME">
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="field-title" text="CREATE ACCOUNT" StackPane.alignment="TOP_CENTER">
          <StackPane.margin>
-            <Insets bottom="150.0" />
+            <Insets top="80.0" />
          </StackPane.margin>
       </Text>
-      <JFXTextField fx:id="usernameField" maxHeight="-Infinity" maxWidth="392.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="27.0" prefWidth="85.0" StackPane.alignment="CENTER">
+      <JFXTextField fx:id="usernameField" maxHeight="-Infinity" maxWidth="392.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="27.0" prefWidth="85.0" promptText="Username" StackPane.alignment="CENTER">
          <StackPane.margin>
-            <Insets bottom="80.0" left="220.0" right="220.0" />
+            <Insets bottom="120.0" left="220.0" right="220.0" />
          </StackPane.margin>
       </JFXTextField>
-      <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="field-title" text="PASSWORD" StackPane.alignment="CENTER">
+      <JFXTextField fx:id="emailField" maxHeight="-Infinity" maxWidth="392.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="27.0" prefWidth="85.0" promptText="Email">
          <StackPane.margin>
-            <Insets top="50.0" />
+            <Insets bottom="20.0" left="220.0" right="220.0" />
          </StackPane.margin>
-      </Text>
-      <JFXPasswordField fx:id="passwordField" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="100.0" StackPane.alignment="CENTER">
+      </JFXTextField>
+      <JFXPasswordField fx:id="passwordField" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="100.0" promptText="Password" StackPane.alignment="CENTER">
          <StackPane.margin>
-            <Insets left="220.0" right="220.0" top="110.0" />
+            <Insets left="220.0" right="220.0" top="80.0" />
          </StackPane.margin>
+         <tooltip>
+            <Tooltip text="Atleast 8 characters, 1 number/symbol, 1 capital" />
+         </tooltip>
       </JFXPasswordField>
+      <JFXCheckBox fx:id="tosCheckBox" checkedColor="#1a52ab" prefHeight="23.0" prefWidth="173.0" text=" " textOverrun="CLIP" wrapText="true">
+         <StackPane.margin>
+            <Insets top="170.0" />
+         </StackPane.margin>
+         <font>
+            <Font size="10.0" />
+         </font>
+         <graphic>
+            <Hyperlink onAction="#showTos" text="Terms of Use">
+               <graphic>
+                  <Label text="I agree to the" />
+               </graphic>
+            </Hyperlink>
+         </graphic>
+      </JFXCheckBox>
       <JFXButton fx:id="createAccountButton" onAction="#handleClick" text="CREATE ACCOUNT" StackPane.alignment="CENTER">
          <StackPane.margin>
             <Insets top="250.0" />

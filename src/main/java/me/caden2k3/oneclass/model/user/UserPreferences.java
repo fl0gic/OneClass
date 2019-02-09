@@ -11,9 +11,7 @@ import lombok.Data;
  *
  * This code is copyright © Caden Kriese 2018
  */
-public @Data
-class UserPreferences {
-
+public @Data class UserPreferences {
     @SerializedName("background")
     private Color backgroundColor;
     @SerializedName("primary-text")

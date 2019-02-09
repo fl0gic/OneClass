@@ -1,4 +1,4 @@
-package me.caden2k3.oneclass.controller.util;
+package me.caden2k3.oneclass.controller.validator;
 
 import com.jfoenix.controls.base.IFXValidatableControl;
 import com.jfoenix.validation.base.ValidatorBase;
@@ -13,16 +13,14 @@ import lombok.Setter;
  * This code is copyright © Caden Kriese 2018
  */
 public class CustomValidator extends ValidatorBase {
-    @Getter
-    @Setter
-    private ValidatorRunnable runnable;
-
+    @Getter @Setter private ValidatorRunnable runnable;
     public CustomValidator(ValidatorRunnable runnable) {
         this.runnable = runnable;
     }
 
     @Override
     protected void eval() {
+        //Fixes messages not updating.
         if (srcControl.get() instanceof IFXValidatableControl)
             ((IFXValidatableControl) srcControl.get()).resetValidation();
 

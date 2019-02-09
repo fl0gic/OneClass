@@ -4,6 +4,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import lombok.Getter;
 import me.caden2k3.oneclass.OneClass;
 import me.caden2k3.oneclass.controller.Controller;
 import me.caden2k3.oneclass.model.Properties;
@@ -17,6 +18,8 @@ import me.caden2k3.oneclass.model.util.UtilLog;
  * This code is copyright © Caden Kriese 2018
  */
 public class UtilController {
+    private static @Getter Controller currentController = null;
+
     /**
      * Fully initializes & displays a FXML file.
      *
@@ -30,8 +33,12 @@ public class UtilController {
             FXMLLoader loader = new FXMLLoader(OneClass.class.getResource(Properties.VIEW_PATH + fxmlFile));
             Parent root = loader.load();
             UtilLog.debug("File loaded, attempting to apply controller.");
-            if (loader.getController() != null)
-                ((Controller) loader.getController()).apply(root);
+
+            if (loader.getController() instanceof Controller)
+                currentController = loader.getController();
+            
+            if (currentController != null)
+                currentController.apply(root);
             else {
                 UtilLog.getLog().warn("Controller file for '" + fxmlFile + "' is null, attempting to display.");
                 display(root);

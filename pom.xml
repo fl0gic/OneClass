@@ -51,6 +51,7 @@
   </build>
 
   <dependencies>
+    <!--JAVAFX-->
     <!-- JFeonix JFX Library -->
     <dependency>
       <groupId>com.jfoenix</groupId>
@@ -88,31 +89,25 @@
       <artifactId>javafx-media</artifactId>
       <version>11</version>
     </dependency>
-    <!-- Project Lombok -->
-    <dependency>
-      <groupId>org.projectlombok</groupId>
-      <artifactId>lombok</artifactId>
-      <version>1.18.2</version>
-    </dependency>
-    <!-- Gson -->
-    <dependency>
-      <groupId>com.google.code.gson</groupId>
-      <artifactId>gson</artifactId>
-      <version>2.8.5</version>
-    </dependency>
+
+    <!--APACHE-->
     <!-- Apache Commons (codec) -->
     <dependency>
       <groupId>commons-codec</groupId>
       <artifactId>commons-codec</artifactId>
       <version>1.11</version>
-      <scope>provided</scope>
     </dependency>
     <!-- Apache Commons (lang) -->
     <dependency>
       <groupId>org.apache.commons</groupId>
       <artifactId>commons-lang3</artifactId>
       <version>3.8.1</version>
-      <scope>provided</scope>
+    </dependency>
+    <!--Apache Commons (validator)-->
+    <dependency>
+      <groupId>commons-validator</groupId>
+      <artifactId>commons-validator</artifactId>
+      <version>1.6</version>
     </dependency>
     <!-- log4j -->
     <dependency>
@@ -124,6 +119,20 @@
       <groupId>org.apache.logging.log4j</groupId>
       <artifactId>log4j-api</artifactId>
       <version>2.11.1</version>
+    </dependency>
+
+    <!--Misc-->
+    <!-- Project Lombok -->
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <version>1.18.2</version>
+    </dependency>
+    <!-- Gson -->
+    <dependency>
+      <groupId>com.google.code.gson</groupId>
+      <artifactId>gson</artifactId>
+      <version>2.8.5</version>
     </dependency>
     <!-- FontAwesomeFX -->
     <!--<dependency>-->

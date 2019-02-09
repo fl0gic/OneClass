@@ -18,12 +18,11 @@ import java.util.concurrent.Executors;
  * Created on 10/3/18.
  */
 public class OneClass extends Application {
-    private static @Getter
-    OneClass instance;
-    private @Getter
-    Stage primaryStage;
-    @Getter
-    private ExecutorService fixedThreadPool;
+    private static @Getter OneClass instance;
+    private @Getter Stage primaryStage;
+    @Getter private ExecutorService fixedThreadPool;
+
+    private static boolean DEBUG_MODE = true;
 
     public static void main(String[] args) {
         launch(args);
@@ -31,10 +30,12 @@ public class OneClass extends Application {
 
     @Override
     public void start(Stage primaryStage) {
+        //Logging
         UtilLog.init();
-        UtilLog.setDebug(false);
+        UtilLog.setDebug(DEBUG_MODE);
         UtilLog.debug("Initializing OneClass, running #start()");
 
+        //Class Setup
         instance = this;
         this.primaryStage = primaryStage;
         fixedThreadPool = Executors.newFixedThreadPool(5);
@@ -46,13 +47,13 @@ public class OneClass extends Application {
         UtilLog.debug("Initializing DataManager.");
         DataManager.getInstance().init();
 
-        UtilController.openFile("district-search.fxml");
+        UtilController.openFile("setup/account-creation.fxml");
 
-//    if (DataManager.getInstance().getUserList().size() == 0) {
-//      UtilController.openFile("splash.fxml");
-//    } else {
-//      //TODO init app based on last login of other account.
-//    }
+//        if (DataManager.getInstance().getUserList().size() == 0) {
+//            UtilController.openFile("splash.fxml");
+//        } else {
+//            //TODO init app based on last login of other account.
+//        }
     }
 
     @Override
@@ -60,8 +61,11 @@ public class OneClass extends Application {
         UtilLog.debug("OneClass shutting down, running #stop().");
         AppData appData = DataManager.getInstance().getAppData();
 
-        appData.setLastHeight(primaryStage.getHeight());
-        appData.setLastWidth(primaryStage.getWidth());
+        if (UtilController.getCurrentController() != null && UtilController.getCurrentController().isUsePreviousSizes()) {
+            appData.setLastHeight(primaryStage.getHeight());
+            appData.setLastWidth(primaryStage.getWidth());
+        }
+
         if (DataManager.getInstance().getCurrentUser() != null)
             appData.setLatestUsername(DataManager.getInstance().getCurrentUser().getUsername());
 

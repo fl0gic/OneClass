@@ -17,8 +17,7 @@ import java.util.Date;
  *
  * This code is copyright © Caden Kriese 2018
  */
-public @Data
-class User {
+public @Data class User {
     private String username;
     private String email;
 
@@ -33,16 +32,15 @@ class User {
     @SerializedName("campus")
     private UserInfiniteCampus infiniteCampus;
 
-    private User() {
-    }
+    private User() {}
 
-    User(String username, String email, String password) {
+    public User(String username, String email, String password) {
         this.username = username;
         this.email = email;
         this.passHash = UtilCrypt.hash(password);
     }
 
-    User(String username, String email, String password, Date lastLogin) {
+    public User(String username, String email, String password, Date lastLogin) {
         this.username = username;
         this.email = email;
         this.passHash = UtilCrypt.hash(password);

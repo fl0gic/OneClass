@@ -8,9 +8,9 @@
 *.iml
 *.iws
 /out/
-#3 Mac
+## Mac
 .DS_Store
-# Maven
+## Maven
 log/
 target/
 dependency-reduced-pom.xml

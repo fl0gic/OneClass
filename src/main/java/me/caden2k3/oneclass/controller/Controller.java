@@ -9,7 +9,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -30,13 +29,13 @@ import java.util.ResourceBundle;
  *
  * This code is copyright © Caden Kriese 2018
  */
+@SuppressWarnings("Duplicates")
 public abstract class Controller implements Initializable {
 
-    @Getter
-    protected Parent root;
+    @Getter protected Parent root;
+    @Getter protected boolean usePreviousSizes = true;
     protected int minHeight = 200;
     protected int minWidth = 300;
-    protected boolean usePreviousSizes = true;
     protected StageStyle style = StageStyle.UNIFIED;
     protected String title = "";
 
@@ -106,7 +105,7 @@ public abstract class Controller implements Initializable {
      */
     public void dialog(JFXDialog.DialogTransition transition, String message) {
         //Avoid duplicate alerts.
-        if (((Pane) root).getChildren().stream().noneMatch(node -> node instanceof JFXDialog)) {
+        if (root.getChildrenUnmodifiable().stream().noneMatch(node -> node instanceof JFXDialog)) {
             JFXDialogLayout layout = new JFXDialogLayout();
             layout.setBody(new Label(message));
             JFXDialog dialog = new JFXDialog();
@@ -128,13 +127,14 @@ public abstract class Controller implements Initializable {
      */
     public void dialog(JFXDialog.DialogTransition transition, Node... nodes) {
         //Avoid duplicate alerts.
-        if (((Pane) root).getChildren().stream().noneMatch(node -> node instanceof JFXDialog)) {
+        if (root.getChildrenUnmodifiable().stream().noneMatch(node -> node instanceof JFXDialog)) {
             JFXDialogLayout layout = new JFXDialogLayout();
             layout.setBody(nodes);
             JFXDialog dialog = new JFXDialog();
             dialog.setTransitionType(transition);
             dialog.setDialogContainer((StackPane) root);
             dialog.setContent(layout);
+            root.addEventHandler(KeyEvent.KEY_PRESSED, event -> dialog.close());
             dialog.show();
         }
     }
