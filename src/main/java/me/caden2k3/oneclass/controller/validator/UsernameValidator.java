@@ -6,6 +6,8 @@ import javafx.scene.control.TextField;
 import me.caden2k3.oneclass.model.DataManager;
 import me.caden2k3.oneclass.model.user.User;
 
+import java.util.Objects;
+
 import static java.util.stream.Collectors.toList;
 
 /**
@@ -23,7 +25,7 @@ public class UsernameValidator extends ValidatorBase {
         if (srcControl.get() instanceof TextField) {
             String username = ((TextField) srcControl.get()).getText();
             if (username.length() > 0) {
-                if (!DataManager.getInstance().getUserList().stream()
+                if (!DataManager.getInstance().getUserList().stream().filter(Objects::nonNull)
                         .map(User::getUsername).collect(toList()).contains(username)) {
                     //TODO verify in DB that username is not taken.
                     hasErrors.set(false);

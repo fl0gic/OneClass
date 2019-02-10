@@ -35,9 +35,9 @@ public class UtilFile {
         if (!file.isDirectory()) {
             try {
                 if (Properties.OS_NAME.contains("win")) {
-                    return String.join("\r\n", Files.readAllLines(Paths.get(file.toURI())));
+                    return String.join("\r\n", Files.readAllLines(Paths.get(file.toURI()), Charset.forName("UTF-8")));
                 } else {
-                    return String.join("\n", Files.readAllLines(Paths.get(file.toURI())));
+                    return String.join("\n", Files.readAllLines(Paths.get(file.toURI()), Charset.forName("UTF-8")));
                 }
             } catch (Exception ex) {
                 UtilLog.error(ex);

@@ -67,9 +67,11 @@ public class DataManager {
         Arrays.stream(Objects.requireNonNull(userDir.listFiles()))
                 .forEach(file -> userList.add(gson.fromJson(UtilFile.read(file), User.class)));
 
-        currentUser = userList.stream()
-                .filter(user -> user.getUsername().equals(appData.getLatestUsername())).findFirst()
-                .orElse(null);
+        if (appData.getLatestUsername() != null) {
+            currentUser = userList.stream()
+                    .filter(user -> user.getUsername().equals(appData.getLatestUsername())).findFirst()
+                    .orElse(null);
+        }
     }
 
     /**
@@ -95,7 +97,7 @@ public class DataManager {
      * Writes all currently stored data to files.
      */
     public void save() {
-        userList.forEach(user -> UtilFile.writeAndCreate(user,
+        userList.stream().filter(Objects::nonNull).forEach(user -> UtilFile.writeAndCreate(user,
                 new File(Properties.USERS_FOLDER_PATH + "/" + user.getUsername() + ".json")));
         UtilFile.writeAndCreate(appData, new File(APP_DATA_PATH));
     }

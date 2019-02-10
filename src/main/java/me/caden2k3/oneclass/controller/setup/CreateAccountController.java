@@ -11,7 +11,6 @@ import me.caden2k3.oneclass.controller.validator.EmailValidator;
 import me.caden2k3.oneclass.controller.validator.PasswordValidator;
 import me.caden2k3.oneclass.controller.validator.UsernameValidator;
 import me.caden2k3.oneclass.model.DataManager;
-import me.caden2k3.oneclass.model.user.User;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -80,9 +79,8 @@ public class CreateAccountController extends Controller {
             if (passwordField.validate()) {
                 if (emailField.validate()) {
                     if (tosCheckBox.isSelected()) {
-                        User user = DataManager.getInstance()
-                                .createNewUser(usernameField.getText(), emailField.getText(), passwordField.getText());
-
+                        DataManager.getInstance().setCurrentUser(DataManager.getInstance()
+                                .createNewUser(usernameField.getText(), emailField.getText(), passwordField.getText()));
                         dialog(DialogTransition.CENTER, "Account created & saved!");
                     } else
                         error("You must agree to the terms of service!");
