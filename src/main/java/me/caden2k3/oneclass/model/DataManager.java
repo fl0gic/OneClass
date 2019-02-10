@@ -69,7 +69,7 @@ public class DataManager {
 
         if (appData.getLatestUsername() != null) {
             currentUser = userList.stream()
-                    .filter(user -> user.getUsername().equals(appData.getLatestUsername())).findFirst()
+                    .filter(user -> user != null && user.getUsername().equals(appData.getLatestUsername())).findFirst()
                     .orElse(null);
         }
     }
