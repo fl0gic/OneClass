@@ -1,12 +1,15 @@
 package me.caden2k3.oneclass;
 
 import javafx.application.Application;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import lombok.Getter;
 import me.caden2k3.oneclass.controller.util.UtilController;
 import me.caden2k3.oneclass.model.AppData;
 import me.caden2k3.oneclass.model.DataManager;
+import me.caden2k3.oneclass.model.Properties;
 import me.caden2k3.oneclass.model.util.UtilLog;
+import org.apache.commons.lang3.RandomStringUtils;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -18,18 +21,16 @@ import java.util.concurrent.Executors;
  * Created on 10/3/18.
  */
 public class OneClass extends Application {
-    private static @Getter OneClass instance;
-    private @Getter Stage primaryStage;
+    @Getter private static OneClass instance;
+    @Getter private Stage primaryStage;
     @Getter private ExecutorService fixedThreadPool;
-
     private static boolean DEBUG_MODE = true;
 
     public static void main(String[] args) {
         launch(args);
     }
 
-    @Override
-    public void start(Stage primaryStage) {
+    @Override public void start(Stage primaryStage) {
         //Logging
         UtilLog.init();
         UtilLog.setDebug(DEBUG_MODE);
@@ -40,14 +41,11 @@ public class OneClass extends Application {
         this.primaryStage = primaryStage;
         fixedThreadPool = Executors.newFixedThreadPool(5);
 
-        //UtilLog.debug("Setting project icon.");
-        //primaryStage.getIcons().add(new Image(getClass().getResourceAsStream(Properties.IMAGE_PATH+"icon.png")));
-
         //Initialize classes
         UtilLog.debug("Initializing DataManager.");
         DataManager.getInstance().init();
 
-        UtilController.openFile("setup/account-creation.fxml");
+        UtilController.openFile("setup/splash.fxml");
 
 //        if (DataManager.getInstance().getUserList().size() == 0) {
 //            UtilController.openFile("splash.fxml");

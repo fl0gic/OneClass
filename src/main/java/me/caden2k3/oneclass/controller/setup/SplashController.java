@@ -9,12 +9,12 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import javafx.util.Duration;
 import me.caden2k3.oneclass.OneClass;
 import me.caden2k3.oneclass.controller.Controller;
 import me.caden2k3.oneclass.controller.util.UtilController;
 
+import java.net.URL;
 import java.util.*;
 
 /**
@@ -25,29 +25,32 @@ import java.util.*;
  * This code is copyright © Caden Kriese 2018
  */
 public class SplashController extends Controller {
-    @FXML
-    private Text welcomeText;
-    @FXML
-    private ImageView logo;
+    @FXML private Text welcomeText;
+    @FXML private ImageView logo;
+
+    private Pane node;
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        super.initialize(location, resources);
+        usePreviousSizes = false;
+        resizable = false;
+        title = "";
+    }
 
     @Override
     public void apply(Parent root) {
-        Stage stage = OneClass.getInstance().getPrimaryStage();
-        Scene scene = new Scene(root);
-
-        stage.initStyle(StageStyle.UNIFIED);
-
-        stage.setResizable(false);
-        stage.setTitle("");
-        stage.setScene(scene);
-
-        if (!stage.isShowing())
-            stage.show();
-
+        super.apply(root);
         runAnimation();
+
+        //Initialize it here to keep stuff smooth when animation runs.
+        OneClass.getInstance().getFixedThreadPool().submit(() -> {
+            node = (Pane) UtilController.loadFile("setup/account-creation.fxml");
+        });
     }
 
-    public void runAnimation() {
+    //Runs the welcome animation.
+    private void runAnimation() {
         Stage primaryStage = OneClass.getInstance().getPrimaryStage();
         Scene scene = primaryStage.getScene();
 
@@ -81,10 +84,6 @@ public class SplashController extends Controller {
                     logoFade.setToValue(0);
 
                     List<Transition> transitions = new ArrayList<>(Arrays.asList(textFade, textScale, logoFade, logoScale));
-
-                    Pane node = (Pane) UtilController.loadFile("setup/account-creation.fxml");
-
-                    assert node != null : "Root was null, ya done goofed.";
 
                     ((Pane) OneClass.getInstance().getPrimaryStage().getScene().getRoot()).getChildren().add(node);
 

@@ -1,5 +1,8 @@
 package me.caden2k3.oneclass.model;
 
+import javafx.scene.image.Image;
+import me.caden2k3.oneclass.OneClass;
+
 /**
  * @author Caden Kriese The {@link Properties} class Stores static properties for the application,
  * such as file locations, and system information.
@@ -22,4 +25,5 @@ public class Properties {
     public static final String IMAGE_PATH = "/resources/image/";
     public static String OS_VERSION = System.getProperty("os.version");
     public static String OS_ARCH = System.getProperty("os.arch");
+    public static final Image APPLICATION_ICON = new Image(OneClass.class.getResourceAsStream(IMAGE_PATH+"icon.png"));
 }

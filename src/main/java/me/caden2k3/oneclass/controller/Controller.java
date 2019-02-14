@@ -8,6 +8,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
@@ -29,13 +30,14 @@ import java.util.ResourceBundle;
  *
  * This code is copyright © Caden Kriese 2018
  */
-@SuppressWarnings("Duplicates")
 public abstract class Controller implements Initializable {
 
     @Getter protected Parent root;
     @Getter protected boolean usePreviousSizes = true;
+    protected Image windowIcon;
     protected int minHeight = 200;
     protected int minWidth = 300;
+    protected boolean resizable = true;
     protected StageStyle style = StageStyle.UNIFIED;
     protected String title = "";
 
@@ -69,12 +71,20 @@ public abstract class Controller implements Initializable {
         Stage stage = OneClass.getInstance().getPrimaryStage();
         Scene scene = new Scene(root);
 
+        UtilLog.debug("Setting resizable to '"+resizable+"'.");
+        stage.setResizable(resizable);
+
         UtilLog.debug("Setting minimum width to '" + minWidth + "' and minimum height to '" + minHeight + "'.");
         stage.setMinHeight(minHeight);
         stage.setMinWidth(minWidth);
 
         UtilLog.debug("Setting title to '" + title + "'.");
         stage.setTitle(title);
+
+        if (windowIcon != null) {
+            UtilLog.debug("Setting window icon.");
+            stage.getIcons().add(windowIcon);
+        }
 
         if (usePreviousSizes) {
             AppData data = DataManager.getInstance().getAppData();

@@ -11,6 +11,7 @@ import me.caden2k3.oneclass.controller.validator.EmailValidator;
 import me.caden2k3.oneclass.controller.validator.PasswordValidator;
 import me.caden2k3.oneclass.controller.validator.UsernameValidator;
 import me.caden2k3.oneclass.model.DataManager;
+import me.caden2k3.oneclass.model.Properties;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -42,7 +43,8 @@ public class CreateAccountController extends Controller {
         minHeight = 375;
         minWidth = 300;
         usePreviousSizes = false;
-        title = "Create an Account";
+        title = "Create an account";
+        windowIcon = Properties.APPLICATION_ICON;
 
         //VALIDATORS
         EmailValidator validator = new EmailValidator();
@@ -71,7 +73,7 @@ public class CreateAccountController extends Controller {
         createAccount();
     }
     @FXML public void showTos() {
-        dialog(DialogTransition.CENTER, "I agree to not be a dick.");
+        dialog(DialogTransition.RIGHT, "I agree to not be a jerk.");
     }
 
     private void createAccount() {

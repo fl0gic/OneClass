@@ -4,8 +4,6 @@ import com.google.gson.Gson;
 import lombok.Getter;
 import lombok.Setter;
 import me.caden2k3.oneclass.model.user.User;
-import me.caden2k3.oneclass.model.user.UserInfiniteCampus;
-import me.caden2k3.oneclass.model.util.UtilCrypt;
 import me.caden2k3.oneclass.model.util.UtilFile;
 import me.caden2k3.oneclass.model.util.UtilLog;
 
@@ -24,15 +22,15 @@ import java.util.*;
  * This code is copyright © Caden Kriese 2018
  */
 public class DataManager {
-    private static @Getter
-    DataManager instance = new DataManager();
-    private final Gson gson = new Gson();
-    private final String APP_DATA_PATH = Properties.DATA_FOLDER_PATH + "/app.json";
+    private DataManager() {}
+    private static @Getter DataManager instance = new DataManager();
+
+    private final Gson GSON = new Gson();
+    private final String APP_DATA_PATH = Properties.DATA_FOLDER_PATH + "/app";
+
     private @Getter List<User> userList = new ArrayList<>();
     private @Getter @Setter User currentUser;
     private @Getter AppData appData;
-
-    private DataManager() {}
 
     /**
      * Used to read data from the system and put it into the app.
@@ -51,7 +49,10 @@ public class DataManager {
 
         File appDataFile = new File(APP_DATA_PATH);
         if (appDataFile.exists()) {
-            appData = gson.fromJson(UtilFile.read(appDataFile), AppData.class);
+            appData = GSON.fromJson(UtilFile.read(appDataFile), AppData.class);
+
+            if (appData == null)
+                appData = new AppData();
         } else {
             try {
                 appDataFile.createNewFile();
@@ -63,9 +64,8 @@ public class DataManager {
             return;
         }
 
-        //TODO implement user data encryption on serialize, & decryption on deserialize
         Arrays.stream(Objects.requireNonNull(userDir.listFiles()))
-                .forEach(file -> userList.add(gson.fromJson(UtilFile.read(file), User.class)));
+                .forEach(file -> userList.add(GSON.fromJson(UtilFile.read(file), User.class)));
 
         if (appData.getLatestUsername() != null) {
             currentUser = userList.stream()
@@ -98,37 +98,8 @@ public class DataManager {
      */
     public void save() {
         userList.stream().filter(Objects::nonNull).forEach(user -> UtilFile.writeAndCreate(user,
-                new File(Properties.USERS_FOLDER_PATH + "/" + user.getUsername() + ".json")));
+                new File(Properties.USERS_FOLDER_PATH + "/" + user.getUsername())));
         UtilFile.writeAndCreate(appData, new File(APP_DATA_PATH));
     }
 
-    /**
-     * Decrypts an users infinite campus credentials using their password.
-     *
-     * @param user The infinite campus credentials to be decrypted.
-     * @return The decrypted IC credentials.
-     */
-    public UserInfiniteCampus decryptICCreds(UserInfiniteCampus user, String password) {
-        user = new UserInfiniteCampus();
-        user.setUsername(UtilCrypt.decrypt(user.getUsername(), password));
-        user.setPassword(UtilCrypt.decrypt(user.getPassword(), password));
-        user.setDistrictId(UtilCrypt.decrypt(user.getDistrictId(), password));
-
-        return user;
-    }
-
-    /**
-     * Encrypts an users infinite campus credentials using their password.
-     *
-     * @param user The infinite campus credentials to be encrypted.
-     * @return The encrypted IC credentials.
-     */
-    public UserInfiniteCampus encryptICCreds(UserInfiniteCampus user, String password) {
-        user = new UserInfiniteCampus();
-        user.setUsername(UtilCrypt.encrypt(user.getUsername(), password));
-        user.setPassword(UtilCrypt.encrypt(user.getPassword(), password));
-        user.setDistrictId(UtilCrypt.encrypt(user.getDistrictId(), password));
-
-        return user;
-    }
 }
