@@ -1,15 +1,12 @@
 package me.caden2k3.oneclass;
 
 import javafx.application.Application;
-import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import lombok.Getter;
 import me.caden2k3.oneclass.controller.util.UtilController;
 import me.caden2k3.oneclass.model.AppData;
 import me.caden2k3.oneclass.model.DataManager;
-import me.caden2k3.oneclass.model.Properties;
 import me.caden2k3.oneclass.model.util.UtilLog;
-import org.apache.commons.lang3.RandomStringUtils;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -45,7 +42,7 @@ public class OneClass extends Application {
         UtilLog.debug("Initializing DataManager.");
         DataManager.getInstance().init();
 
-        UtilController.openFile("setup/splash.fxml");
+        UtilController.openFile("setup/infinitecampus/ic-login.fxml");
 
 //        if (DataManager.getInstance().getUserList().size() == 0) {
 //            UtilController.openFile("splash.fxml");
