@@ -19,3 +19,5 @@ bin/
 src/test/
 logs/
 src/main/resources/config/google-creds.json
+hs_err_*.log
+tokens/
