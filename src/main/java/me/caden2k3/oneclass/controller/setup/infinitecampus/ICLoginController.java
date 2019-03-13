@@ -1,7 +1,7 @@
 package me.caden2k3.oneclass.controller.setup.infinitecampus;
 
 import com.google.api.client.auth.oauth2.Credential;
-import com.google.api.client.auth.oauth2.TokenResponse;
+import com.google.api.client.extensions.java6.auth.oauth2.AuthorizationCodeInstalledApp;
 import com.google.api.client.extensions.jetty.auth.oauth2.LocalServerReceiver;
 import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeFlow;
 import com.google.api.client.googleapis.auth.oauth2.GoogleClientSecrets;
@@ -10,12 +10,13 @@ import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.client.util.store.FileDataStoreFactory;
+import com.google.api.services.classroom.Classroom;
 import com.google.api.services.classroom.ClassroomScopes;
-import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.image.Image;
 import javafx.scene.web.WebView;
+import lombok.Getter;
 import me.caden2k3.oneclass.OneClass;
 import me.caden2k3.oneclass.controller.Controller;
 import me.caden2k3.oneclass.model.Properties;
@@ -36,6 +37,8 @@ import java.util.ResourceBundle;
  * Created on 2019-02-12.
  */
 public class ICLoginController extends Controller {
+    @Getter private static ICLoginController instance;
+
     private static final List<String> SCOPES = Collections.singletonList(ClassroomScopes.CLASSROOM_COURSES_READONLY);
     private static final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
     private static final String APPLICATION_NAME = "Google Classroom API Java Quickstart";
@@ -44,6 +47,7 @@ public class ICLoginController extends Controller {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         super.initialize(location, resources);
+        instance = this;
 
         //Configure window/stage settings.
         minHeight = 375;
@@ -60,20 +64,13 @@ public class ICLoginController extends Controller {
 
         try {
             final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
-            OneClass.getInstance().getFixedThreadPool().submit(() -> {
-                try {
-                    Credential credential = getCredentials(HTTP_TRANSPORT);
-                    System.out.println("CREDENTIAL TOKEN = "+credential.getAccessToken());
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            });
+            Credential credential = getCredentials(HTTP_TRANSPORT);
 
-//            Classroom service = new Classroom.Builder(HTTP_TRANSPORT, JSON_FACTORY, credential)
-//                    .setApplicationName(APPLICATION_NAME)
-//                    .build();
-//
-//            UtilLog.debug("COURSES SIZE = " + service.courses().list().size());
+            Classroom service = new Classroom.Builder(HTTP_TRANSPORT, JSON_FACTORY, credential)
+                    .setApplicationName(APPLICATION_NAME)
+                    .build();
+
+            UtilLog.debug("COURSES SIZE = " + service.courses().list().size());
 
 //            Platform.runLater(() -> view.getEngine().load("https://campus.dcsdk12.org/icprod/portal/icprod.jsp"));
 //            view.getEngine().setOnStatusChanged(event -> System.out.println("STATUS CHANGED : " + event.toString()));
@@ -94,30 +91,20 @@ public class ICLoginController extends Controller {
         GoogleClientSecrets clientSecrets = GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(in));
 
         // Build flow and trigger user authorization request.
+
         GoogleAuthorizationCodeFlow flow = new GoogleAuthorizationCodeFlow.Builder(
                 HTTP_TRANSPORT, JSON_FACTORY, clientSecrets, SCOPES)
                 .setDataStoreFactory(new FileDataStoreFactory(new File("tokens")))
                 .setAccessType("offline")
                 .build();
 
-        Credential credential = flow.loadCredential("user");
-        if (credential != null
-                && (credential.getRefreshToken() != null ||
-                credential.getExpiresInSeconds() == null ||
-                credential.getExpiresInSeconds() > 60)) {
-            return credential;
+        try {
+            LocalServerReceiver receiver = new LocalServerReceiver.Builder().setPort(8888).build();
+            return new AuthorizationCodeInstalledApp(flow, receiver).authorize("user");
+        } catch (Exception ex) {
+            UtilLog.error(ex);
         }
 
-        LocalServerReceiver receiver = new LocalServerReceiver.Builder().setPort(8888).build();
-        String url = flow.newAuthorizationUrl().setRedirectUri(receiver.getRedirectUri()).build();
-
-        //OneClass.getInstance().getFixedThreadPool().submit(() ->
-        Platform.runLater(() -> view.getEngine().load(url));
-
-        // receive authorization code and exchange it for an access token
-        String code = receiver.waitForCode();
-        TokenResponse response = flow.newTokenRequest(code).setRedirectUri(receiver.getRedirectUri()).execute();
-        // store credential and return it
-        return flow.createAndStoreCredential(response, "user");
+        return null;
     }
 }

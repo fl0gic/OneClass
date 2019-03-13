@@ -42,7 +42,7 @@ public class OneClass extends Application {
         UtilLog.debug("Initializing DataManager.");
         DataManager.getInstance().init();
 
-        UtilController.openFile("setup/infinitecampus/ic-login.fxml");
+        UtilController.openFile("/setup/infinitecampus/ic-login.fxml");
 
 //        if (DataManager.getInstance().getUserList().size() == 0) {
 //            UtilController.openFile("splash.fxml");
