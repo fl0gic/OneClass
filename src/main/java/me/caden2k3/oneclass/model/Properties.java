@@ -23,6 +23,7 @@ public class Properties {
     public static final String USERS_FOLDER_PATH = DATA_FOLDER_PATH + "/users";
     public static final String VIEW_PATH = "/resources/view/";
     public static final String IMAGE_PATH = "/resources/image/";
+    public static final String GOOGLE_CREDENTIALS = "/resources/config/google-creds.json";
     public static String OS_VERSION = System.getProperty("os.version");
     public static String OS_ARCH = System.getProperty("os.arch");
     public static final Image APPLICATION_ICON = new Image(OneClass.class.getResourceAsStream(IMAGE_PATH+"icon.png"));
