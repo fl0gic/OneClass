@@ -1,5 +1,8 @@
 package me.caden2k3.oneclass.model.util;
 
+import io.sentry.Sentry;
+import io.sentry.event.BreadcrumbBuilder;
+import io.sentry.event.UserBuilder;
 import lombok.Getter;
 import me.caden2k3.oneclass.model.DataManager;
 import org.apache.logging.log4j.Level;
@@ -54,6 +57,13 @@ public class UtilLog {
     }
 
     public static void error(Exception ex) {
+        // Set the user in the current context.
+        Sentry.getContext().setUser(
+                new UserBuilder().setEmail("gamerking195@gmail.com").build()
+        );
+
+        Sentry.capture(ex);
+
         log.warn(ex.getMessage(), ex);
     }
 

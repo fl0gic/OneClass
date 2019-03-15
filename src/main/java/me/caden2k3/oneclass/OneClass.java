@@ -1,5 +1,6 @@
 package me.caden2k3.oneclass;
 
+import io.sentry.Sentry;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import lombok.Getter;
@@ -32,6 +33,9 @@ public class OneClass extends Application {
         UtilLog.init();
         UtilLog.setDebug(DEBUG_MODE);
         UtilLog.debug("Initializing OneClass, running #start()");
+
+        //Initialize Sentry (Error tracking).
+        Sentry.init("https://07adfed2e391485bb3b21e1f13ffb949@sentry.io/1416648");
 
         //Class Setup
         instance = this;
