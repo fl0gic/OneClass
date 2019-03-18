@@ -7,6 +7,7 @@ import lombok.Getter;
 import me.caden2k3.oneclass.controller.util.UtilController;
 import me.caden2k3.oneclass.model.AppData;
 import me.caden2k3.oneclass.model.DataManager;
+import me.caden2k3.oneclass.model.Properties;
 import me.caden2k3.oneclass.model.util.UtilLog;
 
 import java.util.concurrent.ExecutorService;
@@ -35,7 +36,7 @@ public class OneClass extends Application {
         UtilLog.debug("Initializing OneClass, running #start()");
 
         //Initialize Sentry (Error tracking).
-        Sentry.init("https://07adfed2e391485bb3b21e1f13ffb949@sentry.io/1416648");
+        Sentry.init(Properties.SENTRY_DSN);
 
         //Class Setup
         instance = this;

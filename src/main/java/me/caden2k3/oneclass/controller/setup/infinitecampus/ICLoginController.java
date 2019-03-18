@@ -86,7 +86,7 @@ public class ICLoginController extends Controller {
      */
     private static Credential getCredentials(final NetHttpTransport HTTP_TRANSPORT) throws IOException {
         // Load client secrets.
-        InputStream in = ICLoginController.class.getResourceAsStream(Properties.GOOGLE_CREDENTIALS);
+        InputStream in = ICLoginController.class.getResourceAsStream(Properties.GOOGLE_CREDS_PATH);
         GoogleClientSecrets clientSecrets = GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(in));
 
         // Build flow and trigger user authorization request.
