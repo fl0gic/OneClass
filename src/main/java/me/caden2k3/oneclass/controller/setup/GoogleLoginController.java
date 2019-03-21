@@ -1,4 +1,4 @@
-package me.caden2k3.oneclass.controller.setup.infinitecampus;
+package me.caden2k3.oneclass.controller.setup;
 
 import com.google.api.client.auth.oauth2.Credential;
 import com.google.api.client.extensions.java6.auth.oauth2.AuthorizationCodeInstalledApp;
@@ -35,8 +35,8 @@ import java.util.ResourceBundle;
  *
  * Created on 2019-02-12.
  */
-public class ICLoginController extends Controller {
-    @Getter private static ICLoginController instance;
+public class GoogleLoginController extends Controller {
+    @Getter private static GoogleLoginController instance;
 
     private static final List<String> SCOPES = Collections.singletonList(ClassroomScopes.CLASSROOM_COURSES_READONLY);
     private static final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
@@ -52,8 +52,8 @@ public class ICLoginController extends Controller {
         minHeight = 375;
         minWidth = 300;
         usePreviousSizes = false;
-        title = "Login to Infinite Campus";
-        windowIcon = new Image(OneClass.class.getResourceAsStream(Properties.IMAGE_PATH+"infinite-campus.png"));
+        title = "Login to Google";
+        windowIcon = Properties.APPLICATION_ICON;
     }
 
     @Override
@@ -86,7 +86,7 @@ public class ICLoginController extends Controller {
      */
     private static Credential getCredentials(final NetHttpTransport HTTP_TRANSPORT) throws IOException {
         // Load client secrets.
-        InputStream in = ICLoginController.class.getResourceAsStream(Properties.GOOGLE_CREDS_PATH);
+        InputStream in = GoogleLoginController.class.getResourceAsStream(Properties.GOOGLE_CREDS_PATH);
         GoogleClientSecrets clientSecrets = GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(in));
 
         // Build flow and trigger user authorization request.

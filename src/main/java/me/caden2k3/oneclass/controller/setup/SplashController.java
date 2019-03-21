@@ -2,6 +2,8 @@ package me.caden2k3.oneclass.controller.setup;
 
 import javafx.animation.*;
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -63,45 +65,8 @@ public class SplashController extends Controller {
         logoTrans.setFromX(scene.getWidth() / 2);
         logoTrans.setToX(0);
 
-        new ParallelTransition(textTrans, logoTrans).play();
-
-        new Timer().schedule(new TimerTask() {
-            @Override
-            public void run() {
-                Platform.runLater(() -> {
-
-                    int scaleSize = 6;
-
-                    ScaleTransition textScale = new ScaleTransition(duration, welcomeText);
-                    textScale.setToX(scaleSize);
-                    textScale.setToY(scaleSize);
-                    FadeTransition textFade = new FadeTransition(duration, welcomeText);
-                    textFade.setToValue(0);
-                    ScaleTransition logoScale = new ScaleTransition(duration, logo);
-                    logoScale.setToX(scaleSize);
-                    logoScale.setToY(scaleSize);
-                    FadeTransition logoFade = new FadeTransition(duration, logo);
-                    logoFade.setToValue(0);
-
-                    List<Transition> transitions = new ArrayList<>(Arrays.asList(textFade, textScale, logoFade, logoScale));
-
-                    ((Pane) OneClass.getInstance().getPrimaryStage().getScene().getRoot()).getChildren().add(node);
-
-                    node.setLayoutX(0);
-                    node.setLayoutY(0);
-
-                    ScaleTransition scaleTransition = new ScaleTransition(duration, node);
-                    scaleTransition.setFromX(0);
-                    scaleTransition.setFromY(0);
-                    scaleTransition.setToX(1);
-                    scaleTransition.setToY(1);
-                    transitions.add(scaleTransition);
-
-                    ParallelTransition sceneTrans = new ParallelTransition(transitions.toArray(new Transition[]{}));
-                    sceneTrans.setOnFinished(event -> UtilController.openFile("setup/account-creation.fxml"));
-                    sceneTrans.play();
-                });
-            }
-        }, 1500);
+        ParallelTransition transition = new ParallelTransition(textTrans, logoTrans);
+        transition.setOnFinished(event -> UtilController.transitionToNewStage(UtilController.StageTransition.SCALE, "setup/account-creation.fxml", 1));
+        transition.play();
     }
 }

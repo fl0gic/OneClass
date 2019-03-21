@@ -1,13 +1,11 @@
 package me.caden2k3.oneclass;
 
-import io.sentry.Sentry;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import lombok.Getter;
 import me.caden2k3.oneclass.controller.util.UtilController;
 import me.caden2k3.oneclass.model.AppData;
 import me.caden2k3.oneclass.model.DataManager;
-import me.caden2k3.oneclass.model.Properties;
 import me.caden2k3.oneclass.model.util.UtilLog;
 
 import java.util.concurrent.ExecutorService;
@@ -23,6 +21,8 @@ public class OneClass extends Application {
     @Getter private static OneClass instance;
     @Getter private Stage primaryStage;
     @Getter private ExecutorService fixedThreadPool;
+
+    @SuppressWarnings("FieldCanBeLocal")
     private static boolean DEBUG_MODE = true;
 
     public static void main(String[] args) {
@@ -36,7 +36,7 @@ public class OneClass extends Application {
         UtilLog.debug("Initializing OneClass, running #start()");
 
         //Initialize Sentry (Error tracking).
-        Sentry.init(Properties.SENTRY_DSN);
+        //Sentry.init(Properties.SENTRY_DSN);
 
         //Class Setup
         instance = this;
@@ -47,7 +47,7 @@ public class OneClass extends Application {
         UtilLog.debug("Initializing DataManager.");
         DataManager.getInstance().init();
 
-        UtilController.openFile("/setup/infinitecampus/ic-login.fxml");
+        UtilController.openFile("setup/splash.fxml");
 
 //        if (DataManager.getInstance().getUserList().size() == 0) {
 //            UtilController.openFile("splash.fxml");
