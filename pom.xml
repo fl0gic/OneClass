@@ -171,8 +171,8 @@
   </dependencies>
   <repositories>
     <repository>
-      <id>FL-Resources</id>
-      <url>https://repo.gamerking195.com/artifactory/FL-Resources</url>
+      <id>flogic-resources</id>
+      <url>https://repo.flogi.cc/artifactory/flogic-resources</url>
     </repository>
   </repositories>
 </project>
