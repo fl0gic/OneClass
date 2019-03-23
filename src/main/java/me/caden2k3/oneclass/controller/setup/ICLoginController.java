@@ -1,7 +1,9 @@
 package me.caden2k3.oneclass.controller.setup;
 
+import javafx.event.ActionEvent;
 import javafx.scene.Parent;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyEvent;
 import lombok.Getter;
 import me.caden2k3.oneclass.OneClass;
 import me.caden2k3.oneclass.controller.Controller;
@@ -31,9 +33,14 @@ public class ICLoginController extends Controller {
         windowIcon = new Image(OneClass.class.getResourceAsStream(Properties.IMAGE_PATH+"infinite-campus.png"));
     }
 
-    @Override
-    public void apply(Parent root) {
+    @Override public void apply(Parent root) {
         super.apply(root);
+    }
 
+    public void handleClick(ActionEvent event) {
+
+    }
+
+    public void handleKeyPressed(KeyEvent keyEvent) {
     }
 }

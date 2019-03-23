@@ -1,8 +1,7 @@
-package me.caden2k3.oneclass.controller;
+package me.caden2k3.oneclass.controller.setup;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
-import com.jfoenix.controls.JFXDialog.DialogTransition;
 import com.jfoenix.controls.JFXSpinner;
 import com.jfoenix.controls.JFXTextField;
 import javafx.animation.ScaleTransition;
@@ -16,6 +15,8 @@ import javafx.util.Duration;
 import javafx.util.StringConverter;
 import lombok.Getter;
 import me.caden2k3.oneclass.OneClass;
+import me.caden2k3.oneclass.controller.Controller;
+import me.caden2k3.oneclass.controller.util.UtilController;
 import me.caden2k3.oneclass.model.util.UtilInfiniteCampus;
 import me.caden2k3.oneclass.model.util.UtilStates;
 
@@ -70,8 +71,7 @@ public class DistrictSearchController extends Controller {
         }
     }
 
-    @FXML
-    public void search() {
+    @FXML public void search() {
         JFXSpinner spinner = new JFXSpinner();
         spinner.setRadius(10);
         ((Pane) root).getChildren().add(spinner);
@@ -91,7 +91,8 @@ public class DistrictSearchController extends Controller {
             Platform.runLater(() -> {
                 ((Pane) root).getChildren().remove(spinner);
 
-                dialog(DialogTransition.CENTER, id == null ? "Unable to find district!" : id);
+                UtilController.transitionToNewStage(UtilController.StageTransitionType.SWIPE_NODES, "setup/ic-login.fxml", 2);
+//                dialog(DialogTransition.CENTER, id == null ? "Unable to find district!" : id);
             });
         });
     }

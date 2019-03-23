@@ -78,7 +78,7 @@ public class UtilController {
      * @param pathToNextStage The path to the next FXML file that should be transitioned to.
      * @param durationSeconds The duration of the transition in seconds.
      *
-     * @apiNote When using the SWIPE transition the overall duration will last slightly longer than the duration specified duration.
+     * @apiNote When using the SWIPE_NODES transition the overall duration will last slightly longer than the duration specified duration.
      */
     @SuppressWarnings("Duplicates")
     public static void transitionToNewStage(StageTransitionType transitionType, String pathToNextStage, double durationSeconds) {
@@ -90,7 +90,7 @@ public class UtilController {
         //Size to scale objects to for scale transitions.
         int scaleSize = 6;
 
-        if (transitionType == StageTransitionType.SCALE_INDIVIDUAL) {
+        if (transitionType == StageTransitionType.SCALE_NODES) {
             //Scale and fade out objects.
             Animation[] scaleOutAnimations = scene.getRoot().getChildrenUnmodifiable()
                     .stream()
@@ -163,7 +163,7 @@ public class UtilController {
             });
 
             transitionOut.play();
-        } else if (transitionType == StageTransitionType.SWIPE) {
+        } else if (transitionType == StageTransitionType.SWIPE_NODES) {
             //NOTE: Because of the stagger this transition will take longer than the duration specified (node count * stagger amount longer).
             int staggerAmount = 100;
 
@@ -200,6 +200,22 @@ public class UtilController {
             });
 
             transitionOut.play();
+        } else if (transitionType == StageTransitionType.SWIPE_STAGE) {
+            TranslateTransition transitionOut = new TranslateTransition(duration, scene.getRoot());
+            transitionOut.setToX(scene.getWidth()*-2);
+
+            transitionOut.setOnFinished(event -> {
+                //Switch to next scene
+                openFile(pathToNextStage);
+                Scene currentScene = OneClass.getInstance().getPrimaryStage().getScene();
+
+                TranslateTransition transitionIn = new TranslateTransition(duration, currentScene.getRoot());
+                transitionIn.setFromX(scene.getWidth()*2);
+                transitionIn.setToX(0);
+                transitionIn.play();
+            });
+
+            transitionOut.play();
         }
     }
 
@@ -217,8 +233,9 @@ public class UtilController {
     }
 
     public enum StageTransitionType {
-        SCALE_INDIVIDUAL,
+        SCALE_NODES,
         SCALE_STAGE,
-        SWIPE
+        SWIPE_NODES,
+        SWIPE_STAGE
     }
 }

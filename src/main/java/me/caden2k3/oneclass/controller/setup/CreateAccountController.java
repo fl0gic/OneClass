@@ -7,6 +7,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import lombok.Getter;
 import me.caden2k3.oneclass.controller.Controller;
+import me.caden2k3.oneclass.controller.util.UtilController;
 import me.caden2k3.oneclass.controller.validator.EmailValidator;
 import me.caden2k3.oneclass.controller.validator.PasswordValidator;
 import me.caden2k3.oneclass.controller.validator.UsernameValidator;
@@ -83,7 +84,8 @@ public class CreateAccountController extends Controller {
                     if (tosCheckBox.isSelected()) {
                         DataManager.getInstance().setCurrentUser(DataManager.getInstance()
                                 .createNewUser(usernameField.getText(), emailField.getText(), passwordField.getText()));
-                        dialog(DialogTransition.CENTER, "Account created & saved!");
+
+                        UtilController.transitionToNewStage(UtilController.StageTransitionType.SWIPE_NODES, "setup/district-search.fxml", 2d);
                     } else
                         error("You must agree to the terms of service!");
                 } else
