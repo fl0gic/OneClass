@@ -1,10 +1,8 @@
 package me.caden2k3.oneclass.controller.util;
 
-import javafx.animation.Animation;
-import javafx.animation.FadeTransition;
-import javafx.animation.ParallelTransition;
-import javafx.animation.ScaleTransition;
+import javafx.animation.*;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -15,6 +13,10 @@ import me.caden2k3.oneclass.controller.Controller;
 import me.caden2k3.oneclass.model.Properties;
 import me.caden2k3.oneclass.model.util.UtilLog;
 import org.apache.commons.lang3.ArrayUtils;
+
+import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author Caden Kriese
@@ -69,18 +71,26 @@ public class UtilController {
         return null;
     }
 
+    /**
+     * Runs animations to transition to a new stage.
+     *
+     * @param transitionType The type of transition to perform.
+     * @param pathToNextStage The path to the next FXML file that should be transitioned to.
+     * @param durationSeconds The duration of the transition in seconds.
+     *
+     * @apiNote When using the SWIPE transition the overall duration will last slightly longer than the duration specified duration.
+     */
     @SuppressWarnings("Duplicates")
-    public static void transitionToNewStage(StageTransition transitionType, String pathToNextStage, int durationSeconds) {
+    public static void transitionToNewStage(StageTransitionType transitionType, String pathToNextStage, double durationSeconds) {
         Stage primaryStage = OneClass.getInstance().getPrimaryStage();
         Scene scene = primaryStage.getScene();
 
         Duration duration = Duration.seconds(durationSeconds/2d);
 
-        if (transitionType == StageTransition.SCALE) {
-            int scaleSize = 6;
+        //Size to scale objects to for scale transitions.
+        int scaleSize = 6;
 
-            //TODO investigate this vs scaling/fading the scene as a whole.
-
+        if (transitionType == StageTransitionType.SCALE_INDIVIDUAL) {
             //Scale and fade out objects.
             Animation[] scaleOutAnimations = scene.getRoot().getChildrenUnmodifiable()
                     .stream()
@@ -93,9 +103,10 @@ public class UtilController {
                     .map(node -> new FadeTransition(duration, node))
                     .peek(scaleTransition -> scaleTransition.setToValue(0))
                     .toArray(Animation[]::new);
-            ParallelTransition transition1 = new ParallelTransition(ArrayUtils.addAll(scaleOutAnimations, fadeOutAnimations));
 
-            transition1.setOnFinished(event -> {
+            ParallelTransition transitionOut = new ParallelTransition(ArrayUtils.addAll(scaleOutAnimations, fadeOutAnimations));
+
+            transitionOut.setOnFinished(event -> {
                 //Switch to next scene
                 openFile(pathToNextStage);
                 Scene currentScene = OneClass.getInstance().getPrimaryStage().getScene();
@@ -109,7 +120,6 @@ public class UtilController {
                         .peek(scaleTransition -> scaleTransition.setToX(1))
                         .peek(scaleTransition -> scaleTransition.setToY(1))
                         .toArray(Animation[]::new);
-
                 Animation[] fadeInAnimations = currentScene.getRoot().getChildrenUnmodifiable()
                         .stream()
                         .map(node -> new FadeTransition(duration, node))
@@ -117,11 +127,79 @@ public class UtilController {
                         .peek(scaleTransition -> scaleTransition.setToValue(1))
                         .toArray(Animation[]::new);
 
-                ParallelTransition transition2 = new ParallelTransition(ArrayUtils.addAll(scaleInAnimations, fadeInAnimations));
-                transition2.play();
+                ParallelTransition transitionIn = new ParallelTransition(ArrayUtils.addAll(scaleInAnimations, fadeInAnimations));
+                transitionIn.play();
             });
 
-            transition1.play();
+            transitionOut.play();
+        } else if (transitionType == StageTransitionType.SCALE_STAGE) {
+            ScaleTransition scaleOutAnimation = new ScaleTransition(duration, scene.getRoot());
+            scaleOutAnimation.setToX(scaleSize);
+            scaleOutAnimation.setToY(scaleSize);
+
+            FadeTransition fadeOutAnimation = new FadeTransition(duration, scene.getRoot());
+            fadeOutAnimation.setToValue(0);
+
+            ParallelTransition transitionOut = new ParallelTransition(scaleOutAnimation, fadeOutAnimation);
+
+            transitionOut.setOnFinished(event -> {
+                //Switch to next scene
+                openFile(pathToNextStage);
+                Scene currentScene = OneClass.getInstance().getPrimaryStage().getScene();
+
+                //Scale and fade in new nodes.
+                ScaleTransition scaleInAnimation = new ScaleTransition(duration, currentScene.getRoot());
+                scaleInAnimation.setFromY(0);
+                scaleInAnimation.setFromX(0);
+                scaleInAnimation.setToX(1);
+                scaleInAnimation.setToY(1);
+
+                FadeTransition fadeInAnimation = new FadeTransition(duration, currentScene.getRoot());
+                fadeInAnimation.setFromValue(0);
+                fadeInAnimation.setToValue(1);
+
+                ParallelTransition transitionIn = new ParallelTransition(scaleInAnimation, fadeInAnimation);
+                transitionIn.play();
+            });
+
+            transitionOut.play();
+        } else if (transitionType == StageTransitionType.SWIPE) {
+            //NOTE: Because of the stagger this transition will take longer than the duration specified (node count * stagger amount longer).
+            int staggerAmount = 100;
+
+            List<TranslateTransition> translateOutTransitions = scene.getRoot().getChildrenUnmodifiable()
+                    .stream()
+                    .sorted(Comparator.comparing(Node::getLayoutY))
+                    .map(node -> new TranslateTransition(duration, node))
+                    .peek(translateTransition -> translateTransition.setToX((scene.getWidth()*-1)-(translateTransition.getNode().getLayoutBounds().getWidth()+10)))
+                    .collect(Collectors.toList());
+
+            //Stagger each animation.
+            translateOutTransitions.forEach(translateTransition -> translateTransition
+                    .setDelay(new Duration(translateOutTransitions.indexOf(translateTransition)*staggerAmount)));
+
+            ParallelTransition transitionOut = new ParallelTransition(translateOutTransitions.toArray(Animation[]::new));
+
+            transitionOut.setOnFinished(event -> {
+                //Switch to next scene
+                openFile(pathToNextStage);
+                Scene currentScene = OneClass.getInstance().getPrimaryStage().getScene();
+
+                List<TranslateTransition> translateInTransitions = currentScene.getRoot().getChildrenUnmodifiable()
+                        .stream()
+                        .sorted(Comparator.comparing(Node::getLayoutY))
+                        .map(node -> new TranslateTransition(duration, node))
+                        .peek(translateTransition -> translateTransition.setToX(translateTransition.getNode().getTranslateX()))
+                        .peek(translateTransition -> translateTransition.setFromX(currentScene.getWidth()+translateTransition.getNode().getLayoutBounds().getWidth()+10))
+                        .collect(Collectors.toList());
+
+                translateInTransitions.forEach(translateTransition -> translateTransition.setDelay(
+                        new Duration(translateInTransitions.indexOf(translateTransition)*staggerAmount)));
+
+                new ParallelTransition(translateInTransitions.toArray(Animation[]::new)).play();
+            });
+
+            transitionOut.play();
         }
     }
 
@@ -138,8 +216,9 @@ public class UtilController {
         }
     }
 
-    public enum StageTransition {
-        SCALE,
+    public enum StageTransitionType {
+        SCALE_INDIVIDUAL,
+        SCALE_STAGE,
         SWIPE
     }
 }
