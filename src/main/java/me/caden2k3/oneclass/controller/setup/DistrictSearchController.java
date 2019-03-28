@@ -1,9 +1,6 @@
 package me.caden2k3.oneclass.controller.setup;
 
-import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXComboBox;
-import com.jfoenix.controls.JFXSpinner;
-import com.jfoenix.controls.JFXTextField;
+import com.jfoenix.controls.*;
 import javafx.animation.ScaleTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -91,8 +88,11 @@ public class DistrictSearchController extends Controller {
             Platform.runLater(() -> {
                 ((Pane) root).getChildren().remove(spinner);
 
+
+
+
                 UtilController.transitionToNewStage(UtilController.StageTransitionType.SWIPE_NODES, "setup/ic-login.fxml", 2);
-//                dialog(DialogTransition.CENTER, id == null ? "Unable to find district!" : id);
+                //dialog(JFXDialog.DialogTransition.CENTER, id == null ? "Unable to find district!" : id);
             });
         });
     }

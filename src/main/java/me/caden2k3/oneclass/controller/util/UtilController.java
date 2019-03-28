@@ -54,6 +54,10 @@ public class UtilController {
         }
     }
 
+    public static void openController(Controller controller) {
+
+    }
+
     /**
      * Loads the controller of a FXML file.
      *
@@ -165,7 +169,7 @@ public class UtilController {
             transitionOut.play();
         } else if (transitionType == StageTransitionType.SWIPE_NODES) {
             //NOTE: Because of the stagger this transition will take longer than the duration specified (node count * stagger amount longer).
-            int staggerAmount = 100;
+            int staggerAmount = 50;
 
             List<TranslateTransition> translateOutTransitions = scene.getRoot().getChildrenUnmodifiable()
                     .stream()

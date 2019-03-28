@@ -34,6 +34,7 @@ public abstract class Controller implements Initializable {
 
     @Getter protected Parent root;
     @Getter protected boolean usePreviousSizes = true;
+    @Getter protected String fxmlPath;
     protected Image windowIcon;
     protected int minHeight = 200;
     protected int minWidth = 300;
@@ -43,6 +44,7 @@ public abstract class Controller implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
         UtilLog.debug("Initializing '" + location.toExternalForm() + "'...");
 
         //Ensure that all FXML fields are not null.
