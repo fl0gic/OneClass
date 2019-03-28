@@ -148,7 +148,7 @@
     </dependency>
     <dependency>
       <groupId>me.caden2k3</groupId>
-      <artifactId>infinitecampusapi</artifactId>
+      <artifactId>InfiniteCampusAPI</artifactId>
       <version>1.0-SNAPSHOT</version>
     </dependency>
     <!--GOOGLE-->
