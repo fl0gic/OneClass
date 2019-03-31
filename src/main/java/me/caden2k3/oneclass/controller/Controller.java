@@ -2,6 +2,8 @@ package me.caden2k3.oneclass.controller;
 
 import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXDialogLayout;
+import com.jfoenix.controls.JFXSpinner;
+import javafx.animation.ScaleTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
@@ -10,9 +12,11 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.util.Duration;
 import lombok.Getter;
 import me.caden2k3.oneclass.OneClass;
 import me.caden2k3.oneclass.model.AppData;
@@ -148,5 +152,32 @@ public abstract class Controller implements Initializable {
             root.addEventHandler(KeyEvent.KEY_PRESSED, event -> dialog.close());
             dialog.show();
         }
+    }
+
+    public void spinner() {
+        spinner("");
+    }
+
+    public void spinner(String message) {
+
+        JFXSpinner spinner = new JFXSpinner();
+        spinner.setRadius(10);
+
+        Label label = new Label();
+        label.setGraphic(spinner);
+        label.setText(message);
+        label.getStylesheets().addAll(root.getStylesheets());
+        label.getStyleClass().add("field-style");
+        label.applyCss();
+
+        ((Pane) root).getChildren().add(label);
+
+        ScaleTransition scaleTransition = new ScaleTransition(Duration.seconds(0.2), label);
+        scaleTransition.setFromX(0);
+        scaleTransition.setFromY(0);
+        scaleTransition.setToX(1);
+        scaleTransition.setToY(1);
+
+        scaleTransition.play();
     }
 }

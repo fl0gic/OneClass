@@ -11,6 +11,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import me.caden2k3.oneclass.OneClass;
 import me.caden2k3.oneclass.controller.Controller;
+import me.caden2k3.oneclass.controller.FXMLChild;
 import me.caden2k3.oneclass.controller.util.UIRunnable;
 import me.caden2k3.oneclass.controller.util.UtilController;
 
@@ -24,6 +25,7 @@ import java.util.ResourceBundle;
  *
  * This code is copyright © Caden Kriese 2018
  */
+@FXMLChild(path = "setup/splash.fxml")
 public class SplashController extends Controller {
     @FXML private Text welcomeText;
     @FXML private ImageView logo;

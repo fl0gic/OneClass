@@ -2,21 +2,18 @@ package me.caden2k3.oneclass.controller.setup;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
-import com.jfoenix.controls.JFXSpinner;
+import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXTextField;
-import javafx.animation.ScaleTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.Pane;
-import javafx.util.Duration;
 import javafx.util.StringConverter;
 import lombok.Getter;
+import me.caden2k3.infinitecampusapi.InfiniteCampus;
 import me.caden2k3.oneclass.OneClass;
 import me.caden2k3.oneclass.controller.Controller;
-import me.caden2k3.oneclass.controller.util.UtilController;
 import me.caden2k3.oneclass.model.util.UtilInfiniteCampus;
 import me.caden2k3.oneclass.model.util.UtilStates;
 
@@ -72,31 +69,23 @@ public class DistrictSearchController extends Controller {
     }
 
     @FXML public void search() {
-        JFXSpinner spinner = new JFXSpinner();
-        spinner.setRadius(10);
-        ((Pane) root).getChildren().add(spinner);
-
-        ScaleTransition scaleTransition = new ScaleTransition(Duration.seconds(0.2), spinner);
-        scaleTransition.setFromX(0);
-        scaleTransition.setFromY(0);
-        scaleTransition.setToX(1);
-        scaleTransition.setToY(1);
-
-        scaleTransition.play();
+        spinner("Searching for district.");
 
         OneClass.getInstance().getFixedThreadPool().submit(() -> {
             String stateCode = UtilStates.getStateCode(state.getConverter().toString(state.getValue()));
+
+            //TODO add support for multiple districts from a query.
             String id = UtilInfiniteCampus.searchDistrict(district.getText(), stateCode);
 
-            Platform.runLater(() -> {
-                ((Pane) root).getChildren().remove(spinner);
+            if (id != null) {
+                Platform.runLater(() -> {
 
-
-
-
-                UtilController.transitionToNewStage(UtilController.StageTransitionType.SWIPE_NODES, "setup/ic-login.fxml", 2);
-                //dialog(JFXDialog.DialogTransition.CENTER, id == null ? "Unable to find district!" : id);
-            });
+                    //UtilController.transitionToNewStage(UtilController.StageTransitionType.SWIPE_NODES, "setup/ic-login.fxml", 2);
+                    ICLoginController.getInstance().setInfiniteCampus(new InfiniteCampus(UtilInfiniteCampus.searchDistrict(district.getText(), stateCode)));
+                });
+            } else {
+                dialog(JFXDialog.DialogTransition.CENTER, "No districts found under that request!");
+            }
         });
     }
 }

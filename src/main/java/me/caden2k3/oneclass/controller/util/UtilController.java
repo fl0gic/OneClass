@@ -10,6 +10,7 @@ import javafx.util.Duration;
 import lombok.Getter;
 import me.caden2k3.oneclass.OneClass;
 import me.caden2k3.oneclass.controller.Controller;
+import me.caden2k3.oneclass.controller.FXMLChild;
 import me.caden2k3.oneclass.model.Properties;
 import me.caden2k3.oneclass.model.util.UtilLog;
 import org.apache.commons.lang3.ArrayUtils;
@@ -54,8 +55,13 @@ public class UtilController {
         }
     }
 
+    /**
+     * Opens the FXML file controlled by this specific class.
+     *
+     * @param controller The controller class to open.
+     */
     public static void openController(Controller controller) {
-
+        openFile(controller.getClass().getAnnotation(FXMLChild.class).path());
     }
 
     /**

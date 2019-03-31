@@ -47,7 +47,7 @@ public class OneClass extends Application {
         UtilLog.debug("Initializing DataManager.");
         DataManager.getInstance().init();
 
-        UtilController.openFile("setup/splash.fxml");
+        UtilController.openFile("setup/district-search.xml");
 
 //        if (DataManager.getInstance().getUserList().size() == 0) {
 //            UtilController.openFile("splash.fxml");
