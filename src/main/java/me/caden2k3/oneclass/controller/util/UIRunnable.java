@@ -1,7 +1,6 @@
 package me.caden2k3.oneclass.controller.util;
 
 import javafx.application.Platform;
-import me.caden2k3.oneclass.model.util.UtilLog;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -12,6 +11,8 @@ import java.util.TimerTask;
  * Created on 2019-03-22
  */
 public abstract class UIRunnable implements Runnable {
+    private Timer currentTimer;
+
     /**
      * Executes the runnable on the UI thread as soon as possible.
      */
@@ -27,11 +28,19 @@ public abstract class UIRunnable implements Runnable {
     public void runTaskLater(long delay) {
         UIRunnable runnable = this;
 
-        new Timer().schedule(new TimerTask() {
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
             @Override
             public void run() {
                 Platform.runLater(runnable);
             }
         }, delay);
+    }
+
+    /**
+     * Cancels any pending {@link #runTaskLater(long)} calls.
+     */
+    public void cancel() {
+        currentTimer.cancel();
     }
 }

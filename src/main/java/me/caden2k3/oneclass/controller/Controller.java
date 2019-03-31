@@ -34,7 +34,6 @@ public abstract class Controller implements Initializable {
 
     @Getter protected Parent root;
     @Getter protected boolean usePreviousSizes = true;
-    @Getter protected String fxmlPath;
     protected Image windowIcon;
     protected int minHeight = 200;
     protected int minWidth = 300;
