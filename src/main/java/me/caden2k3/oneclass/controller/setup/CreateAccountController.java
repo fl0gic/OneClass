@@ -7,6 +7,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import lombok.Getter;
 import me.caden2k3.oneclass.controller.Controller;
+import me.caden2k3.oneclass.controller.FXMLChild;
 import me.caden2k3.oneclass.controller.util.UtilController;
 import me.caden2k3.oneclass.controller.validator.EmailValidator;
 import me.caden2k3.oneclass.controller.validator.PasswordValidator;
@@ -25,6 +26,7 @@ import java.util.stream.Stream;
  *
  * This code is copyright © Caden Kriese 2018
  */
+@FXMLChild(path = "setup/account-creation.fxml")
 public class CreateAccountController extends Controller {
     private static @Getter
     CreateAccountController instance;
@@ -85,7 +87,7 @@ public class CreateAccountController extends Controller {
                         DataManager.getInstance().setCurrentUser(DataManager.getInstance()
                                 .createNewUser(usernameField.getText(), emailField.getText(), passwordField.getText()));
 
-                        UtilController.transitionToNewStage(UtilController.StageTransitionType.SWIPE_NODES, "setup/district-search.fxml", 2d);
+                        UtilController.transitionToNewStage(UtilController.StageTransitionType.SWIPE_NODES, DistrictSearchController.class, 2d);
                     } else
                         error("You must agree to the terms of service!");
                 } else

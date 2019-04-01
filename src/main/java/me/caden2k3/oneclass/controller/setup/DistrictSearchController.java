@@ -14,6 +14,8 @@ import lombok.Getter;
 import me.caden2k3.infinitecampusapi.InfiniteCampus;
 import me.caden2k3.oneclass.OneClass;
 import me.caden2k3.oneclass.controller.Controller;
+import me.caden2k3.oneclass.controller.FXMLChild;
+import me.caden2k3.oneclass.controller.util.UtilController;
 import me.caden2k3.oneclass.model.util.UtilInfiniteCampus;
 import me.caden2k3.oneclass.model.util.UtilStates;
 
@@ -27,6 +29,7 @@ import java.util.ResourceBundle;
  *
  * This code is copyright © Caden Kriese 2019
  */
+@FXMLChild(path = "setup/district-search.fxml")
 public class DistrictSearchController extends Controller {
     private static @Getter DistrictSearchController instance;
     @FXML private JFXTextField district;
@@ -80,7 +83,7 @@ public class DistrictSearchController extends Controller {
             if (id != null) {
                 Platform.runLater(() -> {
 
-                    //UtilController.transitionToNewStage(UtilController.StageTransitionType.SWIPE_NODES, "setup/ic-login.fxml", 2);
+                    UtilController.transitionToNewStage(UtilController.StageTransitionType.SWIPE_NODES, ICLoginController.class, 2);
                     ICLoginController.getInstance().setInfiniteCampus(new InfiniteCampus(UtilInfiniteCampus.searchDistrict(district.getText(), stateCode)));
                 });
             } else {

@@ -17,6 +17,7 @@ import lombok.Setter;
 import me.caden2k3.infinitecampusapi.InfiniteCampus;
 import me.caden2k3.oneclass.OneClass;
 import me.caden2k3.oneclass.controller.Controller;
+import me.caden2k3.oneclass.controller.FXMLChild;
 import me.caden2k3.oneclass.model.Properties;
 
 import java.net.URL;
@@ -27,6 +28,7 @@ import java.util.ResourceBundle;
  *
  * Created on 2019-02-12.
  */
+@FXMLChild(path = "setup/ic-login.fxml")
 public class ICLoginController extends Controller {
     @Getter private static ICLoginController instance;
     @Getter @Setter private InfiniteCampus infiniteCampus;

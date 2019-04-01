@@ -3,6 +3,7 @@ package me.caden2k3.oneclass;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import lombok.Getter;
+import me.caden2k3.oneclass.controller.setup.SplashController;
 import me.caden2k3.oneclass.controller.util.UtilController;
 import me.caden2k3.oneclass.model.AppData;
 import me.caden2k3.oneclass.model.DataManager;
@@ -47,7 +48,7 @@ public class OneClass extends Application {
         UtilLog.debug("Initializing DataManager.");
         DataManager.getInstance().init();
 
-        UtilController.openFile("setup/district-search.xml");
+        UtilController.openController(SplashController.class);
 
 //        if (DataManager.getInstance().getUserList().size() == 0) {
 //            UtilController.openFile("splash.fxml");

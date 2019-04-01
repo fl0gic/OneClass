@@ -30,55 +30,25 @@ public class UtilController {
     private static @Getter Controller currentController = null;
 
     /**
-     * Fully initializes & displays a FXML file.
-     *
-     * @param fxmlFile The name of the file to be loaded. (Excluding path, including .fxml)
-     * @see Controller
-     */
-    public static void openFile(String fxmlFile) {
-        UtilLog.debug("Attempting to open '" + fxmlFile + "'.");
-
-        try {
-            FXMLLoader loader = new FXMLLoader(OneClass.class.getResource(Properties.VIEW_PATH + fxmlFile));
-            Parent root = loader.load();
-            UtilLog.debug("File loaded, attempting to apply controller.");
-
-            if (loader.getController() instanceof Controller) {
-                currentController = loader.getController();
-                currentController.apply(root);
-            } else {
-                UtilLog.getLog().warn("Controller file for '" + fxmlFile + "' is null, attempting to display.");
-                display(root);
-            }
-        } catch (Exception ex) {
-            UtilLog.error(ex);
-        }
-    }
-
-    /**
      * Opens the FXML file controlled by this specific class.
      *
-     * @param controller The controller class to open.
+     * @param controllerClass The controller class to open.
      */
-    public static void openController(Controller controller) {
-        openFile(controller.getClass().getAnnotation(FXMLChild.class).path());
+    public static void openController(Class<? extends Controller> controllerClass) {
+        openFile(controllerClass.getAnnotation(FXMLChild.class).path());
     }
 
     /**
-     * Loads the controller of a FXML file.
+     * Transitions to a new stage.
      *
-     * @param fxmlFile The file to be loaded, located in resources/view/
-     * @return The loaded FXML file in the form of a Parent.
+     * @param transitionType The type of transition to perform.
+     * @param nextController The controller of the next stage to be loaded.
+     * @param durationSeconds The duration of the transition in seconds.
+     *
+     * @apiNote When using the SWIPE_NODES transition the overall duration will last slightly longer than the duration specified duration.
      */
-    public static Parent loadFile(String fxmlFile) {
-        try {
-            UtilLog.debug("Loading file '" + fxmlFile + "'.");
-            return new FXMLLoader(OneClass.class.getResource(Properties.VIEW_PATH + fxmlFile)).load();
-        } catch (Exception ex) {
-            UtilLog.error(ex);
-        }
-
-        return null;
+    public static void transitionToNewStage(StageTransitionType transitionType, Class<? extends Controller> nextController, double durationSeconds) {
+        transitionToNewStage(transitionType, nextController.getAnnotation(FXMLChild.class).path(), durationSeconds);
     }
 
     /**
@@ -226,6 +196,28 @@ public class UtilController {
             });
 
             transitionOut.play();
+        }
+    }
+
+    //PRIVATE METHODS
+
+    private static void openFile(String fxmlFile) {
+        UtilLog.debug("Attempting to open '" + fxmlFile + "'.");
+
+        try {
+            FXMLLoader loader = new FXMLLoader(OneClass.class.getResource(Properties.VIEW_PATH + fxmlFile));
+            Parent root = loader.load();
+            UtilLog.debug("File loaded, attempting to apply controller.");
+
+            if (loader.getController() instanceof Controller) {
+                currentController = loader.getController();
+                currentController.apply(root);
+            } else {
+                UtilLog.getLog().warn("Controller file for '" + fxmlFile + "' is null, attempting to display.");
+                display(root);
+            }
+        } catch (Exception ex) {
+            UtilLog.error(ex);
         }
     }
 

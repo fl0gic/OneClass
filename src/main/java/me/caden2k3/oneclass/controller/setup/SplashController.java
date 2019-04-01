@@ -65,7 +65,7 @@ public class SplashController extends Controller {
                     @Override
                     public void run() {
                         UtilController.transitionToNewStage(
-                                UtilController.StageTransitionType.SWIPE_NODES, "setup/account-creation.fxml", 1.5);
+                                UtilController.StageTransitionType.SWIPE_NODES, CreateAccountController.class, 1.5);
                     }
                 }.runTaskLater(500));
 
