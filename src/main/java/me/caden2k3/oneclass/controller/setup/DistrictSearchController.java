@@ -82,7 +82,6 @@ public class DistrictSearchController extends Controller {
 
             if (id != null) {
                 Platform.runLater(() -> {
-
                     UtilController.transitionToNewStage(UtilController.StageTransitionType.SWIPE_NODES, ICLoginController.class, 2);
                     ICLoginController.getInstance().setInfiniteCampus(new InfiniteCampus(UtilInfiniteCampus.searchDistrict(district.getText(), stateCode)));
                 });

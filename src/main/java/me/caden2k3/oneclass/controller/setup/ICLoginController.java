@@ -55,9 +55,6 @@ public class ICLoginController extends Controller {
 
     public void handleClick(ActionEvent event) {
 
-        if (infiniteCampus.attemptLogin(usernameField.getText(), passwordField.getText(), infiniteCampus.getDistrictInfo())) {
-
-        }
     }
 
     public void handleKeyPressed(KeyEvent keyEvent) {
