@@ -46,7 +46,7 @@
             <Tooltip text="Atleast 8 characters, 1 number/symbol, 1 capital" />
          </tooltip>
       </JFXPasswordField>
-      <JFXButton fx:id="createAccountButton" onAction="#handleClick" text="LOGIN" StackPane.alignment="CENTER">
+      <JFXButton fx:id="loginButton" onAction="#handleClick" text="LOGIN" StackPane.alignment="CENTER">
          <StackPane.margin>
             <Insets top="160.0" />
          </StackPane.margin>

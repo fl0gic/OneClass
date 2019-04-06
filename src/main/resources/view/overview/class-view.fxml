@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXTreeTableView?>
+<?import javafx.scene.layout.StackPane?>
+
+<?import com.jfoenix.controls.JFXTreeTableColumn?>
+<StackPane prefHeight="400.0" prefWidth="600.0" stylesheets="@../../styles/FieldStyle.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.caden2k3.oneclass.controller.setup.CreateAccountController">
+   <children>
+      <JFXTreeTableView fx:id="classTable">
+          <columns>
+                  <JFXTreeTableColumn fx:id="nameColumn"
+                                      minWidth="133" text="Class Title" prefWidth="133"
+                                      resizable="false" />
+          </columns>
+      </JFXTreeTableView>
+   </children>
+</StackPane>

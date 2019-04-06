@@ -45,6 +45,8 @@ public abstract class Controller implements Initializable {
     protected StageStyle style = StageStyle.UNIFIED;
     protected String title = "";
 
+    private Label currentSpinnerLabel;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
@@ -154,11 +156,31 @@ public abstract class Controller implements Initializable {
         }
     }
 
+    /**
+     * Displays a blank spinner over the current page.
+     */
     public void spinner() {
-        spinner("");
+        spinner("", 0.2);
     }
 
+    /**
+     * Displays a spinner over the current window.
+     *
+     * @param message The message to be displayed next to the spinner.
+     */
     public void spinner(String message) {
+        spinner(message, 0.2);
+    }
+
+    /**
+     * Displays a spinner over the current window.
+     *
+     * @param message The message to be displayed.
+     * @param duration The duration of the zoom animation for the spinner in seconds.
+     */
+    public void spinner(String message, double duration) {
+        if (currentSpinnerLabel != null)
+            removeSpinner();
 
         JFXSpinner spinner = new JFXSpinner();
         spinner.setRadius(10);
@@ -172,12 +194,43 @@ public abstract class Controller implements Initializable {
 
         ((Pane) root).getChildren().add(label);
 
-        ScaleTransition scaleTransition = new ScaleTransition(Duration.seconds(0.2), label);
-        scaleTransition.setFromX(0);
-        scaleTransition.setFromY(0);
-        scaleTransition.setToX(1);
-        scaleTransition.setToY(1);
+        currentSpinnerLabel = label;
 
-        scaleTransition.play();
+        if (duration > 0) {
+            ScaleTransition scaleTransition = new ScaleTransition(Duration.seconds(duration), label);
+            scaleTransition.setFromX(0);
+            scaleTransition.setFromY(0);
+            scaleTransition.setToX(1);
+            scaleTransition.setToY(1);
+
+            scaleTransition.play();
+        }
+    }
+
+    /**
+     * Removes a spinner that is currently displayed.
+     */
+    public void removeSpinner() {
+        removeSpinner(0.2);
+    }
+
+    /**
+     * Removes a spinner that is currently displayed.
+     *
+     * @param duration The duration for the scale transition in seconds.
+     */
+    public void removeSpinner(double duration) {
+        if (duration > 0) {
+            ScaleTransition scaleTransition = new ScaleTransition(Duration.seconds(duration), currentSpinnerLabel);
+            scaleTransition.setFromX(1);
+            scaleTransition.setFromY(1);
+            scaleTransition.setToX(0);
+            scaleTransition.setToY(0);
+
+            scaleTransition.play();
+        }
+
+        ((Pane) root).getChildren().remove(currentSpinnerLabel);
+        currentSpinnerLabel = null;
     }
 }

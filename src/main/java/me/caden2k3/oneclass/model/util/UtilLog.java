@@ -57,11 +57,11 @@ public class UtilLog {
 
     public static void error(Exception ex) {
         // Set the user in the current context.
-        Sentry.getContext().setUser(
-                new UserBuilder().setEmail("gamerking195@gmail.com").build()
-        );
-
-        Sentry.capture(ex);
+//        Sentry.getContext().setUser(
+//                new UserBuilder().setEmail("gamerking195@gmail.com").build()
+//        );
+//
+//        Sentry.capture(ex);
 
         log.warn(ex.getMessage(), ex);
     }

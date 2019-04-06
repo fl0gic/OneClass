@@ -3,6 +3,7 @@ package me.caden2k3.oneclass.model;
 import com.google.gson.Gson;
 import lombok.Getter;
 import lombok.Setter;
+import me.caden2k3.infinitecampusapi.Student;
 import me.caden2k3.oneclass.model.user.User;
 import me.caden2k3.oneclass.model.util.UtilFile;
 import me.caden2k3.oneclass.model.util.UtilLog;
@@ -30,6 +31,7 @@ public class DataManager {
 
     private @Getter List<User> userList = new ArrayList<>();
     private @Getter @Setter User currentUser;
+    private @Getter @Setter Student currentStudent;
     private @Getter AppData appData;
 
     /**
