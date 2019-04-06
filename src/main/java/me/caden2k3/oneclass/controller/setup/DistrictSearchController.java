@@ -4,19 +4,20 @@ import com.jfoenix.controls.*;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tooltip;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.util.StringConverter;
 import lombok.Getter;
-import me.caden2k3.infinitecampusapi.InfiniteCampus;
+import me.caden2k3.infinitecampusapi.InfiniteCampusAPI;
 import me.caden2k3.infinitecampusapi.district.DistrictInfo;
 import me.caden2k3.oneclass.OneClass;
 import me.caden2k3.oneclass.controller.Controller;
 import me.caden2k3.oneclass.controller.FXMLChild;
 import me.caden2k3.oneclass.controller.util.UtilController;
+import me.caden2k3.oneclass.controller.validator.CustomValidator;
 import me.caden2k3.oneclass.model.util.UtilLog;
 import me.caden2k3.oneclass.model.util.UtilStates;
 
@@ -35,7 +36,9 @@ import java.util.concurrent.ExecutorService;
  */
 @FXMLChild(path = "setup/district-search.fxml")
 public class DistrictSearchController extends Controller {
-    private static @Getter DistrictSearchController instance;
+    private static @Getter
+    DistrictSearchController instance;
+    
     @FXML private JFXTextField district;
     @FXML private JFXComboBox<Label> state;
     @FXML private JFXButton searchButton;
@@ -50,6 +53,30 @@ public class DistrictSearchController extends Controller {
         minWidth = 300;
         usePreviousSizes = false;
         title = "District Search";
+
+        state.getValidators().add(new CustomValidator(new CustomValidator.ValidatorRunnable() {
+            @Override
+            public boolean eval(CustomValidator validator) {
+                if (state.getSelectionModel().getSelectedItem() == null) {
+                    validator.setMessage("Please select a state.");
+                    return true;
+                }
+
+                return false;
+            }
+        }));
+
+        district.getValidators().add(new CustomValidator(new CustomValidator.ValidatorRunnable() {
+            @Override
+            public boolean eval(CustomValidator validator) {
+                if (district.getText().length() < 3) {
+                    validator.setMessage("District names must be at least 3 characters.");
+                    return true;
+                }
+
+                return false;
+            }
+        }));
 
         state.setConverter(new StringConverter<>() {
             @Override
@@ -75,7 +102,16 @@ public class DistrictSearchController extends Controller {
         }
     }
 
-    @FXML public void search() {
+    @FXML
+    public void search() {
+        if (!state.validate()) {
+            dialog(state.getActiveValidator().getMessage());
+            return;
+        } else if (!district.validate()) {
+            dialog(district.getActiveValidator().getMessage());
+            return;
+        }
+
         spinner("Searching for district.");
 
         ExecutorService fixedThreadPool = OneClass.getInstance().getFixedThreadPool();
@@ -83,58 +119,64 @@ public class DistrictSearchController extends Controller {
         fixedThreadPool.submit(() -> {
             String stateCode = UtilStates.getStateCode(state.getConverter().toString(state.getValue()));
 
-            //TODO add support for multiple districts from a query.
             try {
-                List<DistrictInfo> queryResult = InfiniteCampus.searchDistricts(district.getText(), stateCode);
+                List<DistrictInfo> queryResult = InfiniteCampusAPI.searchDistricts(district.getText(), stateCode);
                 Platform.runLater(() -> {
                     removeSpinner();
 
-                    JFXListView<Label> listView = new JFXListView<>();
+                    if (queryResult.size() == 0) {
+                        dialog("No results found.");
+                        return;
+                    } else if (queryResult.size() == 1) {
+                        DistrictInfo info = queryResult.get(0);
 
+                        confirmDialog("Is '" + info.getDistrictName() + "' your district?", () -> {
+                            //On confirmation.
+                            fixedThreadPool.submit(() -> OneClass.getInstance()
+                                    .setInfiniteCampusCore(new InfiniteCampusAPI(info.getDistrictCode())));
+                            UtilController.transitionToNewStage(
+                                    UtilController.StageTransitionType.SWIPE_NODES,
+                                    ICLoginController.class,
+                                    1.5);
+                        });
+                        return;
+                    }
+
+                    JFXListView<Label> listView = new JFXListView<>();
                     listView.setOnMouseClicked(event -> {
                         if (listView.getSelectionModel().getSelectedItem() != null) {
                             Label label = listView.getSelectionModel().getSelectedItem();
                             DistrictInfo info = queryResult.get(listView.getItems().indexOf(label));
 
-                            JFXDialogLayout layout = new JFXDialogLayout();
-                            JFXDialog dialog = new JFXDialog();
-                            VBox vBox = new VBox();
-                            HBox bottomBox = new HBox();
-
-                            vBox.setSpacing(40);
-                            vBox.getChildren().add(new Label("Is '"+info.getDistrictName()+"' your district?"));
-
-                            bottomBox.setSpacing(200);
-                            JFXButton yesButton = new JFXButton("Yes");
-                            JFXButton noButton = new JFXButton("No");
-                            yesButton.setOnAction(event1 -> {
-                                fixedThreadPool.submit(() ->
-                                        OneClass.getInstance().setInfiniteCampusCore(new InfiniteCampus(info.getDistrictCode())));
-                                UtilController.transitionToNewStage(UtilController.StageTransitionType.SWIPE_NODES, ICLoginController.class, 1.5);
+                            confirmDialog("Is '" + info.getDistrictName() + "' your district?", () -> {
+                                //On confirmation.
+                                fixedThreadPool.submit(() -> OneClass.getInstance()
+                                        .setInfiniteCampusCore(new InfiniteCampusAPI(info.getDistrictCode())));
+                                UtilController.transitionToNewStage(
+                                        UtilController.StageTransitionType.SWIPE_NODES,
+                                        ICLoginController.class,
+                                        1.5);
                             });
-                            noButton.setOnAction(event1 -> dialog.close());
-                            bottomBox.getChildren().add(yesButton);
-                            bottomBox.getChildren().add(noButton);
-                            vBox.getChildren().add(bottomBox);
-
-                            layout.setBody(vBox);
-                            dialog.setTransitionType(JFXDialog.DialogTransition.CENTER);
-                            dialog.setDialogContainer((StackPane) root);
-                            dialog.setContent(layout);
-                            dialog.show();
                         }
                     });
 
                     for (DistrictInfo info : queryResult) {
-                        Label infoLabel = new Label(info.getDistrictName() + " - "+info.getStateCode());
+                        Label infoLabel = new Label(info.getDistrictName());
+
+                        infoLabel.setTooltip(new Tooltip("Name: " + info.getDistrictName() +
+                                "\nState: " + UtilStates.getStateName(info.getStateCode()) +
+                                "\nCode: " + info.getDistrictCode() +
+                                "\nID: " + info.getId()));
+
                         listView.getItems().add(infoLabel);
                     }
 
-                    if (root.getChildrenUnmodifiable().stream().noneMatch(node -> node instanceof JFXDialog)) {
-                        JFXDialogLayout layout = new JFXDialogLayout();
-                        VBox vBox = new VBox(new Label("Select your district."), listView);
-                        vBox.setSpacing(20);
-                        layout.setBody(vBox);
+                    JFXDialogLayout layout = new JFXDialogLayout();
+                    VBox vBox = new VBox(new Label("Select your district."), listView);
+                    vBox.setSpacing(20);
+                    layout.setBody(vBox);
+
+                    if (root.getChildrenUnmodifiable().stream().noneMatch(node -> node instanceof JFXDialog && ((JFXDialog) node).getContent() != layout)) {
                         JFXDialog dialog = new JFXDialog();
                         dialog.setTransitionType(JFXDialog.DialogTransition.CENTER);
                         dialog.setDialogContainer((StackPane) root);
@@ -144,6 +186,11 @@ public class DistrictSearchController extends Controller {
                 });
 
             } catch (IOException ex) {
+                Platform.runLater(() -> {
+                    removeSpinner();
+                    dialog("An error occurred while searching.\n \nPlease try again.");
+                });
+
                 UtilLog.error(ex);
             }
         });

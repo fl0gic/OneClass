@@ -12,7 +12,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import lombok.Getter;
 import lombok.Setter;
-import me.caden2k3.infinitecampusapi.InfiniteCampus;
+import me.caden2k3.infinitecampusapi.InfiniteCampusAPI;
 import me.caden2k3.infinitecampusapi.Student;
 import me.caden2k3.infinitecampusapi.exception.InvalidCredentialsException;
 import me.caden2k3.oneclass.OneClass;
@@ -37,7 +37,7 @@ import java.util.ResourceBundle;
 @FXMLChild(path = "setup/ic-login.fxml")
 public class ICLoginController extends Controller {
     @Getter private static ICLoginController instance;
-    @Getter @Setter private InfiniteCampus infiniteCampus;
+    @Getter @Setter private InfiniteCampusAPI infiniteCampus;
 
     @FXML private JFXTextField usernameField;
     @FXML private JFXPasswordField passwordField;
@@ -59,7 +59,7 @@ public class ICLoginController extends Controller {
     public void handleClick(ActionEvent event) {
         spinner("Attempting login.");
 
-        InfiniteCampus campusCore = OneClass.getInstance().getInfiniteCampusCore();
+        InfiniteCampusAPI campusCore = OneClass.getInstance().getInfiniteCampusCore();
 
         UserInfiniteCampus userIC = new UserInfiniteCampus(
                 usernameField.getText(),

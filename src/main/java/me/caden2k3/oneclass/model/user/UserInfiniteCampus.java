@@ -1,7 +1,7 @@
 package me.caden2k3.oneclass.model.user;
 
 import lombok.Data;
-import me.caden2k3.infinitecampusapi.InfiniteCampus;
+import me.caden2k3.infinitecampusapi.InfiniteCampusAPI;
 import me.caden2k3.infinitecampusapi.Student;
 import me.caden2k3.infinitecampusapi.exception.InvalidCredentialsException;
 import me.caden2k3.oneclass.OneClass;
@@ -29,7 +29,7 @@ public @Data class UserInfiniteCampus {
 
     public Student toStudent() throws ParsingException, IOException, InvalidCredentialsException {
         if (OneClass.getInstance().getInfiniteCampusCore() == null)
-            OneClass.getInstance().setInfiniteCampusCore(new InfiniteCampus(districtId));
+            OneClass.getInstance().setInfiniteCampusCore(new InfiniteCampusAPI(districtId));
 
         return OneClass.getInstance().getInfiniteCampusCore().getStudent(username, password);
     }

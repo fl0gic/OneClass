@@ -1,5 +1,6 @@
 package me.caden2k3.oneclass.controller;
 
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXDialogLayout;
 import com.jfoenix.controls.JFXSpinner;
@@ -12,8 +13,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
@@ -115,23 +118,24 @@ public abstract class Controller implements Initializable {
     /**
      * Sends a dialog to the user with the specified message.
      *
+     * @param message    The message to display in the dialog.
+     * @see JFXDialog
+     * @see JFXDialogLayout
+     */
+    public void dialog(String message) {
+        dialog(JFXDialog.DialogTransition.CENTER, message);
+    }
+
+    /**
+     * Sends a dialog to the user with the specified message.
+     *
      * @param transition The type of transition to perform.
      * @param message    The message to display in the dialog.
      * @see JFXDialog
      * @see JFXDialogLayout
      */
     public void dialog(JFXDialog.DialogTransition transition, String message) {
-        //Avoid duplicate alerts.
-        if (root.getChildrenUnmodifiable().stream().noneMatch(node -> node instanceof JFXDialog)) {
-            JFXDialogLayout layout = new JFXDialogLayout();
-            layout.setBody(new Label(message));
-            JFXDialog dialog = new JFXDialog();
-            dialog.setTransitionType(transition);
-            dialog.setDialogContainer((StackPane) root);
-            dialog.setContent(layout);
-            root.addEventHandler(KeyEvent.KEY_PRESSED, event -> dialog.close());
-            dialog.show();
-        }
+        dialog(transition, new Label(message));
     }
 
     /**
@@ -144,9 +148,11 @@ public abstract class Controller implements Initializable {
      */
     public void dialog(JFXDialog.DialogTransition transition, Node... nodes) {
         //Avoid duplicate alerts.
-        if (root.getChildrenUnmodifiable().stream().noneMatch(node -> node instanceof JFXDialog)) {
-            JFXDialogLayout layout = new JFXDialogLayout();
-            layout.setBody(nodes);
+        JFXDialogLayout layout = new JFXDialogLayout();
+        layout.setBody(nodes);
+
+        if (root.getChildrenUnmodifiable().stream().noneMatch(node -> node instanceof JFXDialogLayout
+                && ((JFXDialogLayout) node).getBody() == layout.getBody())) {
             JFXDialog dialog = new JFXDialog();
             dialog.setTransitionType(transition);
             dialog.setDialogContainer((StackPane) root);
@@ -232,5 +238,76 @@ public abstract class Controller implements Initializable {
 
         ((Pane) root).getChildren().remove(currentSpinnerLabel);
         currentSpinnerLabel = null;
+    }
+
+    /**
+     * Creates a confirmation dialog for the user.
+     *
+     * @apiNote The dialog will close when they hit cancel.
+     *
+     * @param message The message to be displayed to the user.
+     * @param onConfirm The runnable to be executed if they hit yes.
+     */
+    public void confirmDialog(String message, Runnable onConfirm) {
+        confirmDialog(message, JFXDialog.DialogTransition.CENTER, onConfirm, null);
+    }
+
+    /**
+     * Creates a confirmation dialog for the user.
+     *
+     * @apiNote The dialog will close when they hit cancel.
+     *
+     * @param message The message to be displayed to the user.
+     * @param onConfirm The runnable to be executed if they hit yes.
+     * @param onDeny The runnable to be executed if they hit no.
+     */
+    public void confirmDialog(String message, Runnable onConfirm, Runnable onDeny) {
+        confirmDialog(message, JFXDialog.DialogTransition.CENTER, onConfirm, onDeny);
+    }
+
+    /**
+     * Creates a confirmation dialog for the user.
+     *
+     * @apiNote The dialog will close when they hit cancel.
+     *
+     * @param message The message to be displayed to the user.
+     * @param transition The type of transition for the confirmation window to take.
+     * @param onConfirm The runnable to be executed if they hit yes.
+     * @param onDeny The runnable to be executed if they hit no.
+     */
+    public void confirmDialog(String message, JFXDialog.DialogTransition transition, Runnable onConfirm, Runnable onDeny) {
+        JFXDialogLayout layout = new JFXDialogLayout();
+        JFXDialog dialog = new JFXDialog();
+        VBox vBox = new VBox();
+        HBox bottomBox = new HBox();
+
+        vBox.setSpacing(40);
+        vBox.getChildren().add(new Label(message));
+
+        bottomBox.setSpacing(200);
+        JFXButton confirmButton = new JFXButton("Confirm");
+        JFXButton cancelButton = new JFXButton("Cancel");
+
+        confirmButton.setOnAction(event -> onConfirm.run());
+
+        //Make dialog close on cancel otherwise run the runnable.
+        if (onDeny == null)
+            cancelButton.setOnAction(event -> dialog.close());
+        else
+            cancelButton.setOnAction(event -> {
+                dialog.close();
+                onDeny.run();
+            });
+
+        bottomBox.getChildren().add(confirmButton);
+        bottomBox.getChildren().add(cancelButton);
+        vBox.getChildren().add(bottomBox);
+
+        layout.setBody(vBox);
+        dialog.addEventHandler(KeyEvent.KEY_PRESSED, event -> dialog.close());
+        dialog.setTransitionType(transition);
+        dialog.setDialogContainer((StackPane) root);
+        dialog.setContent(layout);
+        dialog.show();
     }
 }
