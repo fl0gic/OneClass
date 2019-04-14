@@ -1,56 +1,52 @@
-.text-field {
-  -fx-max-width: 200;
-}
-
 .jfx-text-field, .jfx-password-field {
-  -fx-font-weight: BOLD;
-  -fx-prompt-text-fill: #808080;
-  -fx-alignment: top-left;
-  -jfx-focus-color: #4059A9;
-  -jfx-unfocus-color: #4d4d4d;
-  -fx-pref-height: 20;
-  -fx-max-height: 30;
-  -fx-pref-width: 130;
-  -fx-max-width: 180;
+    -fx-font-weight: BOLD;
+    -fx-prompt-text-fill: #808080;
+    -fx-alignment: top-left;
+    -jfx-focus-color: #4059A9;
+    -jfx-unfocus-color: #4d4d4d;
+    -fx-pref-height: 20;
+    -fx-max-height: 30;
+    -fx-pref-width: 130;
+    -fx-max-width: 180;
 }
 
 .jfx-decorator {
-  -fx-decorator-color: RED;
+    -fx-decorator-color: RED;
 }
 
 .jfx-decorator .jfx-decorator-buttons-container {
-  -fx-background-color: -fx-decorator-color;
+    -fx-background-color: -fx-decorator-color;
 }
 
 .jfx-decorator .resize-border {
-  -fx-border-color: -fx-decorator-color;
-  -fx-border-width: 0 4 4 4;
+    -fx-border-color: -fx-decorator-color;
+    -fx-border-width: 0 4 4 4;
 }
 
 /*noinspection CssInvalidPseudoSelector*/
 .jfx-text-field:error, .jfx-password-field:error, .jfx-text-area:error {
-  -jfx-focus-color: #D34336;
-  -jfx-unfocus-color: #D34336;
+    -jfx-focus-color: #D34336;
+    -jfx-unfocus-color: #D34336;
 }
 
 .jfx-text-field .error-label, .jfx-password-field .error-label, .jfx-text-area .error-label {
-  -fx-text-fill: #D34336;
-  -fx-font-size: 0.7em;
+    -fx-text-fill: #D34336;
+    -fx-font-size: 0.7em;
 }
 
 .jfx-text-field .error-icon, .jfx-password-field .error-icon, .jfx-text-area .error-icon {
-  -fx-text-fill: #D34336;
-  -fx-font-size: 1em;
+    -fx-text-fill: #D34336;
+    -fx-font-size: 1em;
 }
 
 .jfx-button {
-  -fx-font-size: 14px;
-  -fx-font-color: WHITE;
-  -jfx-button-type: RAISED;
-  -fx-background-color: rgb(30, 130, 250);
-  -fx-pref-width: 200;
-  -fx-max-width: 250;
-  -fx-text-fill: WHITE;
+    -fx-font-size: 14px;
+    -fx-font-color: WHITE;
+    -jfx-button-type: RAISED;
+    -fx-background-color: rgb(30, 130, 250);
+    -fx-pref-width: 200;
+    -fx-max-width: 250;
+    -fx-text-fill: WHITE;
 }
 
 /*******************************************************************************
@@ -61,35 +57,35 @@
 
 .combo-box-popup .list-view .jfx-list-cell .label,
 .combo-box-popup .list-view .jfx-list-cell:filled:hover .label {
-  -fx-text-fill: BLACK;
+    -fx-text-fill: BLACK;
 }
 
 .combo-box-popup .list-view .jfx-list-cell .custom-jfx-list-view-icon,
 .combo-box-popup .list-view .jfx-list-cell:filled:hover .custom-jfx-list-view-icon,
 .combo-box-popup .list-view .jfx-list-cell:selected .custom-jfx-list-view-icon {
-  -fx-fill: #5264AE;
+    -fx-fill: #5264AE;
 }
 
 .combo-box-popup .scroll-bar .track {
-  -fx-max-width: 1;
+    -fx-max-width: 1;
 }
 
 .combo-box-popup .list-view .jfx-list-cell:odd:selected > .jfx-rippler > StackPane,
 .combo-box-popup .list-view .jfx-list-cell:even:selected > .jfx-rippler > StackPane {
-  -fx-background-color: rgba(0.0, 0.0, 255.0, 0.2);
+    -fx-background-color: rgba(0.0, 0.0, 255.0, 0.2);
 }
 
 .combo-box-popup .list-view .jfx-list-cell {
-  -fx-background-insets: 0.0;
+    -fx-background-insets: 0.0;
 }
 
 .combo-box-popup .list-view .jfx-list-cell:odd,
 .combo-box-popup .list-view .jfx-list-cell:even {
-  -fx-background-color: WHITE;
+    -fx-background-color: WHITE;
 }
 
 .combo-box-popup .list-view .jfx-list-cell .jfx-rippler {
-  -jfx-rippler-fill: #5264AE;
+    -jfx-rippler-fill: #5264AE;
 }
 
 /*************************
@@ -97,130 +93,129 @@
  */
 
 /** CSS **/
-.combo-box-popup{
-  -fx-border-color:derive(gray,80%);
+.combo-box-popup {
+    -fx-border-color: derive(gray, 80%);
 }
 
 /* The main scrollbar CSS class of ListView */
-.combo-box-popup .scroll-bar:horizontal ,
-.combo-box-popup  .scroll-bar:vertical{
-  -fx-background-color:transparent;
+.combo-box-popup .scroll-bar:horizontal,
+.combo-box-popup .scroll-bar:vertical {
+    -fx-background-color: transparent;
 
 }
 
 /* The increment and decrement button CSS class of scrollbar */
-.combo-box-popup .increment-button ,.combo-box-popup .decrement-button {
-  -fx-background-color:transparent;
-  -fx-border-color:derive(gray,80%);
+.combo-box-popup .increment-button, .combo-box-popup .decrement-button {
+    -fx-background-color: transparent;
+    -fx-border-color: derive(gray, 80%);
 }
 
 /* The main scrollbar **track** CSS class  */
-.combo-box-popup .scroll-bar:horizontal .track ,
-.combo-box-popup .scroll-bar:vertical .track{
-  -fx-background-color: transparent;
-  -fx-border-color:derive(gray,80%);
-  -fx-background-radius: 0em;
+.combo-box-popup .scroll-bar:horizontal .track,
+.combo-box-popup .scroll-bar:vertical .track {
+    -fx-background-color: transparent;
+    -fx-border-color: derive(gray, 80%);
+    -fx-background-radius: 0em;
 }
 
 /* The main scrollbar **thumb** CSS class which we drag every time (movable) */
 .combo-box-popup .scroll-bar:horizontal .thumb,
 .combo-box-popup .scroll-bar:vertical .thumb {
-  -fx-background-color:derive(black,90%);
-  -fx-background-insets: 0, 0, 0;
-  -fx-background-radius: 0em;
+    -fx-background-color: derive(black, 90%);
+    -fx-background-insets: 0, 0, 0;
+    -fx-background-radius: 0em;
 
 }
 
 /* The main scrollbar CSS class of ListView */
-.list-view .scroll-bar:horizontal ,
-.list-view  .scroll-bar:vertical{
-  -fx-background-color:transparent;
+.list-view .scroll-bar:horizontal,
+.list-view .scroll-bar:vertical {
+    -fx-background-color: transparent;
 
 }
 
 /* The increment and decrement button CSS class of scrollbar */
-.list-view .increment-button ,.combo-box-popup .decrement-button {
-  -fx-background-color:transparent;
-  -fx-border-color:derive(gray,80%);
+.list-view .increment-button, .combo-box-popup .decrement-button {
+    -fx-background-color: transparent;
+    -fx-border-color: derive(gray, 80%);
 }
 
 /* The main scrollbar **track** CSS class  */
-.list-view .scroll-bar:horizontal .track ,
-.list-view .scroll-bar:vertical .track{
-  -fx-background-color: transparent;
-  -fx-border-color:derive(gray,80%);
-  -fx-background-radius: 0em;
+.list-view .scroll-bar:horizontal .track,
+.list-view .scroll-bar:vertical .track {
+    -fx-background-color: transparent;
+    -fx-border-color: derive(gray, 80%);
+    -fx-background-radius: 0em;
 }
 
 /* The main scrollbar **thumb** CSS class which we drag every time (movable) */
 .list-view .scroll-bar:horizontal .thumb,
 .list-view .scroll-bar:vertical .thumb {
-  -fx-background-color:derive(black,90%);
-  -fx-background-insets: 0, 0, 0;
-  -fx-background-radius: 0em;
+    -fx-background-color: derive(black, 90%);
+    -fx-background-insets: 0, 0, 0;
+    -fx-background-radius: 0em;
 
 }
+
 /* ------------------------------------------------------------------------------------- */
 /** EVENT CSS **/
 /* ------------------------------------------------------------------------------------- */
 
 /* The main scrollbar **track** CSS class on event of "hover" and "pressed" */
 
-.combo-box-popup .scroll-bar:horizontal:hover .track ,
-.combo-box-popup .scroll-bar:horizontal:pressed .track ,
+.combo-box-popup .scroll-bar:horizontal:hover .track,
+.combo-box-popup .scroll-bar:horizontal:pressed .track,
 .combo-box-popup .scroll-bar:vertical:hover .track,
-.combo-box-popup .scroll-bar:vertical:pressed .track{
-  -fx-background-color: derive(#434343,20%);
-
-  -fx-opacity: 0.2;
-  -fx-background-radius: 0em;
-
+.combo-box-popup .scroll-bar:vertical:pressed .track {
+    -fx-background-color: derive(#434343, 20%);
+    -fx-opacity: 0.2;
+    -fx-background-radius: 0em;
 }
 
 /* The main scrollbar **thumb** CSS class on event of "hover" and "pressed" */
 .combo-box-popup .scroll-bar .thumb:hover,
-.combo-box-popup .scroll-bar .thumb:pressed{
-  -fx-background-color: derive(black,50%);
+.combo-box-popup .scroll-bar .thumb:pressed {
+    -fx-background-color: derive(black, 50%);
 }
 
-.combo-box-popup .increment-button:hover ,.combo-box-popup .decrement-button:hover {
-  -fx-background-color:derive(gray,100%);
-  -fx-border-color:derive(gray,80%);
-  -fx-padding:10px;
+.combo-box-popup .increment-button:hover, .combo-box-popup .decrement-button:hover {
+    -fx-background-color: derive(gray, 100%);
+    -fx-border-color: derive(gray, 80%);
+    -fx-padding: 10px;
 }
 
 /** CSS **/
-.combo-box-popup{
-  -fx-border-color:derive(gray,80%);
+.combo-box-popup {
+    -fx-border-color: derive(gray, 80%);
 }
 
 /* The main scrollbar CSS class of ListView */
-.combo-box-popup .scroll-bar:horizontal ,
-.combo-box-popup  .scroll-bar:vertical{
-  -fx-background-color:transparent;
+.combo-box-popup .scroll-bar:horizontal,
+.combo-box-popup .scroll-bar:vertical {
+    -fx-background-color: transparent;
 
 }
 
 /* The increment and decrement button CSS class of scrollbar */
-.combo-box-popup .increment-button ,.combo-box-popup .decrement-button {
-  -fx-background-color:transparent;
-  -fx-border-color:derive(gray,80%);
+.combo-box-popup .increment-button, .combo-box-popup .decrement-button {
+    -fx-background-color: transparent;
+    -fx-border-color: derive(gray, 80%);
 }
 
 /* The main scrollbar **track** CSS class  */
-.combo-box-popup .scroll-bar:horizontal .track ,
-.combo-box-popup .scroll-bar:vertical .track{
-  -fx-background-color: transparent;
-  -fx-border-color:derive(gray,80%);
-  -fx-background-radius: 0em;
+.combo-box-popup .scroll-bar:horizontal .track,
+.combo-box-popup .scroll-bar:vertical .track {
+    -fx-background-color: transparent;
+    -fx-border-color: derive(gray, 80%);
+    -fx-background-radius: 0em;
 }
 
 /* The main scrollbar **thumb** CSS class which we drag every time (movable) */
 .combo-box-popup .scroll-bar:horizontal .thumb,
 .combo-box-popup .scroll-bar:vertical .thumb {
-  -fx-background-color:derive(black,90%);
-  -fx-background-insets: 0, 0, 0;
-  -fx-background-radius: 0em;
+    -fx-background-color: derive(black, 90%);
+    -fx-background-insets: 0, 0, 0;
+    -fx-background-radius: 0em;
 
 }
 
@@ -230,27 +225,27 @@
 
 /* The main scrollbar **track** CSS class on event of "hover" and "pressed" */
 
-.combo-box-popup .scroll-bar:horizontal:hover .track ,
-.combo-box-popup .scroll-bar:horizontal:pressed .track ,
+.combo-box-popup .scroll-bar:horizontal:hover .track,
+.combo-box-popup .scroll-bar:horizontal:pressed .track,
 .combo-box-popup .scroll-bar:vertical:hover .track,
-.combo-box-popup .scroll-bar:vertical:pressed .track{
-  -fx-background-color: derive(#434343,20%);
+.combo-box-popup .scroll-bar:vertical:pressed .track {
+    -fx-background-color: derive(#434343, 20%);
 
-  -fx-opacity: 0.2;
-  -fx-background-radius: 0em;
+    -fx-opacity: 0.2;
+    -fx-background-radius: 0em;
 
 }
 
 /* The main scrollbar **thumb** CSS class on event of "hover" and "pressed" */
 .combo-box-popup .scroll-bar .thumb:hover,
-.combo-box-popup .scroll-bar .thumb:pressed{
-  -fx-background-color: derive(black,50%);
+.combo-box-popup .scroll-bar .thumb:pressed {
+    -fx-background-color: derive(black, 50%);
 }
 
-.combo-box-popup .increment-button:hover ,.combo-box-popup .decrement-button:hover {
-  -fx-background-color:derive(gray,100%);
-  -fx-border-color:derive(gray,80%);
-  -fx-padding:10px;
+.combo-box-popup .increment-button:hover, .combo-box-popup .decrement-button:hover {
+    -fx-background-color: derive(gray, 100%);
+    -fx-border-color: derive(gray, 80%);
+    -fx-padding: 10px;
 }
 
 

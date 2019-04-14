@@ -1,0 +1,8 @@
+.root {
+    -fx-background-color: -primary-background;
+}
+
+.jfx-button {
+    -fx-background-color: -primary-object-background;
+
+}

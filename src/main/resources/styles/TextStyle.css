@@ -6,6 +6,10 @@
   font-family: "Avenir";
   src: url('../font/Avenir.ttc');
 }
+@font-face {
+  font-family: "Open Sans";
+  src: url('../font/OpenSans-Regular.ttf');
+}
 
 .header1 {
   -fx-font-family: "Walkway Bold";
@@ -20,19 +24,19 @@
 }
 
 .subtitle {
-  -fx-font-family: "Avenir";
+  -fx-font-family: "Open Sans";
   -fx-fill: rgb(36, 170, 224);
   -fx-font-size: 28;
 }
 
 .field-title {
-  -fx-font-family: "Avenir";
+  -fx-font-family: "Open Sans";
   -fx-fill: rgb(36, 200, 224);
   -fx-font-size: 15;
 }
 
 .body {
-  -fx-font-family: "Avenir";
-  -fx-fill: #303030;
+  -fx-font-family: "Open Sans";
+  -fx-fill: #1e1e1e;
   -fx-font-size: 16;
 }
