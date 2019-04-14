@@ -150,7 +150,7 @@
         <dependency>
             <groupId>me.caden2k3</groupId>
             <artifactId>InfiniteCampusAPI</artifactId>
-            <version>1.0.1-20190406.164055-10</version>
+            <version>1.0.1-SNAPSHOT</version>
         </dependency>
         <!-- xerces needed to make InfiniteCampusAPI compatible with log4j for some reason-->
         <dependency>
