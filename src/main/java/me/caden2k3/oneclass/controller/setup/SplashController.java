@@ -12,8 +12,8 @@ import javafx.util.Duration;
 import me.caden2k3.oneclass.OneClass;
 import me.caden2k3.oneclass.controller.Controller;
 import me.caden2k3.oneclass.controller.FXMLChild;
+import me.caden2k3.oneclass.controller.util.ControllerUtil;
 import me.caden2k3.oneclass.controller.util.UIRunnable;
-import me.caden2k3.oneclass.controller.util.UtilController;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -64,8 +64,8 @@ public class SplashController extends Controller {
                 new UIRunnable() {
                     @Override
                     public void run() {
-                        UtilController.transitionToNewStage(
-                                UtilController.StageTransitionType.SWIPE_NODES, CreateAccountController.class, 1.5);
+                        ControllerUtil.transitionToNewStage(
+                                ControllerUtil.StageTransitionType.SWIPE_NODES, CreateAccountController.class, 1.5);
                     }
                 }.runTaskLater(500));
 

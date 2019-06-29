@@ -35,6 +35,7 @@ public abstract class UIRunnable implements Runnable {
                 Platform.runLater(runnable);
             }
         }, delay);
+        currentTimer = timer;
     }
 
     /**

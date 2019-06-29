@@ -8,7 +8,8 @@ import javafx.scene.input.KeyEvent;
 import lombok.Getter;
 import me.caden2k3.oneclass.controller.Controller;
 import me.caden2k3.oneclass.controller.FXMLChild;
-import me.caden2k3.oneclass.controller.util.UtilController;
+import me.caden2k3.oneclass.controller.util.ControllerUtil;
+import me.caden2k3.oneclass.controller.util.DialogUtil;
 import me.caden2k3.oneclass.controller.validator.EmailValidator;
 import me.caden2k3.oneclass.controller.validator.PasswordValidator;
 import me.caden2k3.oneclass.controller.validator.UsernameValidator;
@@ -76,7 +77,7 @@ public class CreateAccountController extends Controller {
         createAccount();
     }
     @FXML public void showTos() {
-        dialog(DialogTransition.RIGHT, "I agree to not be a jerk.");
+        DialogUtil.dialog(root, DialogTransition.RIGHT, "I agree to not be a jerk.");
     }
 
     private void createAccount() {
@@ -87,7 +88,7 @@ public class CreateAccountController extends Controller {
                         DataManager.getInstance().setCurrentUser(DataManager.getInstance()
                                 .createNewUser(usernameField.getText(), emailField.getText(), passwordField.getText()));
 
-                        UtilController.transitionToNewStage(UtilController.StageTransitionType.SWIPE_NODES, DistrictSearchController.class, 2d);
+                        ControllerUtil.transitionToNewStage(ControllerUtil.StageTransitionType.SWIPE_NODES, DistrictSearchController.class, 2d);
                     } else
                         error("You must agree to the terms of service!");
                 } else
@@ -99,6 +100,6 @@ public class CreateAccountController extends Controller {
     }
 
     private void error(String errorMessage) {
-        dialog(DialogTransition.CENTER, errorMessage);
+        DialogUtil.dialog(root, DialogTransition.CENTER, errorMessage);
     }
 }

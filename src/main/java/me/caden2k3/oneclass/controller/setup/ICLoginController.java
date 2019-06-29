@@ -18,6 +18,7 @@ import me.caden2k3.infinitecampusapi.exception.InvalidCredentialsException;
 import me.caden2k3.oneclass.OneClass;
 import me.caden2k3.oneclass.controller.Controller;
 import me.caden2k3.oneclass.controller.FXMLChild;
+import me.caden2k3.oneclass.controller.util.DialogUtil;
 import me.caden2k3.oneclass.model.DataManager;
 import me.caden2k3.oneclass.model.Properties;
 import me.caden2k3.oneclass.model.user.User;
@@ -95,7 +96,7 @@ public class ICLoginController extends Controller {
                     passwordField.setDisable(false);
                     loginButton.setDisable(false);
 
-                    dialog(JFXDialog.DialogTransition.CENTER, "Invalid credentials!");
+                    DialogUtil.dialog(root, JFXDialog.DialogTransition.CENTER, "Invalid credentials!");
                 });
             }
         });

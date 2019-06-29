@@ -6,7 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 import me.caden2k3.infinitecampusapi.InfiniteCampusAPI;
 import me.caden2k3.oneclass.controller.setup.DistrictSearchController;
-import me.caden2k3.oneclass.controller.util.UtilController;
+import me.caden2k3.oneclass.controller.util.ControllerUtil;
 import me.caden2k3.oneclass.model.AppData;
 import me.caden2k3.oneclass.model.DataManager;
 import me.caden2k3.oneclass.model.util.UtilLog;
@@ -52,11 +52,11 @@ public class OneClass extends Application {
         UtilLog.debug("Initializing DataManager.");
         DataManager.getInstance().init();
 
-        UtilController.openController(DistrictSearchController.class);
+        ControllerUtil.openController(DistrictSearchController.class);
 
         //TODO Use this to initialize in the future.
 //        if (DataManager.getInstance().getUserList().size() == 0) {
-//            UtilController.openController(SplashController.class);
+//            ControllerUtil.openController(SplashController.class);
 //        } else {
 //            User lastUser = DataManager.getInstance().getUserList().stream().min(Comparator.comparingLong(user -> user.getLastLogin().getTime())).orElse(null);
 //            ZonedDateTime thirtyDaysAgo = ZonedDateTime.now().plusDays(-30);
@@ -64,9 +64,9 @@ public class OneClass extends Application {
 //            if (lastUser != null && !lastUser.getLastLogin().toInstant().isBefore(thirtyDaysAgo.toInstant())) {
 //                DataManager.getInstance().setCurrentUser(lastUser);
 //                if (lastUser.getInfiniteCampus() != null) {
-//                    UtilController.openController(ClassViewController.class);
+//                    ControllerUtil.openController(ClassViewController.class);
 //                } else
-//                    UtilController.openController(DistrictSearchController.class);
+//                    ControllerUtil.openController(DistrictSearchController.class);
 //            }
 //        }
     }
@@ -78,7 +78,7 @@ public class OneClass extends Application {
 
         AppData appData = DataManager.getInstance().getAppData();
 
-        if (UtilController.getCurrentController() != null && UtilController.getCurrentController().isUsePreviousSizes()) {
+        if (ControllerUtil.getCurrentController() != null && ControllerUtil.getCurrentController().isUsePreviousSizes()) {
             appData.setLastHeight(primaryStage.getHeight());
             appData.setLastWidth(primaryStage.getWidth());
         }

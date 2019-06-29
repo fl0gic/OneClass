@@ -26,7 +26,7 @@ import java.util.stream.Collectors;
  *
  * This code is copyright © Caden Kriese 2018
  */
-public class UtilController {
+public class ControllerUtil {
     private static @Getter Controller currentController = null;
 
     /**

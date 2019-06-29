@@ -16,7 +16,8 @@ import me.caden2k3.infinitecampusapi.district.DistrictInfo;
 import me.caden2k3.oneclass.OneClass;
 import me.caden2k3.oneclass.controller.Controller;
 import me.caden2k3.oneclass.controller.FXMLChild;
-import me.caden2k3.oneclass.controller.util.UtilController;
+import me.caden2k3.oneclass.controller.util.ControllerUtil;
+import me.caden2k3.oneclass.controller.util.DialogUtil;
 import me.caden2k3.oneclass.controller.validator.CustomValidator;
 import me.caden2k3.oneclass.model.util.UtilLog;
 import me.caden2k3.oneclass.model.util.UtilStates;
@@ -105,10 +106,10 @@ public class DistrictSearchController extends Controller {
     @FXML
     public void search() {
         if (!state.validate()) {
-            dialog(state.getActiveValidator().getMessage());
+            DialogUtil.dialog(root, state.getActiveValidator().getMessage());
             return;
         } else if (!district.validate()) {
-            dialog(district.getActiveValidator().getMessage());
+            DialogUtil.dialog(root, district.getActiveValidator().getMessage());
             return;
         }
 
@@ -125,17 +126,17 @@ public class DistrictSearchController extends Controller {
                     removeSpinner();
 
                     if (queryResult.size() == 0) {
-                        dialog("No results found.");
+                        DialogUtil.dialog(root, "No results found.");
                         return;
                     } else if (queryResult.size() == 1) {
                         DistrictInfo info = queryResult.get(0);
 
-                        confirmDialog("Is '" + info.getDistrictName() + "' your district?", () -> {
+                        DialogUtil.confirmDialog(root, "Is '" + info.getDistrictName() + "' your district?", () -> {
                             //On confirmation.
                             fixedThreadPool.submit(() -> OneClass.getInstance()
                                     .setInfiniteCampusCore(new InfiniteCampusAPI(info.getDistrictCode())));
-                            UtilController.transitionToNewStage(
-                                    UtilController.StageTransitionType.SWIPE_NODES,
+                            ControllerUtil.transitionToNewStage(
+                                    ControllerUtil.StageTransitionType.SWIPE_NODES,
                                     ICLoginController.class,
                                     1.5);
                         });
@@ -148,12 +149,12 @@ public class DistrictSearchController extends Controller {
                             Label label = listView.getSelectionModel().getSelectedItem();
                             DistrictInfo info = queryResult.get(listView.getItems().indexOf(label));
 
-                            confirmDialog("Is '" + info.getDistrictName() + "' your district?", () -> {
+                            DialogUtil.confirmDialog(root, "Is '" + info.getDistrictName() + "' your district?", () -> {
                                 //On confirmation.
                                 fixedThreadPool.submit(() -> OneClass.getInstance()
                                         .setInfiniteCampusCore(new InfiniteCampusAPI(info.getDistrictCode())));
-                                UtilController.transitionToNewStage(
-                                        UtilController.StageTransitionType.SWIPE_NODES,
+                                ControllerUtil.transitionToNewStage(
+                                        ControllerUtil.StageTransitionType.SWIPE_NODES,
                                         ICLoginController.class,
                                         1.5);
                             });
@@ -188,7 +189,7 @@ public class DistrictSearchController extends Controller {
             } catch (IOException ex) {
                 Platform.runLater(() -> {
                     removeSpinner();
-                    dialog("An error occurred while searching.\n \nPlease try again.");
+                    DialogUtil.dialog(root, "An error occurred while searching.\n \nPlease try again.");
                 });
 
                 UtilLog.error(ex);
