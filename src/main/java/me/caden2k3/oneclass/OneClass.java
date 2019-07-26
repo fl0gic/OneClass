@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 import me.caden2k3.infinitecampusapi.InfiniteCampusAPI;
 import me.caden2k3.oneclass.controller.setup.DistrictSearchController;
+import me.caden2k3.oneclass.controller.setup.SplashController;
 import me.caden2k3.oneclass.controller.util.ControllerUtil;
 import me.caden2k3.oneclass.model.AppData;
 import me.caden2k3.oneclass.model.DataManager;
@@ -52,7 +53,7 @@ public class OneClass extends Application {
         UtilLog.debug("Initializing DataManager.");
         DataManager.getInstance().init();
 
-        ControllerUtil.openController(DistrictSearchController.class);
+        ControllerUtil.openController(SplashController.class);
 
         //TODO Use this to initialize in the future.
 //        if (DataManager.getInstance().getUserList().size() == 0) {
