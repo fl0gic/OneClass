@@ -1,6 +1,6 @@
 # OneClass
 
-[![Jenkins](https://img.shields.io/jenkins/s/https/ci.flogi.cc/job/OneClass.svg?style=for-the-badge)](https://ci.gamerking195.com/job/OneClass) [![GitHub issues](https://img.shields.io/github/issues/fl0gic/OneClass.svg?logo=github&style=for-the-badge)](https://github.com/fl0gic/OneClass/issues) [![GitHub last commit](https://img.shields.io/github/last-commit/fl0gic/OneClass.svg?logo=github&style=for-the-badge)](https://github.com/fl0gic/OneClass/commits/master) [![license](https://img.shields.io/github/license/fl0gic/OneClass.svg?style=for-the-badge)](https://github.com/fl0gic/OneClass/blob/master/LICENSE.md)
+[![Jenkins](https://img.shields.io/jenkins/s/https/ci.flogi.cc/job/OneClass.svg?style=for-the-badge)](https://ci.flogi.cc/job/OneClass) [![GitHub issues](https://img.shields.io/github/issues/fl0gic/OneClass.svg?logo=github&style=for-the-badge)](https://github.com/fl0gic/OneClass/issues) [![GitHub last commit](https://img.shields.io/github/last-commit/fl0gic/OneClass.svg?logo=github&style=for-the-badge)](https://github.com/fl0gic/OneClass/commits/master) [![license](https://img.shields.io/github/license/fl0gic/OneClass.svg?style=for-the-badge)](https://github.com/fl0gic/OneClass/blob/master/LICENSE.md)
 
 ## Info
 
